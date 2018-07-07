@@ -3,5 +3,15 @@ var startTime = new Date().getTime();
 setInterval(function() {
     var currentTime = new Date().getTime();
     var diff = currentTime - startTime;
-    document.getElementById("time").innerHTML = "Olete viina vaadelnud " + Math.floor(diff / 1000) + " sekundit";
+    var seconds = Math.floor(diff / 1000) % 60;
+    var minutes = Math.floor(diff / 1000 / 60) % 60;
+    var hours = Math.floor(diff / 1000 / 60 / 60);
+    var text = "Olete viina vaadelnud ";
+    var secondText = (seconds == 1) ? " sekund " : " sekundit ";
+    var minuteText = (minutes == 1) ? " minut " : " minutit ";
+    var hourText = (hours == 1) ? " tund " : " tundi ";
+    if(hours > 0) {text += hours + hourText};
+    if(minutes > 0) {text += minutes + minuteText};
+    if(seconds > 0) {text += seconds + secondText};
+    document.getElementById("time").innerHTML = text;
 }, 1000);
