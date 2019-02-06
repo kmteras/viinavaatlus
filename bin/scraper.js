@@ -4,7 +4,8 @@ const scraperClasses = [
     require("./scrapers/maxima"),
     require("./scrapers/selver"),
     //require('./scrapers/coop'),
-    //require("./scrapers/alko1000")
+    require("./scrapers/alko1000"),
+    require("./scrapers/cityalko")
 ];
 
 let scraperObjects = null;
