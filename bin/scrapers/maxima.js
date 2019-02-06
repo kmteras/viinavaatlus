@@ -41,15 +41,15 @@ class MaximaScraper extends Scraper {
                     const name = $(value).find("span[itemprop='name']").text();
 
                     const product = {
-                        name: Scraper.getCleanName(name),
-                        sale: null,
+                        name: this.getCleanName(name),
+                        sale: false,
                         originalName: name,
                         store: this.storeName,
                         url: this.baseUrl + $(value).find("a[class*='b-product--imagelink']").attr("href"),
-                        price: Scraper.getPrice($(value).find("span[itemprop='price']").text()),
-                        pricePerL: Scraper.getPrice($(value).find("div[class='b-product-price--extra'] > div").text()),
-                        vol: Scraper.getVol(name),
-                        ml: Scraper.getMl(name),
+                        price: this.getPrice($(value).find("span[itemprop='price']").text()),
+                        unitPrice: this.getPrice($(value).find("div[class='b-product-price--extra'] > div").text()),
+                        vol: this.getVol(name),
+                        ml: this.getMl(name),
                         category: category.category,
                         imageUrl: this.baseUrl + $(value).find("img[itemprop='image']").attr("src")
                     };

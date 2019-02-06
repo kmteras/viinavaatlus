@@ -15,6 +15,7 @@ block content
         th %
         th ml
         th Kategooria
+        th Pood
     tbody
       each product in products
         each storeProduct in product.stores
@@ -26,3 +27,4 @@ block content
             td(class='data-label') #{storeProduct.vol}%
             td(class='data-label') #{storeProduct.ml}ml
             td(class='data-label') #{storeProduct.category}
+            td(class='data-label') #{storeProduct.store}

@@ -1,7 +1,8 @@
 const db = require('./db');
 
 const scraperClasses = [
-    require("./scrapers/maxima")
+    require("./scrapers/maxima"),
+    require("./scrapers/selver")
 ];
 
 let scraperObjects = null;
@@ -11,6 +12,9 @@ function setupScraperClasses() {
     for (let i = 0; i < scraperClasses.length; i++) {
         scraperObjects.push(new scraperClasses[i]);
     }
+    scraperObjects[1].shallowScrape(() => {
+
+    });
     console.info("Scraper classes set up");
 }
 
@@ -38,10 +42,10 @@ function shallowScrape() {
                         let product = {
                             name: el.name,
                             ml: el.ml,
-                            stores: {
-                                storeName: el
-                            }
+                            stores: {}
                         };
+
+                        product.stores[storeName] = el;
 
                         db.getDb().collection("products").insertOne(product, (err, response) => {
                             if (err) {
