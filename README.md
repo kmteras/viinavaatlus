@@ -18,14 +18,14 @@
 
 * git checkout development
 
+* in config.json change the database url to "mongodb://localhost:27017/" and database to "viinavaatlus"
+
 _NPM REQUIRED_
 
 * npm i
 
-#rename config.json.example to config.json
+* rename config.json.example to config.json (LINUX: mv config.json.example config.json)
 
 _MONGODB REQUIRED_
-
-* in config.json change the database url to "mongodb://localhost:27017/" and database to "viinavaatlus"
 
 * npm run dev
