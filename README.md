@@ -3,6 +3,7 @@
 * quickfire introduction (personal shit)
 
 * realistic end goal (finalized product, prototype)
+    * keeping the scope small (minimalistic features)
 
 * specific roles per player
 
