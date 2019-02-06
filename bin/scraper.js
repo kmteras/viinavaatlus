@@ -2,7 +2,10 @@ const db = require('./db');
 
 const scraperClasses = [
     require("./scrapers/maxima"),
-    require("./scrapers/selver")
+    require("./scrapers/selver"),
+    //require('./scrapers/coop'),
+    require("./scrapers/alko1000"),
+    require("./scrapers/cityalko")
 ];
 
 let scraperObjects = null;
@@ -12,9 +15,6 @@ function setupScraperClasses() {
     for (let i = 0; i < scraperClasses.length; i++) {
         scraperObjects.push(new scraperClasses[i]);
     }
-    scraperObjects[1].shallowScrape(() => {
-
-    });
     console.info("Scraper classes set up");
 }
 
