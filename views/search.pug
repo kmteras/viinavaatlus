@@ -2,10 +2,9 @@ extends layout
 
 block includes
   link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/table.min.css')
-  link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css')
   link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.css')
   link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/menu.min.css')
-  link(rel="stylesheet",href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/form.min.css")
+  link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/form.min.css")
   link(rel="stylesheet", href="/stylesheets/style.css")
   script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js")
   script(src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js")
@@ -55,20 +54,19 @@ block content
         a(href="#") Viin
         div(class="four wide column")
           a(href="#") Hind
-  table(class="ui celled table uusimad")
-    tr
-      th Toode
-      th Hind
-    tr
-      td
-        a(href="#") 001
-      td 10
-    tr
-      td
-        a(href="#") 002
-      td 12
-    tr
-      td
-        a(href="#") 003
-      td 13
-
+  if products
+    table(class="ui celled table uusimad")
+      thread
+        tr
+          th Koodinimi
+          th %
+          th ml
+          th Kategooria
+      tbody
+        each product in products
+          tr
+            td(class='data-label')
+              a(href=product.url) #{product.name}
+            td(class='data-label') #{product.vol}%
+            td(class='data-label') #{product.ml}ml
+            td(class='data-label') #{product.category}

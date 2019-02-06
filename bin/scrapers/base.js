@@ -3,7 +3,7 @@ const illegalWords = [
     "m.alkohoolne jook", "karp", "\(karp\)", "muu piir.j.", "muu piir.j", "karbis", ", pet", "kohver",
 
     "maits.viin", "rumm", "rum", "cognac", "whisky", "whiskey", "gin",
-    "liköör", "brandy", "viin", "vodka",
+    "liköör", "brandy", "viin", "vodka", "liviko"
 ];
 
 class Scraper {

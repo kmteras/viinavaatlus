@@ -10,15 +10,13 @@ router.get('/', (req, res, next) => {
     });
 });
 
-router.get('/searchResults', (req, res, next) => {
-    scraper.getData((err, products) => {
-        res.render('searchResults', {title: 'Viinavaatlus', products: products});
-    });
-});
+router.get('/search/:search', (req, res, next) => {
+    db.getDb().collection("products").find({name: {$regex: req.params.search}}).toArray((err, result) => {
+        for(let i = 0; i < result.length; i++) {
+            result[i].url = `/product/${result[i].name.replace(/ /g, "_")}/${result[i].ml}`
+        }
 
-router.get('/productPage', (req, res, next) => {
-    scraper.getData((err, products) => {
-        res.render('productPage', {title: 'Viinavaatlus', products: products});
+        res.render('search', {products: result});
     });
 });
 
@@ -28,11 +26,12 @@ router.get('/scrape', (req, res, next) => {
 });
 
 router.get('/product/:productName/:productSize', (req, res, next) => {
-    const productName = req.params.productName.replace("_", " ").toLowerCase();
+    const productName = req.params.productName.replace(/_/g, " ").toLowerCase();
+    console.log(productName);
     const ml = parseInt(req.params.productSize);
 
     db.getDb().collection("products").findOne({name: productName, ml: ml}, (err, result) => {
-        res.render("product", {title: "Jager", product: result});
+        res.render("product", {product: result});
     });
 });
 
