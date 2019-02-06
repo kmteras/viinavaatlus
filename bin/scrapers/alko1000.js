@@ -58,6 +58,15 @@ class Alko1000Scraper extends Scraper {
                     console.log(product)
                 });
                 callback(products);
+
+                const $next = $("a[class='next page-numbers']")
+                if ($next.length) {
+                    const newCategory = {
+                        url: $next.attr("href"),
+                        category: category.category
+                    };
+                    this.scrapeCategoryPage(newCategory, callback)
+                }
             })
             .catch((err) => {
                 console.error(err);
