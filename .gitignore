@@ -145,3 +145,5 @@ typings/
 
 # DynamoDB Local files
 .dynamodb/
+
+config.json

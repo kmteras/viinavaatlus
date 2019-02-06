@@ -4,8 +4,9 @@ const scraper = require('../bin/scraper');
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
-    const products = scraper.getData();
-    res.render('index', {title: 'Viinavaatlus', products: products});
+    scraper.getData((err, products) => {
+        res.render('index', {title: 'Viinavaatlus', products: products});
+    });
 });
 
 router.get('/scrape', (req, res, next) => {

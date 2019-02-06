@@ -1,14 +1,14 @@
-const volRegex = /[\D](\d[\d.,]*)[%]/;
-const mlRegex = /[\D](\d+)\s?[mM][lL]?/;
-const clRegex = /[\D](\d+)\s?[cC][lL]/;
-const lRegex = /[\D](\d[\d,.]*)\s?[lL]/;
+const volRegex = /[\D]((\d[\d.,]*)[%])/;
+const mlRegex = /[\D]((\d+)\s?[mM][lL])/;
+const clRegex = /[\D]((\d+)\s?[cC][lL])/;
+const lRegex = /[\D]((\d[\d,.]*)\s?[lL])/;
 const priceRegex = /€([\d,.]*)/;
 
 const illegalWords = [
     "muu p.j.", "muu piir.jook", "muu p.jook", "muu piiritusjook", "muu alk.jk.",
-    "(karp)",
+    "m.alkohoolne jook", "(karp)", "muu piir.j",
 
-    "rumm", "rum", "cognac", "whisky", "whiskey", "gin",
+    "maits.viin", "rumm", "rum", "cognac", "whisky", "whiskey", "gin",
     "liköör", "brandy", "viin", "vodka",
 ];
 
@@ -33,7 +33,7 @@ class Scraper {
         const volResult = volRegex.exec(name);
 
         if (volResult) {
-            const parsed = parseFloat(volResult[1].replace(",", '.'));
+            const parsed = parseFloat(volResult[2].replace(",", '.'));
             if (isNaN(parsed)) {
                 console.error(`Could not parse vol float from ${name}`);
                 return null
@@ -54,7 +54,7 @@ class Scraper {
         const mlResult = mlRegex.exec(name);
 
         if (mlResult) {
-            const parsed = parseInt(mlResult[1]);
+            const parsed = parseInt(mlResult[2]);
             if (isNaN(parsed)) {
                 console.error(`Could not parse ml integer from ${name}`);
                 return null
@@ -66,7 +66,7 @@ class Scraper {
         const clResult = clRegex.exec(name);
 
         if (clResult) {
-            const parsed = parseInt(clResult[1]);
+            const parsed = parseInt(clResult[2]);
             if (isNaN(parsed)) {
                 console.error(`Could not parse cl integer from ${name}`);
                 return null
@@ -78,7 +78,7 @@ class Scraper {
         const lResult = lRegex.exec(name);
 
         if (lResult) {
-            const parsed = parseFloat(lResult[1].replace(",", "."));
+            const parsed = parseFloat(lResult[2].replace(",", "."));
             if (isNaN(parsed)) {
                 console.error(`Could not parse liter float from ${name}`);
                 return null
@@ -120,7 +120,11 @@ class Scraper {
         }
 
         for (let i = 0; i < regexRemove.length; i++) {
-            name = name.replace(regexRemove[i], "");
+            const result = regexRemove[i].exec(name);
+
+            if(result && result[1]) {
+                name = name.replace(new RegExp(result[1], 'g'), "").trim();
+            }
         }
 
         return name;

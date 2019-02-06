@@ -1,3 +1,5 @@
+const db = require('./db');
+
 const scraperClasses = [
     require("./scrapers/maxima")
 ];
@@ -24,12 +26,27 @@ function shallowScrape() {
     for (let i = 0; i < scraperClasses.length; i++) {
         scraperObjects[i].shallowScrape((result) => {
             temporaryDatabase = temporaryDatabase.concat(result);
+            db.getDb().collection("products").insertMany(result, (err, response) => {
+                if (err) {
+                    console.error(err);
+                    return
+                }
+
+                console.info("Added products to the database");
+            })
         });
     }
 }
 
-function getData() {
-    return temporaryDatabase;
+function getData(callback) {
+    db.getDb().collection("products").find({}).toArray((err, result) => {
+        if(err) {
+            console.error(err);
+            callback(err);
+        }
+
+        callback(null, result);
+    });
 }
 
 module.exports = {
