@@ -1,3 +1,17 @@
+Step 1: before the code
+
+quickfire introduction (personal shit)
+
+realistic end goal (finalized product, prototype)
+
+specific roles per player
+
+drink lots of alcohol?????
+
+
+
+Step 2: Setting up the existing project
+
 git clone https://github.com/Teras23/viinavaatlus.git
 
 cd viinavaatlus
