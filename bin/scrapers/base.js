@@ -4,18 +4,26 @@ const clRegex = /[\D](\d+)\s?[cC][lL]/;
 const lRegex = /[\D](\d[\d,.]*)\s?[lL]/;
 const priceRegex = /€([\d,.]*)/;
 
+const illegalWords = [
+    "muu p.j.", "muu piir.jook", "muu p.jook", "muu piiritusjook", "muu alk.jk.",
+    "(karp)",
+
+    "rumm", "rum", "cognac", "whisky", "whiskey", "gin",
+    "liköör", "brandy", "viin", "vodka",
+];
+
 class Scraper {
-    constructor(name) {
-        this.name = name;
+    constructor(storeName) {
+        this.storeName = storeName;
 
     }
 
     shallowScrape() {
-        console.info(`Starting shallow scrape for ${this.name}`);
+        console.info(`Starting shallow scrape for ${this.storeName}`);
     }
 
     deepScrape() {
-        console.info(`Starting deep scrape for ${this.name}`);
+        console.info(`Starting deep scrape for ${this.storeName}`);
     }
 
     static getVol(name) {
@@ -32,8 +40,7 @@ class Scraper {
             } else {
                 return parsed
             }
-        }
-        else {
+        } else {
             console.error(`Could not parse vol float from ${name}`);
             return null;
         }
@@ -101,6 +108,22 @@ class Scraper {
             console.error(`Could not parse price from ${priceString}`);
             return null;
         }
+    }
+
+    static getCleanName(name) {
+        const regexRemove = [volRegex, mlRegex, clRegex, lRegex, priceRegex];
+
+        name = name.toLowerCase().trim();
+
+        for (let i = 0; i < illegalWords.length; i++) {
+            name = name.replace(new RegExp(illegalWords[i], "g"), "").trim();
+        }
+
+        for (let i = 0; i < regexRemove.length; i++) {
+            name = name.replace(regexRemove[i], "");
+        }
+
+        return name;
     }
 }
 

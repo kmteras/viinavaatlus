@@ -10,7 +10,11 @@ router.get('/', (req, res, next) => {
 
 router.get('/scrape', (req, res, next) => {
     scraper.shallowScrape();
-    res.redirect('/');
+
+    // Added for testing so something can be scraped
+    setTimeout(() => {
+        res.redirect('/');
+    }, 1000);
 });
 
 module.exports = router;

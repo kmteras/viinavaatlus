@@ -7,6 +7,7 @@ block content
     thread
       tr
         th Nimi
+        th Koodinimi
         th Hind
         th %
         th ml
@@ -15,7 +16,9 @@ block content
       each product in products
         tr
           td
-            a(href=product.url) #{product.name}
+            a(href=product.url) #{product.originalName}
+          td
+            p #{product.name}
           td
             p €#{product.price}
           td
