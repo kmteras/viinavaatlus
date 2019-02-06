@@ -11,28 +11,25 @@ block includes
   script(src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.js")
   script(src="/js/menu.js")
 block content
-  h1(class="tiitel")= title
+  h1(class="tiitel") Viinavaatlus
   include includes/header
-  p Welcome to #{title}
-  table(class='ui celled table')
-    thread
+  div(class="ui grid")
+    div(class="six wide column tooteleht")
+      img(src=product.stores[0].imageUrl)
+    div(class="ten wide column tooteleht info")
+      p= product.name
+      p Vol: #{product.vol}%
+      p Kogus: #{product.ml}ml
+      p(class="alkohind") Hind
+
+  table(class="ui celled table uusimad")
+    tr
+      th Pood
+      th Hind
+      th Originaalne nimi
+    each store in product.stores
       tr
-        //th Nimi
-        th Koodinimi
-        //th Hind
-        th %
-        th ml
-        th Kategooria
-        //th Pood
-    tbody
-      each product in products
-        tr
-          td(class='data-label') #{product.name}
-          td(class='data-label') #{product.vol}%
-          td(class='data-label') #{product.ml}ml
-          td(class='data-label') #{product.category}
-          // each storeProduct in product.stores
-          //   td(class='data-label')
-          //     a(href=storeProduct.url) #{storeProduct.originalName}
-          //
-          //   td(class='data-label') €#{storeProduct.prices}
+        td
+          a(href="#{store.url}") #{store.storeName}
+        td #{store.prices[0].price}
+        td #{store.originalName}

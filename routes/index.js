@@ -10,6 +10,18 @@ router.get('/', (req, res, next) => {
     });
 });
 
+router.get('/searchResults', (req, res, next) => {
+    scraper.getData((err, products) => {
+        res.render('searchResults', {title: 'Viinavaatlus', products: products});
+    });
+});
+
+router.get('/productPage', (req, res, next) => {
+    scraper.getData((err, products) => {
+        res.render('productPage', {title: 'Viinavaatlus', products: products});
+    });
+});
+
 router.get('/scrape', (req, res, next) => {
     scraper.shallowScrape();
     res.redirect('/');
@@ -20,7 +32,7 @@ router.get('/product/:productName/:productSize', (req, res, next) => {
     const ml = parseInt(req.params.productSize);
 
     db.getDb().collection("products").findOne({name: productName, ml: ml}, (err, result) => {
-        res.render("jager", {title: "Jager", product: result});
+        res.render("product", {title: "Jager", product: result});
     });
 });
 

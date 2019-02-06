@@ -1,8 +1,47 @@
 body {
-  padding: 50px;
+  margin-top:1%;
+  width:100%;
+  min-width: 65%;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  text-align: center;
+  margin-bottom: 3%;
 }
 
 a {
   color: #00B7FF;
 }
+
+.tiitel{
+  text-align: center;
+  margin-top: 3%;
+  margin-bottom: 3%;
+}
+.eight{
+  text-align: center;
+  margin-top: 5%;
+  margin-bottom: 2%;
+}
+.ui.table:last-child{
+  margin-bottom: 3%;
+}
+.esimeneSort{
+  padding-right: 5px;
+}
+.tooteleht{
+  margin-top: 5%;
+}
+.tooteleht.info{
+  text-align: left;
+  font-size: 2.5vw;
+  max-width: 100%;
+  max-height: 100%;
+
+}
+.alkohind{
+  color: red;
+}
+img{
+  max-width:100%;
+  height: auto;
+}
+

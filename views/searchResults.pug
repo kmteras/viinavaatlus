@@ -1,0 +1,74 @@
+extends layout
+
+block includes
+  link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/table.min.css')
+  link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css')
+  link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.css')
+  link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/menu.min.css')
+  link(rel="stylesheet",href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/form.min.css")
+  link(rel="stylesheet", href="/stylesheets/style.css")
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js")
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js")
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.js")
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/form.min.js")
+
+  script(src="/js/menu.js")
+
+block content
+  h1(class="tiitel")= title
+  include includes/header
+  div(class="ui form")
+    div(class="grouped fields")
+      div(class="field")
+        div(class="ui radio checkbox esimeneSort")
+          input(type="radio" name="odavamad" value="1" checked="checked")
+          label Odavamad enne
+        div(class="ui radio checkbox")
+          input(type="radio" name="odavamad" value="2")
+          label Kallimad enne
+  div(class="ui grid")
+    div(class="eight wide column")
+      div(class="four wide column")
+        img(src="https://via.placeholder.com/250")
+      div(class="four wide column")
+        a(href="#") Viin
+        div(class="four wide column")
+          a(href="#") Hind
+    div(class="eight wide column")
+      div(class="four wide column")
+        img(src="https://via.placeholder.com/250")
+      div(class="four wide column")
+        a(href="#") Viin
+        div(class="four wide column")
+          a(href="#") Hind
+    div(class="eight wide column")
+      div(class="four wide column")
+        img(src="https://via.placeholder.com/250")
+      div(class="four wide column")
+        a(href="#") Viin
+        div(class="four wide column")
+          a(href="#") Hind
+    div(class="eight wide column")
+      div(class="four wide column")
+        img(src="https://via.placeholder.com/250")
+      div(class="four wide column")
+        a(href="#") Viin
+        div(class="four wide column")
+          a(href="#") Hind
+  table(class="ui celled table uusimad")
+    tr
+      th Toode
+      th Hind
+    tr
+      td
+        a(href="#") 001
+      td 10
+    tr
+      td
+        a(href="#") 002
+      td 12
+    tr
+      td
+        a(href="#") 003
+      td 13
+
