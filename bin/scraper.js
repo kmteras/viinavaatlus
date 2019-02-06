@@ -32,17 +32,16 @@ function shallowScrape() {
                         console.error(err);
                     }
 
-                    const storeName = el.store.toLowerCase();
-
                     // If the product exists in the database
                     if (result) {
                         let storeFound = false;
 
                         for(let j = 0; j < result.stores.length; j++) {
-                            if (result.stores[j].storeName === el.storeName) {
+                            if (result.stores[j].storeName === el.store) {
                                 storeFound = true;
                             }
                         }
+
                         let updateValues = {};
 
                         // If the store exist, lets update the price if needed or the last scrape timestamp
