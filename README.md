@@ -1,32 +1,31 @@
 ## Step 1: before the code ##
 
-quickfire introduction (personal shit)
+* quickfire introduction (personal shit)
 
-realistic end goal (finalized product, prototype)
+* realistic end goal (finalized product, prototype)
 
-specific roles per player
+* specific roles per player
 
-drink lots of alcohol?????
+* drink lots of alcohol?????
 
 
 
 ## Step 2: Setting up the existing project ##
 
-git clone https://github.com/Teras23/viinavaatlus.git
+* git clone https://github.com/Teras23/viinavaatlus.git
 
-cd viinavaatlus
+* cd viinavaatlus
 
-git checkout development
+* git checkout development
 
-** NPM REQUIRED **
+_NPM REQUIRED_
 
-npm i
+* npm i
 
 #rename config.json.example to config.json
 
-** MONGODB REQUIRED **
+_MONGODB REQUIRED_
 
-* in config.json change the database url to "mongodb://localhost:27017/" *
-* and database to "viinavaatlus" *
+* in config.json change the database url to "mongodb://localhost:27017/" and database to "viinavaatlus"
 
-npm run dev
+* npm run dev
