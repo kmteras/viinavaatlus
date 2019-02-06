@@ -13,26 +13,28 @@ block includes
 block content
   h1(class="tiitel")= title
   include includes/header
-  p Welcome to #{title}
-  table(class='ui celled table')
-    thread
-      tr
-        th Nimi
-        th Koodinimi
-        th Hind
-        th %
-        th ml
-        th Kategooria
-        th Pood
-    tbody
-      each product in products
-        each storeProduct in product.stores
-          tr
-            td(class='data-label')
-              a(href=storeProduct.url) #{storeProduct.originalName}
-            td(class='data-label') #{storeProduct.name}
-            td(class='data-label') €#{storeProduct.price}
-            td(class='data-label') #{storeProduct.vol}%
-            td(class='data-label') #{storeProduct.ml}ml
-            td(class='data-label') #{storeProduct.category}
-            td(class='data-label') #{storeProduct.store}
+  div(class="ui grid")
+    div(class="six wide column tooteleht")
+      img(src="https://via.placeholder.com/500")
+    div(class="ten wide column tooteleht info")
+      p Viin
+      p Vol:
+      p Kogus:
+      p(class="alkohind") Hind
+
+  table(class="ui celled table uusimad")
+    tr
+      th Toode
+      th Hind
+    tr
+      td
+        a(href="#") 001
+      td 10
+    tr
+      td
+        a(href="#") 002
+      td 12
+    tr
+      td
+        a(href="#") 003
+      td 13
