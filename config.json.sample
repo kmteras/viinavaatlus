@@ -1,4 +1,0 @@
-{
-  "databaseUrl": "DATABASE_URL_HERE for localhost: mongodb://localhost:27017/",
-  "database": "DATABASE_NAME_HERE",
-}
