@@ -11,6 +11,8 @@
 
 
 ## Step 2: Setting up the existing project ##
+_Use google to install packages if using windows_
+
 
 * git clone https://github.com/Teras23/viinavaatlus.git
 
@@ -20,12 +22,13 @@
 
 * in config.json change the database url to "mongodb://localhost:27017/" and database to "viinavaatlus"
 
-_NPM REQUIRED_
+_NPM REQUIRED_ (linux: sudo apt install npm)
 
 * npm i
 
 * rename config.json.example to config.json (LINUX: mv config.json.example config.json)
 
-_MONGODB REQUIRED_
+_MONGODB REQUIRED_ (linux: sudo apt install mongodb)
 
 * npm run dev
+
