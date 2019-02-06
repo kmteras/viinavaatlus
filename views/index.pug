@@ -18,13 +18,13 @@ block content
         th Pood
     tbody
       each product in products
-        each storeProduct in product.stores
-          tr
-            td(class='data-label')
-              a(href=storeProduct.url) #{storeProduct.originalName}
-            td(class='data-label') #{storeProduct.name}
-            td(class='data-label') €#{storeProduct.price}
-            td(class='data-label') #{storeProduct.vol}%
-            td(class='data-label') #{storeProduct.ml}ml
-            td(class='data-label') #{storeProduct.category}
-            td(class='data-label') #{storeProduct.store}
+        tr
+          td(class='data-label') #{product.name}
+          td(class='data-label') #{product.vol}%
+          td(class='data-label') #{product.ml}ml
+          td(class='data-label') #{product.category}
+          // each storeProduct in product.stores
+          //   td(class='data-label')
+          //     a(href=storeProduct.url) #{storeProduct.originalName}
+          //
+          //   td(class='data-label') €#{storeProduct.prices}

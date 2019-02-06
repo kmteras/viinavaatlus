@@ -76,7 +76,6 @@ class SelverScraper extends Scraper {
                     };
 
                     products.push(product);
-                    // console.log(product);
                 });
                 callback(products);
 
