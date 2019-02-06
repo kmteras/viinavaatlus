@@ -15,21 +15,21 @@
 _Use google to install packages if using windows_
 
 
-* git clone https://github.com/Teras23/viinavaatlus.git
+```git clone git@github.com:Teras23/viinavaatlus.git```
 
-* cd viinavaatlus
+```cd viinavaatlus```
 
-* git checkout development
+```git checkout development```
 
-* in config.json change the database url to "mongodb://localhost:27017/" and database to "viinavaatlus"
+move config.json.sample to config.json and in config.json change the database url to ```"mongodb://localhost:27017/"``` and database to ```"viinavaatlus"```
 
 _NPM REQUIRED_ (linux: sudo apt install npm)
 
-* npm i
+```npm i```
 
-* rename config.json.example to config.json (LINUX: mv config.json.example config.json)
+rename config.json.example to config.json (LINUX: mv config.json.example config.json)
 
 _MONGODB REQUIRED_ (linux: sudo apt install mongodb)
 
-* npm run dev
+```npm run dev```
 
