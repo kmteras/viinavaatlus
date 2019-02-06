@@ -1,5 +1,6 @@
 const volRegex = /[\D](\d[\d.,]*)[%]/;
-const mlRegex = /[\D](\d+)\s?[mM][lL]/;
+const mlRegex = /[\D](\d+)\s?[mM][lL]?/;
+const clRegex = /[\D](\d+)\s?[cC][lL]/;
 const lRegex = /[\D](\d[\d,.]*)\s?[lL]/;
 const priceRegex = /€([\d,.]*)/;
 
@@ -52,6 +53,18 @@ class Scraper {
                 return null
             } else {
                 return parsed
+            }
+        }
+
+        const clResult = clRegex.exec(name);
+
+        if (clResult) {
+            const parsed = parseInt(clResult[1]);
+            if (isNaN(parsed)) {
+                console.error(`Could not parse cl integer from ${name}`);
+                return null
+            } else {
+                return parsed * 10
             }
         }
 
