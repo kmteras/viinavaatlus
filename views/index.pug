@@ -3,3 +3,24 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+  table
+    thread
+      tr
+        th Nimi
+        th Hind
+        th %
+        th ml
+        th Kategooria
+    tbody
+      each product in products
+        tr
+          td
+            a(href=product.url) #{product.name}
+          td
+            p €#{product.price}
+          td
+            p #{product.vol}%
+          td
+            p #{product.ml}ml
+          td
+            p #{product.category}
