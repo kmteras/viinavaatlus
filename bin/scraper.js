@@ -3,8 +3,8 @@ const db = require('./db');
 const scraperClasses = [
     require("./scrapers/maxima"),
     require("./scrapers/selver"),
-    //require('./scrapers/coop'),
-    //require("./scrapers/alko1000")
+    // require('./scrapers/coop'),
+    require("./scrapers/alko1000")
 ];
 
 let scraperObjects = null;
@@ -38,8 +38,8 @@ function shallowScrape() {
                     if (result) {
                         let storeFound = false;
 
-                        for(let i = 0; i < result.stores.length; i++) {
-                            if (result.stores[i].storeName === el.storeName) {
+                        for(let j = 0; j < result.stores.length; j++) {
+                            if (result.stores[j].storeName === el.storeName) {
                                 storeFound = true;
                             }
                         }
