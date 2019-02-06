@@ -1,12 +1,12 @@
 const volRegex = /[\D]((\d[\d.,]*)[%])/;
-const mlRegex = /[\D]((\d+)\s?[mM][lL])/;
+const mlRegex = /[\D]((\d+)(\s?[mM][lL]|[mM][lL]?))/;
 const clRegex = /[\D]((\d+)\s?[cC][lL])/;
 const lRegex = /[\D]((\d[\d,.]*)\s?[lL])/;
 const priceRegex = /€([\d,.]*)/;
 
 const illegalWords = [
     "muu p.j.", "muu piir.jook", "muu p.jook", "muu piiritusjook", "muu alk.jk.",
-    "m.alkohoolne jook", "(karp)", "muu piir.j",
+    "m.alkohoolne jook", "karp", "\(karp\)", "muu piir.j.", "muu piir.j", "karbis", ", pet", "kohver",
 
     "maits.viin", "rumm", "rum", "cognac", "whisky", "whiskey", "gin",
     "liköör", "brandy", "viin", "vodka",
@@ -126,6 +126,8 @@ class Scraper {
                 name = name.replace(new RegExp(result[1], 'g'), "").trim();
             }
         }
+
+        name = name.replace(",", "");
 
         return name;
     }
