@@ -21,7 +21,7 @@ block content
         each storeProduct in product.stores
           tr
             td(class='data-label')
-              a(href=product.url) #{storeProduct.originalName}
+              a(href=storeProduct.url) #{storeProduct.originalName}
             td(class='data-label') #{storeProduct.name}
             td(class='data-label') €#{storeProduct.price}
             td(class='data-label') #{storeProduct.vol}%
