@@ -4,9 +4,13 @@ const scraper = require('../bin/scraper');
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
-  scraper.shallowScraper((products) => {
-    res.render('index', { title: 'Viinavaatlus', products: products });
-  });
+    const products = scraper.getData();
+    res.render('index', {title: 'Viinavaatlus', products: products});
+});
+
+router.get('/scrape', (req, res, next) => {
+    scraper.shallowScrape();
+    res.redirect('/');
 });
 
 module.exports = router;

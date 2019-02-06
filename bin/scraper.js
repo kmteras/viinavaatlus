@@ -4,6 +4,8 @@ const scraperClasses = [
 
 let scraperObjects = null;
 
+let temporaryDatabase = [];
+
 function setupScraperClasses() {
     scraperObjects = [];
     for (let i = 0; i < scraperClasses.length; i++) {
@@ -18,14 +20,21 @@ function deepScrape(callback) {
     }
 }
 
-function shallowScraper(callback) {
+function shallowScrape() {
     for (let i = 0; i < scraperClasses.length; i++) {
-        scraperObjects[i].shallowScrape(callback);
+        scraperObjects[i].shallowScrape((result) => {
+            temporaryDatabase = temporaryDatabase.concat(result);
+        });
     }
+}
+
+function getData() {
+    return temporaryDatabase;
 }
 
 module.exports = {
     setupScraperClasses,
     deepScrape,
-    shallowScraper
+    shallowScrape,
+    getData
 };
