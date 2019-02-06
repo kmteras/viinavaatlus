@@ -12,9 +12,6 @@ function setupScraperClasses() {
     for (let i = 0; i < scraperClasses.length; i++) {
         scraperObjects.push(new scraperClasses[i]);
     }
-    scraperObjects[1].shallowScrape(() => {
-
-    });
     console.info("Scraper classes set up");
 }
 
