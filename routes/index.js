@@ -74,17 +74,12 @@ function prepareSearchResultsForRender(result) {
             });
         }
 
+        result[i].cheapest = cheapest;
         result[i].showName = titleCase(result[i].name);
     }
 
     result.sort((a, b) => {
-        if (a.name < b.name) {
-            return -1
-        } else if (a.name > b.name) {
-            return 1;
-        }
-
-        return a.ml - b.ml
+        return a.cheapest - b.cheapest
     });
 
     return result
@@ -114,13 +109,10 @@ router.get('/product/:productName/:productSize/:productVol', (req, res, next) =>
             res.redirect("/error");
         }
 
-        console.log(result);
-
         result = prepareProductForShowing(result);
-        console.log(result);
         res.render("product", {product: result});
     });
-    // updateViewCount(req.params.productName, req.params.productSize, req.params.productVol);
+    updateViewCount(req.params.productName, req.params.productSize, req.params.productVol);
 });
 
 router.get('/shop/:shop', (req, res, next) => {
