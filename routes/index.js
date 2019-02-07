@@ -8,7 +8,9 @@ router.get('/', (req, res, next) => {
     db.getDb().collection("products").find({}).limit(10).toArray((err, result) => {
         if (err) {
             console.error(err);
+            res.render('index', {products: null});
         }
+
         result = prepareSearchResultsForRender(result);
 
         res.render('index', {products: result});
@@ -30,6 +32,11 @@ function titleCase(string) {
 
 router.get('/search/:search', (req, res, next) => {
     db.getDb().collection("products").find({name: {$regex: req.params.search}}).toArray((err, result) => {
+        if (err) {
+            console.error(err);
+            res.render('search', {products: null});
+        }
+
         if (result.length === 0) {
             db.getDb().collection("products").find({category: {$regex: req.params.search}}).toArray((err, result) => {
                 result = prepareSearchResultsForRender(result);
@@ -57,7 +64,6 @@ function prepareSearchResultsForRender(result) {
             if (price < cheapest) {
                 cheapest = price;
             }
-
         }
 
         if (!cheapest) {
@@ -92,6 +98,11 @@ router.get('/scrape', (req, res, next) => {
 
 router.get('/product/:productName/:productSize', (req, res, next) => {
     search(req.params.productName, req.params.productSize, null, (err, result) => {
+        if (err) {
+            console.error(err);
+            res.redirect("/error");
+        }
+
         result = prepareProductForShowing(result);
         res.render("product", {product: result});
     })
