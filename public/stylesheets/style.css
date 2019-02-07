@@ -43,9 +43,10 @@ a {
 }
 .tooteleht.info{
   text-align: left;
-  font-size: 2.5vw;
+  font-size: 2vw;
   max-width: 100%;
   max-height: 100%;
+  text-transform: capitalize;
 }
 .alkohind{
   color: red;
@@ -88,9 +89,6 @@ img{
 }
 .ui.form{
     margin-bottom: 3%;
-}
-.tooteleht.info {
-  text-transform: capitalize;
 }
 .tabelOnAllah {
   background-color: orange;
