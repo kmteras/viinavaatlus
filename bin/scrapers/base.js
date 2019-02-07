@@ -125,9 +125,9 @@ class Scraper {
             }
         }
 
-        name = name.replace(",", "");
-        name = name.replace("ä", "a");
-        name = name.replace("'", "");
+        name = name.replace(/,/g, "");
+        name = name.replace(/ä/g, "a");
+        name = name.replace(/'/g, "");
 
         return name;
     }
