@@ -54,6 +54,7 @@ a {
 img{
   max-width:100%;
   height: auto;
+  max-height: 100px;
 }
 .ui.three.cards>.card {
   width: 80%;
@@ -66,8 +67,12 @@ img{
   margin-top: 8%;
 }
 .image.fixedImage {
-  max-width: 75px;
-  height: auto;
+
+  width: 50%;
+  height:100px;
+  max-height: 100px;
+  max-width: 200px;
+
 }
 .alkoTekstIndex {
     margin: auto;
@@ -99,4 +104,13 @@ img{
 }
 .limpaPilt{
     max-height: 85%;
+}
+.productImage{
+  max-width: 300px;
+  height: auto;
+  overflow: hidden;
+
+}
+.productpageImage{
+  max-height: 300px;
 }

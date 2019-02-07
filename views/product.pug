@@ -10,8 +10,8 @@ block content
     div(class="twelve wide column")
       div(class="ui grid")
         div(class="one wide column")
-        div(class="six wide column")
-          img(src=product.stores[0].imageUrl)
+        div(class="six wide column productImage")
+          img.productpageImage(src=product.stores[0].imageUrl)
         div(class="nine wide column tooteleht info")
           p= product.showName
           if product.vol == null
