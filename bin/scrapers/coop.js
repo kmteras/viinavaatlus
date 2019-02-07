@@ -6,7 +6,7 @@ const cheerio = require('cheerio');
 class CoopScraper extends Scraper
 {
     constructor () {
-        super("Coop");
+        super("Coop", "EE");
         this.baseUrl = 'https://ecoop.ee/';
         this.categoryPages = [
             // {url: 'https://ecoop.ee/et/kategooriad/kange-alkohol/',             category: 'Strong alcohol'},

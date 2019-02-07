@@ -7,8 +7,9 @@ const illegalWords = [
 ];
 
 class Scraper {
-    constructor(storeName) {
+    constructor(storeName, storeCountry) {
         this.storeName = storeName;
+        this.storeCounty = storeCountry;
         this.volRegex = /[\D]((\d[\d.,]*)[%])/;
         this.mlRegex = /[\D]((\d+)(\s?[mM][lL]|[mM][lL]?))/;
         this.clRegex = /[\D]((\d+)\s?[cC][lL])/;
@@ -108,6 +109,14 @@ class Scraper {
         }
     }
 
+    removeEstonianLetters(string) {
+        string = string.replace(/ä/g, "a");
+        string = string.replace(/ö/g, "o");
+        string = string.replace(/õ/g, "o");
+        string = string.replace(/ü/g, "u");
+        return string;
+    }
+
     getCleanName(name) {
         const regexRemove = [this.volRegex, this.mlRegex, this.clRegex, this.lRegex, this.priceRegex];
 
@@ -126,9 +135,10 @@ class Scraper {
         }
 
         name = name.replace(/,/g, "");
-        name = name.replace(/ä/g, "a");
         name = name.replace(/'/g, "");
         name = name.replace(/\*/g, "");
+
+        name = this.removeEstonianLetters(name);
 
         return name;
     }
