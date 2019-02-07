@@ -22,6 +22,18 @@ router.get('/search/:search', (req, res, next) => {
                 if (result[i].vol) {
                     result[i].url += `/${result[i].vol}`;
                 }
+
+                let cheapest = Number.POSITIVE_INFINITY;
+
+                for (let j = 0; j < result[i].stores.length; j++) {
+                    const price = result[i].stores[j].prices[result[i].stores[j].prices.length - 1].price;
+                    if (price < cheapest) {
+                        cheapest = price;
+                    }
+
+                }
+
+                result[i].cheapestPrice = cheapest.toLocaleString("ee-EE", { maximumFractionDigits: 2, minimumFractionDigits: 2 });
             }
 
             res.render('search', {products: result});
