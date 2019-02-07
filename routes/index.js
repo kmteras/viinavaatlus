@@ -16,7 +16,12 @@ router.get('/', (req, res, next) => {
 });
 
 function capitalizeFirstLetter(string) {
-    return string[0].toUpperCase() + string.slice(1).toLowerCase();
+    if (string[0]) {
+        return string[0].toUpperCase() + string.slice(1).toLowerCase();
+    }
+    else {
+        return string
+    }
 }
 
 function titleCase(string) {
