@@ -5,8 +5,13 @@ const db = require('../bin/db');
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
-    scraper.getData((err, products) => {
-        res.render('index', {title: 'Viinavaatlus', products: products});
+    db.getDb().collection("products").find({}).limit(10).toArray((err, result) => {
+        if (err) {
+            console.error(err);
+        }
+        result = prepareSearchResultsForRender(result);
+
+        res.render('index', {products: result});
     });
 });
 
@@ -82,15 +87,23 @@ router.get('/scrape', (req, res, next) => {
 
 router.get('/product/:productName/:productSize', (req, res, next) => {
     search(req.params.productName, req.params.productSize, null, (err, result) => {
+        result = prepareProductForShowing(result);
         res.render("product", {product: result});
     })
 });
 
 router.get('/product/:productName/:productSize/:productVol', (req, res, next) => {
     search(req.params.productName, req.params.productSize, req.params.productVol, (err, result) => {
-        result.showName = titleCase(result.name);
+        result = prepareProductForShowing(result);
         res.render("product", {product: result});
     })
+});
+
+router.get('/shop/:shop', (req, res, next) => {
+    db.getDb().collection("products").find({shops: {storeName: {$regex: req.params.shop}}}).toArray((err, result) => {
+        result = prepareSearchResultsForRender(result);
+        res.render('search', {products: result});
+    });
 });
 
 function search(productNameRaw, productSize, productVol, callback) {
@@ -104,6 +117,16 @@ function search(productNameRaw, productSize, productVol, callback) {
     };
 
     db.getDb().collection("products").findOne(query, callback);
+}
+
+function prepareProductForShowing(result) {
+    result.showName = titleCase(result.name);
+
+    result.stores = result.stores.sort((a, b) => {
+        return b.prices[b.prices.length - 1].price < a.prices[a.prices.length - 1].price;
+    });
+
+    return result
 }
 
 module.exports = router;
