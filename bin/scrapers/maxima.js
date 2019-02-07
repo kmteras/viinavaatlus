@@ -4,7 +4,7 @@ const cheerio = require('cheerio');
 
 class MaximaScraper extends Scraper {
     constructor() {
-        super("Maxima");
+        super("Maxima", "EE");
         this.baseUrl = "https://www.barbora.ee";
         this.categoryPages = [
             {url: "https://www.barbora.ee/joogid-tubakatooted/kange-alkohol/viinad", category: "viin"},

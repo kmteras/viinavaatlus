@@ -4,7 +4,7 @@ const cheerio = require('cheerio');
 
 class Alko1000Scraper extends Scraper {
     constructor() {
-        super("Alko1000");
+        super("Alko1000", "LV");
         this.baseUrl = "https://alko1000.ee";
         this.categoryPages = [
             {url: "http://alko1000.ee/alko1000/product-category/kange-alkohol/viin/", category: "viin"},

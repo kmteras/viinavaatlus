@@ -4,7 +4,7 @@ const cheerio = require('cheerio');
 
 class CityAlkoScraper extends Scraper {
     constructor() {
-        super("CityAlko");
+        super("CityAlko", "EE");
         this.baseUrl = "https://cityalko.ee";
         this.categoryPages = [
             {url: "https://cityalko.ee/tootekategooria/kange-alkohol/?products-per-page=all", category: "kange"},

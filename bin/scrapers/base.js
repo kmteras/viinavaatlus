@@ -7,8 +7,9 @@ const illegalWords = [
 ];
 
 class Scraper {
-    constructor(storeName) {
+    constructor(storeName, storeCountry) {
         this.storeName = storeName;
+        this.storeCounty = storeCountry;
         this.volRegex = /[\D]((\d[\d.,]*)[%])/;
         this.mlRegex = /[\D]((\d+)(\s?[mM][lL]|[mM][lL]?))/;
         this.clRegex = /[\D]((\d+)\s?[cC][lL])/;

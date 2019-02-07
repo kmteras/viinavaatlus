@@ -4,7 +4,7 @@ const cheerio = require('cheerio');
 
 class SelverScraper extends Scraper {
     constructor() {
-        super("Selver");
+        super("Selver", "EE");
         this.baseUrl = "https://www.selver.ee";
         this.categoryPages = [
             {url: "https://www.selver.ee/joogid/kange-alkohol/viinad", category: "viin"},
