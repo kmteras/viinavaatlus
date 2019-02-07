@@ -17,9 +17,13 @@ block content
       img(src=product.stores[0].imageUrl)
     div(class="ten wide column tooteleht info")
       p= product.name
-      p Vol: #{product.vol}%
+      if product.vol == null
+        p Vol: Liiga kange!
+      else
+        p Vol: #{product.vol}%
       p Kogus: #{product.ml}ml
-      p(class="alkohind") Hind
+      p(class="alkohind") #{product.stores[0].prices[0].price}€
+      //Praegu on siin Selveri hind, aga paneme midagi muud hiljem (just for testing atm)
 
   table(class="ui celled table uusimad")
     tr
@@ -27,8 +31,15 @@ block content
       th Hind
       th Originaalne nimi
     each store in product.stores
-      tr
-        td
-          a(href=store.url) #{store.storeName}
-        td #{store.prices[0].price}
-        td #{store.originalName}
+      if store.prices[0].sale == true
+        tr(class="tabelOnAllah")
+          td
+            a(href=store.url) #{store.storeName}
+          td #{store.prices[0].price}
+          td #{store.originalName}
+      else
+        tr
+          td
+            a(href=store.url) #{store.storeName}
+          td #{store.prices[0].price}
+          td #{store.originalName}

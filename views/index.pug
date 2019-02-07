@@ -12,19 +12,24 @@ block includes
 block content
   h1(class="tiitel")= title
   include includes/header
-  p Welcome to #{title}
+  //p Welcome to #{title}
 
   -for(var i = 0 ; i < 8 ; i++)
     div(class="ui grid indexPage")
+      div(class="one wide column")
       div(class="three wide column")
         div(class="image fixedImage")
           img(src="https://via.placeholder.com/500")
-      div(class="six wide column alkoTekstIndex")
+      div(class="one wide column")
+      div(class="five wide column alkoTekstIndex")
         div(class="paragraph alkoTekstiKirjeldus")
-          | Siia tuleb mingi kirjeldus
+          | Alko
           br
-          | Ja veel teksti
-      div(class="seven wide column alkoHindIndex")
+          | Kogus
+          br
+          | Miski kolmas
+      div(class="one wide column")
+      div(class="five wide column alkoHindIndex")
         | 15,89 €
 
   table(class='ui celled table recentlyUpdated')
