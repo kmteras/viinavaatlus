@@ -17,6 +17,15 @@ function setUpDb(callback) {
             ]
         }
     });
+
+    db.collection("products").createIndex({
+            name: 1,
+            ml: 1,
+            vol: 1
+        },
+        {
+            unique: true
+        });
 }
 
 function initDb(callback) {
@@ -29,7 +38,7 @@ function initDb(callback) {
         if (err) {
             return callback(err);
         }
-        console.log("Database connected");
+        console.info("Database connected");
 
         _db = db.db(config.database);
 
@@ -41,8 +50,7 @@ function initDb(callback) {
 function getDb() {
     if (_db) {
         return _db;
-    }
-    else {
+    } else {
         console.error("Database is not defined", _db);
         return _db
     }

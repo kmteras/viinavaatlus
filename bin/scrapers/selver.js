@@ -4,20 +4,20 @@ const cheerio = require('cheerio');
 
 class SelverScraper extends Scraper {
     constructor() {
-        super("Selver");
+        super("Selver", "EE");
         this.baseUrl = "https://www.selver.ee";
         this.categoryPages = [
-            {url: "https://www.selver.ee/joogid/kange-alkohol/viinad", category: "vodka"},
-            {url: "https://www.selver.ee/joogid/kange-alkohol/dzinnid", category: "gin"},
-            {url: "https://www.selver.ee/joogid/kange-alkohol/viskid", category: "whiskey"},
-            {url: "https://www.selver.ee/joogid/kange-alkohol/konjakid-brandid", category: "cognac"},
-            {url: "https://www.selver.ee/joogid/kange-alkohol/rummid", category: "rum"},
-            {url: "https://www.selver.ee/joogid/kange-alkohol/aperitiiviid", category: "digestifs"},
-            {url: "https://www.selver.ee/joogid/kange-alkohol/likoorid", category: "digestifs"},
-            {url: "https://www.selver.ee/joogid/kange-alkohol/muud-kanged-alkohoolsed-joogid", category: "other"}
+            {url: "https://www.selver.ee/joogid/kange-alkohol/viinad", category: "viin"},
+            {url: "https://www.selver.ee/joogid/kange-alkohol/dzinnid", category: "dzinn"},
+            {url: "https://www.selver.ee/joogid/kange-alkohol/viskid", category: "viski"},
+            {url: "https://www.selver.ee/joogid/kange-alkohol/konjakid-brandid", category: "konjak/brandi"},
+            {url: "https://www.selver.ee/joogid/kange-alkohol/rummid", category: "rumm"},
+            {url: "https://www.selver.ee/joogid/kange-alkohol/aperitiiviid", category: "aperitiiv"},
+            {url: "https://www.selver.ee/joogid/kange-alkohol/likoorid", category: "likoor"},
+            {url: "https://www.selver.ee/joogid/kange-alkohol/muud-kanged-alkohoolsed-joogid", category: "muu"}
         ];
 
-        this.priceRegex = /([\d,.]*\s€)/
+        super.priceRegex = /([\d,.]*\s€)/
     }
 
     shallowScrape(callback) {

@@ -4,24 +4,24 @@ const cheerio = require('cheerio');
 
 class ViinarannastaScraper extends Scraper {
     constructor() {
-        super("SuperAlko EE");
+        super("SuperAlko EE", "EE");
         this.baseUrl = "https://www.viinarannasta.com/";
         this.categoryPages = [
-            {url: "https://www.viinarannasta.com/articlesr.php?sid=65&gid=4", category: "absinthe"},
-            {url: "https://www.viinarannasta.com/articlesr.php?sid=7&gid=4", category: "vodka"},
-            {url: "https://www.viinarannasta.com/articlesr.php?sid=8&gid=4", category: "vodka"},
-            {url: "https://www.viinarannasta.com/articlesr.php?sid=6&gid=4", category: "vodka"},
-            {url: "https://www.viinarannasta.com/articlesr.php?sid=9&gid=5", category: "rum"},
-            {url: "https://www.viinarannasta.com/articlesr.php?sid=10&gid=6", category: "tequila"},
-            {url: "https://www.viinarannasta.com/articlesr.php?sid=11&gid=7", category: "cognac"},
-            {url: "https://www.viinarannasta.com/articlesr.php?sid=12&gid=8", category: "brandy"},
-            {url: "https://www.viinarannasta.com/articlesr.php?sid=56&gid=9", category: "whiskey"},
-            {url: "https://www.viinarannasta.com/articlesr.php?sid=58&gid=9", category: "whiskey"},
-            {url: "https://www.viinarannasta.com/articlesr.php?sid=55&gid=9", category: "whiskey"},
-            {url: "https://www.viinarannasta.com/articlesr.php?sid=13&gid=9", category: "whiskey"},
-            {url: "https://www.viinarannasta.com/articlesr.php?sid=14&gid=10", category: "liquor"},
-            {url: "https://www.viinarannasta.com/articlesr.php?sid=15&gid=11", category: "gin"},
-            {url: "https://www.viinarannasta.com/articlesr.php?sid=67&gid=27", category: "other"},
+            {url: "https://www.viinarannasta.com/articlesr.php?sid=65&gid=4", category: "absint"},
+            {url: "https://www.viinarannasta.com/articlesr.php?sid=7&gid=4", category: "viin"},
+            {url: "https://www.viinarannasta.com/articlesr.php?sid=8&gid=4", category: "viin"},
+            {url: "https://www.viinarannasta.com/articlesr.php?sid=6&gid=4", category: "viin"},
+            {url: "https://www.viinarannasta.com/articlesr.php?sid=9&gid=5", category: "rumm"},
+            {url: "https://www.viinarannasta.com/articlesr.php?sid=10&gid=6", category: "tekiila"},
+            {url: "https://www.viinarannasta.com/articlesr.php?sid=11&gid=7", category: "konjak"},
+            {url: "https://www.viinarannasta.com/articlesr.php?sid=12&gid=8", category: "brandi"},
+            {url: "https://www.viinarannasta.com/articlesr.php?sid=56&gid=9", category: "viski"},
+            {url: "https://www.viinarannasta.com/articlesr.php?sid=58&gid=9", category: "viski"},
+            {url: "https://www.viinarannasta.com/articlesr.php?sid=55&gid=9", category: "viski"},
+            {url: "https://www.viinarannasta.com/articlesr.php?sid=13&gid=9", category: "viski"},
+            {url: "https://www.viinarannasta.com/articlesr.php?sid=14&gid=10", category: "likoor"},
+            {url: "https://www.viinarannasta.com/articlesr.php?sid=15&gid=11", category: "dzinn"},
+            {url: "https://www.viinarannasta.com/articlesr.php?sid=67&gid=27", category: "muu"},
         ];
 
         super.priceRegex = /([\d,.]*\s€)/;
