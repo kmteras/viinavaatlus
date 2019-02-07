@@ -106,6 +106,12 @@ router.get('/shop/:shop', (req, res, next) => {
     });
 });
 
+router.get('/limpa', (req, res, next) => {
+    scraper.getData((err, products) => {
+        res.render('limpa', {title: 'Viinavaatlus', products: products});
+    });
+});
+
 function search(productNameRaw, productSize, productVol, callback) {
     const productName = productNameRaw.replace(/_/g, " ").toLowerCase();
     const ml = parseInt(productSize);
@@ -117,16 +123,6 @@ function search(productNameRaw, productSize, productVol, callback) {
     };
 
     db.getDb().collection("products").findOne(query, callback);
-}
-
-function prepareProductForShowing(result) {
-    result.showName = titleCase(result.name);
-
-    result.stores = result.stores.sort((a, b) => {
-        return b.prices[b.prices.length - 1].price < a.prices[a.prices.length - 1].price;
-    });
-
-    return result
 }
 
 module.exports = router;

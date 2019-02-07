@@ -57,8 +57,8 @@ img{
   width: 80%;
 }
 .column {
-  margin-top: 1%;
-  margin-bottom: 1%;
+  margin-top: 0.5%;
+  margin-bottom: 0.5%;
 }
 .ui.celled.table.recentlyUpdated{
   margin-top: 8%;
@@ -68,7 +68,7 @@ img{
   height: auto;
 }
 .alkoTekstIndex {
-  margin: auto;
+    margin: auto;
   font-size: 1.25vw;
 }
 .alkoTekstiKirjeldus {
@@ -81,4 +81,23 @@ img{
   margin: auto;
   color: red;
   font-size: 2vw;
+}
+.ui.menu{
+    margin-bottom: 5%;
+}
+.ui.form{
+    margin-bottom: 3%;
+}
+.tooteleht.info {
+  text-transform: capitalize;
+}
+.tabelOnAllah {
+  background-color: orange;
+}
+.storeCountry{
+    font-weight: bold;
+    font-size: 1.5vw;
+}
+.limpaPilt{
+    max-height: 85%;
 }
