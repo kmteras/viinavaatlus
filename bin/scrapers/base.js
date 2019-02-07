@@ -128,6 +128,7 @@ class Scraper {
         name = name.replace(/,/g, "");
         name = name.replace(/ä/g, "a");
         name = name.replace(/'/g, "");
+        name = name.replace(/\*/g, "");
 
         return name;
     }

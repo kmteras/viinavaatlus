@@ -49,7 +49,6 @@ class CityAlkoScraper extends Scraper {
 
                     if (product.ml === null) return;
                     products.push(product);
-                    console.log(product)
                 });
                 callback(products);
             })
