@@ -19,6 +19,27 @@ $(document).ready(function () {
             search();
         }
     });
+    window.addEventListener("load", function () {
+        window.cookieconsent.initialise({
+            "palette": {
+                "popup": {
+                    "background": "#eaf7f7",
+                    "text": "#5c7291"
+                },
+                "button": {
+                    "background": "#56cbdb",
+                    "text": "#000000"
+                }
+            },
+            "position": "top",
+            "type": "opt-in",
+            "content": {
+                "message": "See lehekülg kasutab küpsiseid.",
+                "dismiss": "Ei nõustu",
+                "allow": "Luba küpsised"
+            }
+        })
+    });
 });
 
 function search() {
@@ -33,3 +54,4 @@ function removeEstonianLetters(string) {
     string = string.replace(/ü/g, "u");
     return string;
 }
+
