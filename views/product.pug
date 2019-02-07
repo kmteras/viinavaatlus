@@ -36,10 +36,7 @@ block content
             th Hind
             th Originaalne nimi
           each store in product.stores
-            if store.prices[0].sale
-              tr(class="tabelOnAllah")
-            else
-              tr
+              tr(class=(store.prices[0].sale ? "tabelOnAllah" : ""))
                 td(class="storeCountry") #{store.storeCounty}
                 td
                   a(href=store.url) #{store.storeName}
