@@ -26,7 +26,6 @@ class CityAlkoScraper extends Scraper {
             .then((html) => {
                 const $ = cheerio.load(html);
                 const $products = $(".clearfix.products").find(".instock");
-                console.log($products.length);
                 let products = [];
 
                 $products.each((index, value) => {

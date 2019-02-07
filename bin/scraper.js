@@ -5,7 +5,8 @@ const scraperClasses = [
     // require("./scrapers/selver"),
     // require('./scrapers/coop'),
     require("./scrapers/alko1000"),
-    require("./scrapers/cityalko")
+    require("./scrapers/cityalko"),
+    require("./scrapers/viinarannasta")
 ];
 
 let scraperObjects = null;
@@ -29,7 +30,7 @@ function shallowScrape() {
         scraperObjects[i].shallowScrape((result) => {
             result.forEach((el) => {
 
-                let searchQuery = {
+                const searchQuery = {
                     name: el.name,
                     ml: el.ml,
                     vol: el.vol
@@ -42,115 +43,150 @@ function shallowScrape() {
 
                     // If the product exists in the database
                     if (result) {
-                        let storeFound = false;
-                        let storeIndex = null;
-
-                        for (let j = 0; j < result.stores.length; j++) {
-                            if (result.stores[j].storeName === el.store) {
-                                storeFound = true;
-                                storeIndex = j;
-                                break
-                            }
-                        }
-
-                        let updateValues = {};
-                        let optionValues = {};
-
-                        // If the store exist, lets update the price if needed or the last scrape timestamp
-                        if (storeFound) {
-                            let lastPriceIndex = result.stores[storeIndex].prices.length - 1;
-                            let lastPrice = result.stores[storeIndex].prices[lastPriceIndex];
-
-                            // If the price has not changed
-                            if (lastPrice.price === el.price) {
-                                updateValues = {
-                                    "$set": {
-                                        "stores.$[storeIndex].prices.$[priceIndex].lastScrape": new Date(),
-                                    }
-                                };
-
-                                optionValues = {
-                                    arrayFilters: [
-                                        {
-                                            "priceIndex": lastPriceIndex,
-                                        },
-                                        {
-                                            "storeIndex": storeIndex
-                                        }
-                                    ]
-                                }
-                            } else {
-                                // If the price has changed
-                                updateValues = {
-                                    "$push": {
-                                        "prices": getPriceObject(el)
-                                    }
-                                }
-                            }
-                        } else {
-                            updateValues = {
-                                "$push": {
-                                    "stores": getStoreObject(el)
-                                }
-                            };
-
-                            if (!result.category) {
-                                if (!updateValues["$set"]) {
-                                    updateValues["$set"] = {};
-                                }
-                                updateValues["$set"]["category"] = el.category;
-                            }
-                        }
-
-                        const updateQuery = {
-                            name: result.name,
-                            ml: result.ml,
-                            vol: result.vol
-                        };
-
-                        db.getDb().collection("products").updateOne(updateQuery, updateValues, optionValues, (err, res) => {
-                            if (err) {
-                                console.log(err);
-                            }
-                        });
+                        updateExistingProduct(result, el);
                     } else {
                         // If the product does not exist in the database
-
-                        if (!el.name) {
-                            console.error(`Name value is missing, will not add to database`);
-                            return;
-                        } else if (!el.ml) {
-                            console.error(`Ml value is missing, will not add to database`);
-                            return;
-                        } else if (!el.vol) {
-                            console.error(`Vol value is missing, will not add to database`);
-                            return;
-                        }
-
-                        // The overall product object
-                        let product = {
-                            name: el.name,
-                            showName: el.originalName,
-                            ml: el.ml,
-                            vol: el.vol,
-                            category: el.category,
-                            stores: []
-                        };
-
-                        // The store product object
-                        product.stores.push(getStoreObject(el));
-
-                        db.getDb().collection("products").insertOne(product, (err, response) => {
-                            if (err) {
-                                console.error(err, product);
-                            }
-                        })
+                        addNewProduct(result, el);
                     }
                 })
             });
         });
     }
 }
+
+function updateExistingProduct(result, el) {
+    let storeFound = false;
+    let storeIndex = null;
+
+    for (let j = 0; j < result.stores.length; j++) {
+        if (result.stores[j].storeName === el.store) {
+            storeFound = true;
+            storeIndex = j;
+            break
+        }
+    }
+
+    // If the store exist, lets update the price if needed or the last scrape timestamp
+    if (storeFound) {
+        updateStoreInfo(result, el, storeIndex);
+    } else {
+        addStore(result, el);
+    }
+}
+
+function updateStoreInfo(result, el, storeIndex) {
+    let updateValues = {};
+    let optionValues = {};
+    let lastPriceIndex = result.stores[storeIndex].prices.length - 1;
+    let lastPrice = result.stores[storeIndex].prices[lastPriceIndex];
+
+    // If the price has not changed
+    if (lastPrice.price === el.price) {
+        updateValues = {
+            "$set": {
+                "stores.$[storeIndex].prices.$[priceIndex].lastScrape": new Date(),
+            }
+        };
+
+        optionValues = {
+            arrayFilters: [
+                {
+                    "priceIndex": lastPriceIndex,
+                },
+                {
+                    "storeIndex": storeIndex
+                }
+            ]
+        }
+    } else {
+        // If the price has changed
+        updateValues = {
+            "$push": {
+                "prices": getPriceObject(el)
+            }
+        }
+    }
+
+    db.getDb().collection("products").updateOne({
+        name: result.name,
+        ml: result.ml,
+        vol: result.vol
+    }, updateValues, optionValues, (err, res) => {
+        if (err) {
+            console.log(err);
+        }
+    });
+}
+
+function addStore(result, el) {
+    let updateValues = {
+        "$push": {
+            "stores": getStoreObject(el)
+        }
+    };
+
+    if (!result.category) {
+        if (!updateValues["$set"]) {
+            updateValues["$set"] = {};
+        }
+        updateValues["$set"]["category"] = el.category;
+    }
+
+    db.getDb().collection("products").updateOne({
+        name: result.name,
+        ml: result.ml,
+        vol: result.vol
+    }, updateValues, (err, res) => {
+        if (err) {
+            console.log(err);
+        }
+    });
+}
+
+function addNewProduct(result, el) {
+    if (!el.name) {
+        console.error(`Name value is missing, will not add to database`);
+        return;
+    } else if (!el.ml) {
+        console.error(`Ml value is missing, will not add to database`);
+        return;
+    } else if (!el.vol) {
+        console.error(`Vol value is missing, will not add to database`);
+        return;
+    }
+
+    // The overall product object
+    let product = {
+        name: el.name,
+        showName: el.originalName,
+        ml: el.ml,
+        vol: el.vol,
+        category: el.category,
+        stores: []
+    };
+
+    // The store product object
+    product.stores.push(getStoreObject(el));
+
+    db.getDb().collection("products").insertOne(product, (err, response) => {
+        if (err) {
+            if (err.code === 11000) {
+                db.getDb().collection("products").findOne({
+                    name: el.name,
+                    ml: el.ml,
+                    vol: el.vol
+                }, (err, result) => {
+                    console.warn(`Product ${el.name}, ${el.vol}, ${el.ml} exists, updating old`);
+                    updateExistingProduct(result, el);
+                });
+            }
+            else {
+                console.error(err, product);
+            }
+        }
+    })
+}
+
 
 // Helper function for adding store objects
 function getStoreObject(el) {
