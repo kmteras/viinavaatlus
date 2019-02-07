@@ -1,7 +1,7 @@
 body {
   margin-top:1%;
   width:100%;
-  min-width: 65%;
+  min-width: 50%;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   text-align: center;
   margin-bottom: 3%;
@@ -35,7 +35,6 @@ a {
   font-size: 2.5vw;
   max-width: 100%;
   max-height: 100%;
-
 }
 .alkohind{
   color: red;
@@ -44,4 +43,32 @@ img{
   max-width:100%;
   height: auto;
 }
-
+.ui.three.cards>.card {
+  width: 80%;
+}
+.column {
+  margin-top: 1%;
+  margin-bottom: 1%;
+}
+.ui.celled.table.recentlyUpdated{
+  margin-top: 8%;
+}
+.image.fixedImage {
+  max-width: 75px;
+  height: auto;
+}
+.alkoTekstIndex {
+  margin: auto;
+  font-size: 1.25vw;
+}
+.alkoTekstiKirjeldus {
+  text-align: center;
+}
+.indexPage{
+  border-bottom: 1px lightgray solid;
+}
+.alkoHindIndex {
+  margin: auto;
+  color: red;
+  font-size: 2vw;
+}

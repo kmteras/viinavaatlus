@@ -16,44 +16,20 @@ block includes
 block content
   h1(class="tiitel")= title
   include includes/header
-  div(class="ui form")
-    div(class="grouped fields")
-      div(class="field")
-        div(class="ui radio checkbox esimeneSort")
-          input(type="radio" name="odavamad" value="1" checked="checked")
-          label Odavamad enne
-        div(class="ui radio checkbox")
-          input(type="radio" name="odavamad" value="2")
-          label Kallimad enne
-  div(class="ui grid")
-    div(class="eight wide column")
-      div(class="four wide column")
-        img(src="https://via.placeholder.com/250")
-      div(class="four wide column")
-        a(href="#") Viin
-        div(class="four wide column")
-          a(href="#") Hind
-    div(class="eight wide column")
-      div(class="four wide column")
-        img(src="https://via.placeholder.com/250")
-      div(class="four wide column")
-        a(href="#") Viin
-        div(class="four wide column")
-          a(href="#") Hind
-    div(class="eight wide column")
-      div(class="four wide column")
-        img(src="https://via.placeholder.com/250")
-      div(class="four wide column")
-        a(href="#") Viin
-        div(class="four wide column")
-          a(href="#") Hind
-    div(class="eight wide column")
-      div(class="four wide column")
-        img(src="https://via.placeholder.com/250")
-      div(class="four wide column")
-        a(href="#") Viin
-        div(class="four wide column")
-          a(href="#") Hind
+
+  -for(var i = 0 ; i < 8 ; i++)
+    div(class="ui grid indexPage")
+      div(class="three wide column")
+        div(class="image fixedImage")
+          img(src="https://via.placeholder.com/500")
+      div(class="six wide column alkoTekstIndex")
+        div(class="paragraph alkoTekstiKirjeldus")
+          | Siia tuleb mingi kirjeldus
+          br
+          | Ja veel teksti
+      div(class="seven wide column alkoHindIndex")
+        | 15,89 €
+
   if products
     table(class="ui celled table uusimad")
       thread
