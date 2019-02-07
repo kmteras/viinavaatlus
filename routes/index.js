@@ -74,17 +74,12 @@ function prepareSearchResultsForRender(result) {
             });
         }
 
+        result[i].cheapest = cheapest;
         result[i].showName = titleCase(result[i].name);
     }
 
     result.sort((a, b) => {
-        if (a.name < b.name) {
-            return -1
-        } else if (a.name > b.name) {
-            return 1;
-        }
-
-        return a.ml - b.ml
+        return a.cheapest - b.cheapest
     });
 
     return result
