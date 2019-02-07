@@ -5,6 +5,8 @@ block includes
   link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.css')
   link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/menu.min.css')
   link(rel="stylesheet", href="/stylesheets/style.css")
+  link(rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css")
+  script(src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js")
   script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js")
   script(src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js")
   script(src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.js")
@@ -15,7 +17,7 @@ block content
   p Welcome to #{title}
 
   -for(var i = 0 ; i < 8 ; i++)
-    div(class="ui grid indexPage")
+    div(class="ui grid indexPage" id="index")
       div(class="three wide column")
         div(class="image fixedImage")
           img(src="https://via.placeholder.com/500")
