@@ -47,6 +47,12 @@ router.get('/product/:productName/:productSize/:productVol', (req, res, next) =>
     })
 });
 
+router.get('/limpa', (req, res, next) => {
+    scraper.getData((err, products) => {
+        res.render('limpa', {title: 'Viinavaatlus', products: products});
+    });
+});
+
 function search(productNameRaw, productSize, productVol, callback) {
     const productName = productNameRaw.replace(/_/g, " ").toLowerCase();
     const ml = parseInt(productSize);
