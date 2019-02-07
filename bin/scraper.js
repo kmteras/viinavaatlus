@@ -144,6 +144,14 @@ function addStore(result, el) {
     });
 }
 
+String.prototype.toPascalCase = function () {
+    return this.match(/[a-z]+/gi)
+        .map(function (word) {
+            return word.charAt(0).toUpperCase() + word.substr(1).toLowerCase()
+        })
+        .join('')
+};
+
 function addNewProduct(result, el) {
     if (!el.name) {
         console.error(`Name value is missing, will not add to database`);
@@ -159,7 +167,7 @@ function addNewProduct(result, el) {
     // The overall product object
     let product = {
         name: el.name,
-        showName: el.originalName,
+        showName: el.showName,
         ml: el.ml,
         vol: el.vol,
         category: el.category,
@@ -193,6 +201,7 @@ function addNewProduct(result, el) {
 function getStoreObject(el) {
     return {
         storeName: el.store,
+        storeCounty: el.storeCounty,
         originalName: el.originalName,
         url: el.url,
         imageUrl: el.imageUrl,

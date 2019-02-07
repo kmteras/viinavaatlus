@@ -138,6 +138,8 @@ class Scraper {
         name = name.replace(/'/g, "");
         name = name.replace(/\*/g, "");
 
+        name = name.replace(/\s\s+/g, ' ');
+
         name = this.removeEstonianLetters(name);
 
         return name;
