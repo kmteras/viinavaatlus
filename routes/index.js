@@ -57,9 +57,11 @@ function prepareSearchResultsForRender(result) {
 
         if (!cheapest) {
             result[i].cheapestPrice = cheapest;
-        }
-        else {
-            result[i].cheapestPrice = cheapest.toLocaleString("ee-EE", { maximumFractionDigits: 2, minimumFractionDigits: 2 });
+        } else {
+            result[i].cheapestPrice = cheapest.toLocaleString("ee-EE", {
+                maximumFractionDigits: 2,
+                minimumFractionDigits: 2
+            });
         }
 
         result[i].showName = titleCase(result[i].name);
@@ -68,8 +70,7 @@ function prepareSearchResultsForRender(result) {
     result.sort((a, b) => {
         if (a.name < b.name) {
             return -1
-        }
-        else if (a.name > b.name) {
+        } else if (a.name > b.name) {
             return 1;
         }
 
@@ -127,8 +128,17 @@ function search(productNameRaw, productSize, productVol, callback) {
 function prepareProductForShowing(result) {
     result.showName = titleCase(result.name);
 
+    for (let i = 0; i < result.stores.length; i++) {
+        result.stores[i].showPrice =
+            result.stores[i].prices[result.stores[i].prices.length - 1].price
+                .toLocaleString("ee-EE", {
+                    maximumFractionDigits: 2,
+                    minimumFractionDigits: 2
+                });
+    }
+
     result.stores.sort((a, b) => {
-        return a.prices[a.prices.length - 1] > b.prices[b.prices.length - 1];
+        return a.prices[a.prices.length - 1].price > b.prices[b.prices.length - 1].price;
     });
 
     return result

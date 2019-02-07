@@ -35,9 +35,8 @@ block content
         tr(class="tabelOnAllah")
       else
         tr
-          // Vaatad andmetest, mis riigikood on ja siis kas EE v LV
           td(class="storeCountry") #{store.storeCounty}
           td
             a(href=store.url) #{store.storeName}
-          td #{store.prices[0].price}
+          td #{store.showPrice}€
           td #{store.originalName}
