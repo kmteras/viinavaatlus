@@ -29,6 +29,6 @@ block content
     each store in product.stores
       tr
         td
-          a(href="#{store.url}") #{store.storeName}
+          a(href=store.url) #{store.storeName}
         td #{store.prices[0].price}
         td #{store.originalName}
