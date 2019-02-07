@@ -43,7 +43,7 @@ class CityAlkoScraper extends Scraper {
                         unitPrice: null,
                         vol: this.getVol(name),
                         ml: this.getMl(name),
-                        category: $meta.find(".product-brand > a").last().text(),
+                        category: this.removeEstonianLetters($meta.find(".product-brand > a").last().text()).toLowerCase(),
                         imageUrl: $(value).find("a[class='thumb'] > span > img").attr("src")
                     };
 

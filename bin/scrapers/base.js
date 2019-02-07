@@ -108,6 +108,14 @@ class Scraper {
         }
     }
 
+    removeEstonianLetters(string) {
+        string = string.replace(/ä/g, "a");
+        string = string.replace(/ö/g, "o");
+        string = string.replace(/õ/g, "o");
+        string = string.replace(/ü/g, "u");
+        return string;
+    }
+
     getCleanName(name) {
         const regexRemove = [this.volRegex, this.mlRegex, this.clRegex, this.lRegex, this.priceRegex];
 
@@ -126,9 +134,10 @@ class Scraper {
         }
 
         name = name.replace(/,/g, "");
-        name = name.replace(/ä/g, "a");
         name = name.replace(/'/g, "");
         name = name.replace(/\*/g, "");
+
+        name = this.removeEstonianLetters(name);
 
         return name;
     }

@@ -22,5 +22,14 @@ $(document).ready(function () {
 });
 
 function search() {
-    window.location.href = "/search/" + $("#searchBox").val();
+    window.location.href = "/search/" + removeEstonianLetters($("#searchBox").val()).toLowerCase();
+}
+
+
+function removeEstonianLetters(string) {
+    string = string.replace(/ä/g, "a");
+    string = string.replace(/ö/g, "o");
+    string = string.replace(/õ/g, "o");
+    string = string.replace(/ü/g, "u");
+    return string;
 }
