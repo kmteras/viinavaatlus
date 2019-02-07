@@ -139,8 +139,8 @@ function updateViewCount(productNameRaw, productSize, productVol) {
     };
 
     const updateQuery = {
-        "viewCount": {
-            "$inc": 1
+        "$inc": {
+            "viewCount": 1
         }
     };
 
