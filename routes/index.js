@@ -5,13 +5,13 @@ const db = require('../bin/db');
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
-    db.getDb().collection("products").find({}).limit(10).toArray((err, result) => {
+    db.getDb().collection("products").find({}).sort({viewCount: -1}).limit(10).toArray((err, result) => {
         if (err) {
             console.error(err);
             res.render('index', {products: null});
         }
 
-        result = prepareSearchResultsForRender(result);
+        result = prepareSearchResultsForRender(result, false);
 
         res.render('index', {products: result});
     });
@@ -48,7 +48,7 @@ router.get('/search/:search', (req, res, next) => {
     });
 });
 
-function prepareSearchResultsForRender(result) {
+function prepareSearchResultsForRender(result, sort=true) {
     for (let i = 0; i < result.length; i++) {
         result[i].url = `/product/${result[i].name.replace(/ /g, "_")}/${result[i].ml}`;
 
@@ -78,9 +78,11 @@ function prepareSearchResultsForRender(result) {
         result[i].showName = titleCase(result[i].name);
     }
 
-    result.sort((a, b) => {
-        return a.cheapest - b.cheapest
-    });
+    if (sort) {
+        result.sort((a, b) => {
+            return a.cheapest - b.cheapest
+        });
+    }
 
     return result
 }
@@ -88,18 +90,6 @@ function prepareSearchResultsForRender(result) {
 router.get('/scrape', (req, res, next) => {
     scraper.shallowScrape();
     res.redirect('/');
-});
-
-router.get('/product/:productName/:productSize', (req, res, next) => {
-    search(req.params.productName, req.params.productSize, null, (err, result) => {
-        if (err) {
-            console.error(err);
-            res.redirect("/error");
-        }
-
-        result = prepareProductForShowing(result);
-        res.render("product", {product: result});
-    })
 });
 
 router.get('/product/:productName/:productSize/:productVol', (req, res, next) => {
@@ -135,7 +125,7 @@ function updateViewCount(productNameRaw, productSize, productVol) {
     let query = {
         name: productName,
         ml: ml,
-        vol: productVol ? parseInt(productVol) : null
+        vol: productVol ? parseFloat(productVol) : null
     };
 
     const updateQuery = {
