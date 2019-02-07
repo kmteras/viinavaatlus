@@ -33,3 +33,12 @@ _MONGODB REQUIRED_ (linux: sudo apt install mongodb)
 
 ```npm run dev```
 
+
+Example config.json file:
+```
+{
+  "databaseUrl": "mongodb://localhost:27017/",
+  "database": "viinavaatlus"
+}
+```
+
