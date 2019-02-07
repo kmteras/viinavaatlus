@@ -20,7 +20,6 @@ function capitalizeFirstLetter(string) {
 }
 
 function titleCase(string) {
-    console.log(string);
     return string.split(" ").map(x => capitalizeFirstLetter(x)).join(" ");
 }
 
@@ -123,6 +122,16 @@ function search(productNameRaw, productSize, productVol, callback) {
     };
 
     db.getDb().collection("products").findOne(query, callback);
+}
+
+function prepareProductForShowing(result) {
+    result.showName = titleCase(result.name);
+
+    result.stores.sort((a, b) => {
+        return a.prices[a.prices.length - 1] > b.prices[b.prices.length - 1];
+    });
+
+    return result
 }
 
 module.exports = router;
