@@ -6,7 +6,8 @@ const scraperClasses = [
     // require('./scrapers/coop'),
     require("./scrapers/alko1000"),
     require("./scrapers/cityalko"),
-    require("./scrapers/viinarannasta")
+    require("./scrapers/viinarannasta"),
+    require("./scrapers/superalko")
 ];
 
 let scraperObjects = null;
