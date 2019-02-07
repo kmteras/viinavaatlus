@@ -12,8 +12,12 @@ router.get('/', (req, res, next) => {
 
 router.get('/search/:search', (req, res, next) => {
     db.getDb().collection("products").find({name: {$regex: req.params.search}}).toArray((err, result) => {
-        for(let i = 0; i < result.length; i++) {
+        for (let i = 0; i < result.length; i++) {
             result[i].url = `/product/${result[i].name.replace(/ /g, "_")}/${result[i].ml}`
+
+            if(result[i].vol) {
+                result[i].url += `/${result[i].vol}`;
+            }
         }
 
         res.render('search', {products: result});
@@ -26,13 +30,29 @@ router.get('/scrape', (req, res, next) => {
 });
 
 router.get('/product/:productName/:productSize', (req, res, next) => {
-    const productName = req.params.productName.replace(/_/g, " ").toLowerCase();
-    console.log(productName);
-    const ml = parseInt(req.params.productSize);
-
-    db.getDb().collection("products").findOne({name: productName, ml: ml}, (err, result) => {
+    search(req.params.productName, req.params.productSize, null, (err, result) => {
         res.render("product", {product: result});
-    });
+    })
 });
+
+router.get('/product/:productName/:productSize/:productVol', (req, res, next) => {
+    search(req.params.productName, req.params.productSize, req.params.productVol, (err, result) => {
+        res.render("product", {product: result});
+
+    })
+});
+
+function search(productNameRaw, productSize, productVol, callback) {
+    const productName = productNameRaw.replace(/_/g, " ").toLowerCase();
+    const ml = parseInt(productSize);
+
+    let query = {
+        name: productName,
+        ml: ml,
+        vol: productVol ? parseInt(productVol) : null
+    };
+
+    db.getDb().collection("products").findOne(query, callback);
+}
 
 module.exports = router;

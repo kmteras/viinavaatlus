@@ -1,11 +1,12 @@
 const db = require('./db');
 
 const scraperClasses = [
-    require("./scrapers/maxima"),
-    require("./scrapers/selver"),
-    //require('./scrapers/coop'),
+     require("./scrapers/maxima"),
+     require("./scrapers/selver"),
+    // require('./scrapers/coop'),
     require("./scrapers/alko1000"),
-    require("./scrapers/cityalko")
+    require("./scrapers/cityalko"),
+    require("./scrapers/viinarannasta")
 ];
 
 let scraperObjects = null;
@@ -28,7 +29,13 @@ function shallowScrape() {
     for (let i = 0; i < scraperClasses.length; i++) {
         scraperObjects[i].shallowScrape((result) => {
             result.forEach((el) => {
-                db.getDb().collection("products").findOne({name: el.name, ml: el.ml}, (err, result) => {
+
+                let searchQuery = {
+                    name: el.name,
+                    ml: el.ml
+                };
+
+                db.getDb().collection("products").findOne(searchQuery, (err, result) => {
                     if (err) {
                         console.error(err);
                     }
@@ -36,20 +43,52 @@ function shallowScrape() {
                     // If the product exists in the database
                     if (result) {
                         let storeFound = false;
+                        let storeIndex = null;
 
                         for(let j = 0; j < result.stores.length; j++) {
                             if (result.stores[j].storeName === el.store) {
                                 storeFound = true;
+                                storeIndex = j;
+                                break
                             }
                         }
 
                         let updateValues = {};
+                        let optionValues = {};
 
                         // If the store exist, lets update the price if needed or the last scrape timestamp
                         if (storeFound) {
+                            let lastPriceIndex = result.stores[storeIndex].prices.length - 1;
+                            let lastPrice = result.stores[storeIndex].prices[lastPriceIndex];
 
+                            // If the price has not changed
+                            if (lastPrice.price === el.price) {
+                                updateValues = {
+                                    "$set": {
+                                        "stores.$[storeIndex].prices.$[priceIndex].lastScrape": new Date(),
+                                    }
+                                };
+
+                                optionValues = {
+                                    arrayFilters: [
+                                        {
+                                            "priceIndex": lastPriceIndex,
+                                        },
+                                        {
+                                            "storeIndex": storeIndex
+                                        }
+                                    ]
+                                }
+                            }
+                            else {
+                                // If the price has changed
+                                updateValues = {
+                                    "$push": {
+                                        "prices": getPriceObject(el)
+                                    }
+                                }
+                            }
                         } else {
-                            // console.log(result);
                             updateValues = {
                                 "$push": {
                                     "stores": getStoreObject(el)
@@ -74,7 +113,11 @@ function shallowScrape() {
                             ml: result.ml
                         };
 
-                        db.getDb().collection("products").updateOne(updateQuery, updateValues, (err, res) => {
+                        if (result.vol) {
+                            updateQuery['vol'] = result.vol;
+                        }
+
+                        db.getDb().collection("products").updateOne(updateQuery, updateValues, optionValues, (err, res) => {
                             if (err) {
                                 console.log(err);
                             }
@@ -120,17 +163,22 @@ function getStoreObject(el) {
         url: el.url,
         imageUrl: el.imageUrl,
         prices: [
-            {
-                firstScrape: new Date(),
-                lastScrape: new Date(),
-                sale: el.sale,
-                price: el.price,
-                unitPrice: el.unitPrice,
-                oldPrice: el.oldPrice,
-                oldUnitPrice: el.oldUnitPrice
-            }
+            getPriceObject(el)
         ]
     };
+}
+
+// Helper function for getting price object
+function getPriceObject(el) {
+    return {
+        firstScrape: new Date(),
+        lastScrape: new Date(),
+        sale: el.sale,
+        price: el.price,
+        unitPrice: el.unitPrice,
+        oldPrice: el.oldPrice,
+        oldUnitPrice: el.oldUnitPrice
+    }
 }
 
 function getData(callback) {
