@@ -27,18 +27,22 @@ block content
 
   table(class="ui celled table uusimad")
     tr
+      th Riik
       th Pood
       th Hind
       th Originaalne nimi
     each store in product.stores
       if store.prices[0].sale == true
         tr(class="tabelOnAllah")
+          // Vaatad andmetest, mis riigikood on ja siis kas EE v LV
+          td(class="storeCountry") EE
           td
             a(href=store.url) #{store.storeName}
           td #{store.prices[0].price}
           td #{store.originalName}
       else
         tr
+          td(class="storeCountry") EE
           td
             a(href=store.url) #{store.storeName}
           td #{store.prices[0].price}
