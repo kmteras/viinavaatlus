@@ -8,7 +8,9 @@ router.get('/', (req, res, next) => {
     db.getDb().collection("products").find({}).limit(10).toArray((err, result) => {
         if (err) {
             console.error(err);
+            res.render('index', {products: null});
         }
+
         result = prepareSearchResultsForRender(result);
 
         res.render('index', {products: result});
@@ -18,8 +20,7 @@ router.get('/', (req, res, next) => {
 function capitalizeFirstLetter(string) {
     if (string[0]) {
         return string[0].toUpperCase() + string.slice(1).toLowerCase();
-    }
-    else {
+    } else {
         return string
     }
 }
@@ -30,6 +31,11 @@ function titleCase(string) {
 
 router.get('/search/:search', (req, res, next) => {
     db.getDb().collection("products").find({name: {$regex: req.params.search}}).toArray((err, result) => {
+        if (err) {
+            console.error(err);
+            res.render('search', {products: null});
+        }
+
         if (result.length === 0) {
             db.getDb().collection("products").find({category: {$regex: req.params.search}}).toArray((err, result) => {
                 result = prepareSearchResultsForRender(result);
@@ -57,7 +63,6 @@ function prepareSearchResultsForRender(result) {
             if (price < cheapest) {
                 cheapest = price;
             }
-
         }
 
         if (!cheapest) {
@@ -92,6 +97,11 @@ router.get('/scrape', (req, res, next) => {
 
 router.get('/product/:productName/:productSize', (req, res, next) => {
     search(req.params.productName, req.params.productSize, null, (err, result) => {
+        if (err) {
+            console.error(err);
+            res.redirect("/error");
+        }
+
         result = prepareProductForShowing(result);
         res.render("product", {product: result});
     })
@@ -99,9 +109,15 @@ router.get('/product/:productName/:productSize', (req, res, next) => {
 
 router.get('/product/:productName/:productSize/:productVol', (req, res, next) => {
     search(req.params.productName, req.params.productSize, req.params.productVol, (err, result) => {
+        if (err) {
+            console.error(err);
+            res.redirect("/error");
+        }
+
         result = prepareProductForShowing(result);
         res.render("product", {product: result});
-    })
+    });
+    updateViewCount(req.params.productName, req.params.productSize, req.params.productVol);
 });
 
 router.get('/shop/:shop', (req, res, next) => {
@@ -117,7 +133,7 @@ router.get('/limpa', (req, res, next) => {
     });
 });
 
-function search(productNameRaw, productSize, productVol, callback) {
+function updateViewCount(productNameRaw, productSize, productVol) {
     const productName = productNameRaw.replace(/_/g, " ").toLowerCase();
     const ml = parseInt(productSize);
 
@@ -125,6 +141,29 @@ function search(productNameRaw, productSize, productVol, callback) {
         name: productName,
         ml: ml,
         vol: productVol ? parseInt(productVol) : null
+    };
+
+    const updateQuery = {
+        "viewCount": {
+            "$inc": 1
+        }
+    };
+
+    db.getDb().collection("products").updateOne(query, updateQuery, (err, res) => {
+        if (err) {
+            console.error(err);
+        }
+    });
+}
+
+function search(productNameRaw, productSize, productVol, callback) {
+    const productName = productNameRaw.replace(/_/g, " ").toLowerCase();
+    const ml = parseInt(productSize);
+
+    let query = {
+        name: productName,
+        ml: ml,
+        vol: productVol ? parseFloat(productVol) : null
     };
 
     db.getDb().collection("products").findOne(query, callback);

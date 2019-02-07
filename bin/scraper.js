@@ -172,6 +172,7 @@ function addNewProduct(result, el) {
         ml: el.ml,
         vol: el.vol,
         category: el.category,
+        viewCount: 0,
         stores: []
     };
 
@@ -196,7 +197,6 @@ function addNewProduct(result, el) {
         }
     })
 }
-
 
 // Helper function for adding store objects
 function getStoreObject(el) {
