@@ -44,6 +44,7 @@ class MaximaScraper extends Scraper {
                         name: this.getCleanName(name),
                         sale: false,
                         originalName: name,
+                        storeCounty: this.storeCounty,
                         store: this.storeName,
                         url: this.baseUrl + $(value).find("a[class*='b-product--imagelink']").attr("href"),
                         price: this.getPrice($(value).find("span[itemprop='price']").text()),

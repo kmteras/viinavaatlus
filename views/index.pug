@@ -4,7 +4,6 @@ block includes
   link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/table.min.css')
   link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.css')
   link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/menu.min.css')
-  link(rel="stylesheet", href="/stylesheets/style.css")
   link(rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css")
   script(src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js")
   script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js")
@@ -13,21 +12,21 @@ block includes
   script(src="https://unpkg.com/sweetalert/dist/sweetalert.min.js")
   script(src="/js/menu.js")
 block content
-  h1(class="tiitel")= title
   include includes/header
-  p Welcome to #{title}
 
   -for(var i = 0 ; i < 8 ; i++)
     div(class="ui grid indexPage" id="index")
+      div(class="one wide column")
       div(class="three wide column")
         div(class="image fixedImage")
           img(src="https://via.placeholder.com/500")
-      div(class="six wide column alkoTekstIndex")
+      div(class="five wide column alkoTekstIndex")
         div(class="paragraph alkoTekstiKirjeldus")
           | Siia tuleb mingi kirjeldus
           br
           | Ja veel teksti
-      div(class="seven wide column alkoHindIndex")
+      div(class="two wide column")
+      div(class="five wide column alkoHindIndex")
         | 15,89 €
 
   table(class='ui celled table recentlyUpdated')

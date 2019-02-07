@@ -63,6 +63,7 @@ class SelverScraper extends Scraper {
                         name: this.getCleanName(name),
                         sale: !!!$regularEl.length,
                         originalName: name,
+                        storeCounty: this.storeCounty,
                         store: this.storeName,
                         url: $(value).find("a[class='product-image']").attr("href"),
                         price: this.getPrice(priceString),

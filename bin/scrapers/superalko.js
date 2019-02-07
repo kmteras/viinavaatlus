@@ -51,6 +51,7 @@ class SuperAlkoScraper extends Scraper {
                         name: this.getCleanName(name),
                         sale: $(value).find("span[style*='color:']").attr("style") === "color:#FF0000",
                         originalName: name,
+                        storeCounty: this.storeCounty,
                         store: this.storeName,
                         url: this.baseUrl + $name.attr("href"),
                         price: this.getPrice($(value).find("span[style*='color:']").text()),

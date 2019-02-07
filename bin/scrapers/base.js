@@ -1,6 +1,7 @@
 const illegalWords = [
     "muu p.j.", "muu piir.jook", "muu p.jook", "muu piiritusjook", "muu alk.jk.",
     "m.alkohoolne jook", "karp", "\(karp\)", "muu piir.j.", "muu piir.j", "karbis", ", pet", "kohver",
+    "mini",
 
     "maits.viin", "rumm", "rum", "cognac", "whisky", "whiskey", "gin",
     "liköör", "brandy", "viin", "vodka", "liviko"
@@ -137,6 +138,8 @@ class Scraper {
         name = name.replace(/,/g, "");
         name = name.replace(/'/g, "");
         name = name.replace(/\*/g, "");
+
+        name = name.replace(/\s\s+/g, ' ');
 
         name = this.removeEstonianLetters(name);
 
