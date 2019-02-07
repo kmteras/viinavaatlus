@@ -40,6 +40,25 @@ $(document).ready(function () {
             }
         })
     });
+    window.onload=function(){
+        swal("Kas sa oled vähemalt 18 aastane?", {
+            buttons: {
+                Ei: {
+                    text: "Ei",
+                    value: "Ei",
+                },
+                Jah: true,
+            },
+        })
+            .then((value) => {
+                switch (value) {
+
+                    case "Ei":
+                        window.location.replace("http://www.limonaad.ee");
+                }
+            });
+    };
+
 });
 
 function search() {
