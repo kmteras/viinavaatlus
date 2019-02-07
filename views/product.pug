@@ -11,36 +11,37 @@ block includes
   script(src="/js/menu.js")
 block content
   h1(class="tiitel") Viinavaatlus
+  include includes/ageConfirmation
   include includes/header
   div(class="ui grid")
     div(class="two wide column")
-      div(class="twelve wide column")
-        div(class="ui grid")
-          div(class="one wide column")
-          div(class="six wide column")
-            img(src=product.stores[0].imageUrl)
-          div(class="nine wide column tooteleht info")
-            p= product.showName
-            if product.vol == null
-              p Vol: Liiga kange!
+    div(class="twelve wide column")
+      div(class="ui grid")
+        div(class="one wide column")
+        div(class="six wide column")
+          img(src=product.stores[0].imageUrl)
+        div(class="nine wide column tooteleht info")
+          p= product.showName
+          if product.vol == null
+            p Vol: Liiga kange!
+          else
+            p Vol: #{product.vol}%
+          p Kogus: #{product.ml}ml
+          p(class="alkohind") #{product.stores[0].prices[0].price}€
+          //Praegu on siin Selveri hind, aga paneme midagi muud hiljem (just for testing atm)
+        table(class="ui celled table uusimad")
+          tr
+            th Riik
+            th Pood
+            th Hind
+            th Originaalne nimi
+          each store in product.stores
+            if store.prices[0].sale
+              tr(class="tabelOnAllah")
             else
-              p Vol: #{product.vol}%
-            p Kogus: #{product.ml}ml
-            p(class="alkohind") #{product.stores[0].prices[0].price}€
-            //Praegu on siin Selveri hind, aga paneme midagi muud hiljem (just for testing atm)
-          table(class="ui celled table uusimad")
-    tr
-      th Riik
-      th Pood
-      th Hind
-      th Originaalne nimi
-    each store in product.stores
-      if store.prices[0].sale
-        tr(class="tabelOnAllah")
-      else
-        tr
-          td(class="storeCountry") #{store.storeCounty}
-          td
-            a(href=store.url) #{store.storeName}
-          td #{store.showPrice}€
-          td #{store.originalName}
+              tr
+                td(class="storeCountry") #{store.storeCounty}
+                td
+                  a(href=store.url) #{store.storeName}
+                td #{store.showPrice}€
+                td #{store.originalName}
