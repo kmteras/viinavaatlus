@@ -36,6 +36,17 @@ router.get('/search/:search', (req, res, next) => {
                 result[i].cheapestPrice = cheapest.toLocaleString("ee-EE", { maximumFractionDigits: 2, minimumFractionDigits: 2 });
             }
 
+            result.sort((a, b) => {
+                if (a.name < b.name) {
+                    return -1
+                }
+                else if (a.name > b.name) {
+                    return 1;
+                }
+
+                return a.ml - b.ml
+            });
+
             res.render('search', {products: result});
         }
     });
