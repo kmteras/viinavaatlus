@@ -19,6 +19,7 @@ $(document).ready(function () {
             search();
         }
     });
+
     window.addEventListener("load", function () {
         window.cookieconsent.initialise({
             "palette": {
@@ -37,32 +38,63 @@ $(document).ready(function () {
                 "message": "See lehekülg kasutab küpsiseid.",
                 "dismiss": "Ei nõustu",
                 "allow": "Luba küpsised"
-            }
-        })
-    });
-    window.onload=function(){
-        swal("Kas sa oled vähemalt 18 aastane?", {
-            buttons: {
-                Ei: {
-                    text: "Ei",
-                    value: "Ei",
-                },
-                Jah: true,
+            },
+
+            onInitialise: function (status) {
+                var type = this.options.type;
+                var didConsent = this.hasConsented();
+                if (type == 'opt-in' && didConsent) {
+                    // enable cookies
+                    Cookies.set("accepted",true);
+                }
+                if (type == 'opt-out' && !didConsent) {
+                    // disable cookies
+                }
+            },
+
+            onStatusChange: function(status, chosenBefore) {
+                var type = this.options.type;
+                var didConsent = this.hasConsented();
+                if (type == 'opt-in' && didConsent) {
+                    // enable cookies
+                    Cookies.set("accepted",true);
+                }
+                if (type == 'opt-out' && !didConsent) {
+                    // disable cookies
+                    Cookies.remove("accepted");
+                }
+            },
+
+            onRevokeChoice: function() {
+                var type = this.options.type;
+                if (type == 'opt-in') {
+                    // disable cookies
+                }
+                if (type == 'opt-out') {
+                    Cookies.set("accepted",true);
+                }
             },
         })
-            .then((value) => {
-                switch (value) {
-
-                    case "Ei":
-                        window.location.replace("http://www.limonaad.ee");
-                }
-            });
-    };
-
+    });
+    if(Cookies.get("age")!=1){
+        confirmation()
+    }
 });
 
 function search() {
     window.location.href = "/search/" + removeEstonianLetters($("#searchBox").val()).toLowerCase();
+}
+function confirmation(){
+    $('.ui.basic.modal')
+        .modal('show')
+    ;
+    document.getElementById("declineButton").onclick = function () {
+        Cookies.set("age",0);
+        location.href = "/limpa";
+    };
+    document.getElementById("confirmButton").onclick=function () {
+        Cookies.set("age",1);
+    }
 }
 
 

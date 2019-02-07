@@ -5,15 +5,17 @@ block includes
   link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.css')
   link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/menu.min.css')
   link(rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css")
+  link(rel="stylesheet", type="text/css", href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/modal.min.css")
   script(src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js")
   script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js")
   script(src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js")
   script(src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.js")
-  script(src="https://unpkg.com/sweetalert/dist/sweetalert.min.js")
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/modal.min.js")
+  script(src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js")
   script(src="/js/menu.js")
 block content
+  include includes/ageConfirmation
   include includes/header
-
   -for(var i = 0 ; i < 8 ; i++)
     div(class="ui grid indexPage" id="index")
       div(class="one wide column")
@@ -51,3 +53,4 @@ block content
           //     a(href=storeProduct.url) #{storeProduct.originalName}
           //
           //   td(class='data-label') €#{storeProduct.prices}
+
