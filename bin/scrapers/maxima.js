@@ -4,14 +4,14 @@ const cheerio = require('cheerio');
 
 class MaximaScraper extends Scraper {
     constructor() {
-        super("Maxima");
+        super("Maxima", "EE");
         this.baseUrl = "https://www.barbora.ee";
         this.categoryPages = [
-            {url: "https://www.barbora.ee/joogid-tubakatooted/kange-alkohol/viinad", category: "vodka"},
-            {url: "https://www.barbora.ee/joogid-tubakatooted/kange-alkohol/viskid-konjakid-ja-brandid", category: "whiskey"},
-            {url: "https://www.barbora.ee/joogid-tubakatooted/kange-alkohol/rummid", category: "rum"},
-            {url: "https://www.barbora.ee/joogid-tubakatooted/kange-alkohol/likoorid", category: "liquor"},
-            {url: "https://www.barbora.ee/joogid-tubakatooted/kange-alkohol/muu-kange-alkohol", category: "other"}
+            {url: "https://www.barbora.ee/joogid-tubakatooted/kange-alkohol/viinad", category: "viin"},
+            {url: "https://www.barbora.ee/joogid-tubakatooted/kange-alkohol/viskid-konjakid-ja-brandid", category: "viski/konjak/brandi"},
+            {url: "https://www.barbora.ee/joogid-tubakatooted/kange-alkohol/rummid", category: "rumm"},
+            {url: "https://www.barbora.ee/joogid-tubakatooted/kange-alkohol/likoorid", category: "likoor"},
+            {url: "https://www.barbora.ee/joogid-tubakatooted/kange-alkohol/muu-kange-alkohol", category: "muu"}
         ];
     }
 

@@ -12,15 +12,20 @@ router.get('/', (req, res, next) => {
 
 router.get('/search/:search', (req, res, next) => {
     db.getDb().collection("products").find({name: {$regex: req.params.search}}).toArray((err, result) => {
-        for (let i = 0; i < result.length; i++) {
-            result[i].url = `/product/${result[i].name.replace(/ /g, "_")}/${result[i].ml}`
+        if (result.length === 0) {
+            db.getDb().collection("products").find({name: {$regex: req.params.search}}).toArray((err, result) => {
+            });
+        } else {
+            for (let i = 0; i < result.length; i++) {
+                result[i].url = `/product/${result[i].name.replace(/ /g, "_")}/${result[i].ml}`;
 
-            if(result[i].vol) {
-                result[i].url += `/${result[i].vol}`;
+                if (result[i].vol) {
+                    result[i].url += `/${result[i].vol}`;
+                }
             }
-        }
 
-        res.render('search', {products: result});
+            res.render('search', {products: result});
+        }
     });
 });
 

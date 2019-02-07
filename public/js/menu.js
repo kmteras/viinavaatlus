@@ -19,8 +19,39 @@ $(document).ready(function () {
             search();
         }
     });
+    window.addEventListener("load", function () {
+        window.cookieconsent.initialise({
+            "palette": {
+                "popup": {
+                    "background": "#eaf7f7",
+                    "text": "#5c7291"
+                },
+                "button": {
+                    "background": "#56cbdb",
+                    "text": "#000000"
+                }
+            },
+            "position": "top",
+            "type": "opt-in",
+            "content": {
+                "message": "See lehekülg kasutab küpsiseid.",
+                "dismiss": "Ei nõustu",
+                "allow": "Luba küpsised"
+            }
+        })
+    });
 });
 
 function search() {
-    window.location.href = "/search/" + $("#searchBox").val();
+    window.location.href = "/search/" + removeEstonianLetters($("#searchBox").val()).toLowerCase();
 }
+
+
+function removeEstonianLetters(string) {
+    string = string.replace(/ä/g, "a");
+    string = string.replace(/ö/g, "o");
+    string = string.replace(/õ/g, "o");
+    string = string.replace(/ü/g, "u");
+    return string;
+}
+

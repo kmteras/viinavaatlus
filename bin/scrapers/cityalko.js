@@ -4,10 +4,11 @@ const cheerio = require('cheerio');
 
 class CityAlkoScraper extends Scraper {
     constructor() {
-        super("CityAlko");
+        super("CityAlko", "EE");
         this.baseUrl = "https://cityalko.ee";
         this.categoryPages = [
-            {url: "https://cityalko.ee/tootekategooria/kange-alkohol/?products-per-page=all", category: "strong"}
+            {url: "https://cityalko.ee/tootekategooria/kange-alkohol/?products-per-page=all", category: "kange"},
+            {url: "https://cityalko.ee/tootekategooria/likoorid/?products-per-page=all", category: "liköör"}
         ];
 
         super.priceRegex = /([\d,.]*\s€)/;
@@ -42,7 +43,7 @@ class CityAlkoScraper extends Scraper {
                         unitPrice: null,
                         vol: this.getVol(name),
                         ml: this.getMl(name),
-                        category: $meta.find(".product-brand > a").last().text(),
+                        category: this.removeEstonianLetters($meta.find(".product-brand > a").last().text()).toLowerCase(),
                         imageUrl: $(value).find("a[class='thumb'] > span > img").attr("src")
                     };
 
