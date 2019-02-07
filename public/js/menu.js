@@ -19,7 +19,6 @@ $(document).ready(function () {
             search();
         }
     });
-
     window.addEventListener("load", function () {
         window.cookieconsent.initialise({
             "palette": {
