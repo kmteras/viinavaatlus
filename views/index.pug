@@ -14,40 +14,17 @@ block includes
 block content
   include includes/header
 
-  -for(var i = 0 ; i < 8 ; i++)
-    div(class="ui grid indexPage" id="index")
-      div(class="one wide column")
-      div(class="three wide column")
-        div(class="image fixedImage")
-          img(src="https://via.placeholder.com/500")
-      div(class="five wide column alkoTekstIndex")
-        div(class="paragraph alkoTekstiKirjeldus")
-          | Siia tuleb mingi kirjeldus
-          br
-          | Ja veel teksti
-      div(class="two wide column")
-      div(class="five wide column alkoHindIndex")
-        | 15,89 €
-
-  table(class='ui celled table recentlyUpdated')
-    thread
-      tr
-        //th Nimi
-        th Koodinimi
-        //th Hind
-        th %
-        th ml
-        th Kategooria
-        //th Pood
-    tbody
-      each product in products
-        tr
-          td(class='data-label') #{product.name}
-          td(class='data-label') #{product.vol}%
-          td(class='data-label') #{product.ml}ml
-          td(class='data-label') #{product.category}
-          // each storeProduct in product.stores
-          //   td(class='data-label')
-          //     a(href=storeProduct.url) #{storeProduct.originalName}
-          //
-          //   td(class='data-label') €#{storeProduct.prices}
+  if products
+    each product in products
+      div(class="ui grid indexPage")
+        div(class="three wide column")
+          div(class="image fixedImage")
+            a(href=product.url)
+              img(src=product.stores[0].imageUrl)
+        div(class="six wide column alkoTekstIndex")
+          div(class="paragraph alkoTekstiKirjeldus")
+            a(href=product.url) #{product.showName}
+            br
+            | #{product.vol}% #{product.ml} ml
+        div(class="seven wide column alkoHindIndex")
+          | #{product.cheapestPrice} €
