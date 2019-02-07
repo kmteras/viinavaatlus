@@ -20,8 +20,7 @@ router.get('/', (req, res, next) => {
 function capitalizeFirstLetter(string) {
     if (string[0]) {
         return string[0].toUpperCase() + string.slice(1).toLowerCase();
-    }
-    else {
+    } else {
         return string
     }
 }
@@ -110,9 +109,15 @@ router.get('/product/:productName/:productSize', (req, res, next) => {
 
 router.get('/product/:productName/:productSize/:productVol', (req, res, next) => {
     search(req.params.productName, req.params.productSize, req.params.productVol, (err, result) => {
+        if (err) {
+            console.error(err);
+            res.redirect("/error");
+        }
+
         result = prepareProductForShowing(result);
         res.render("product", {product: result});
-    })
+    });
+    updateViewCount(req.params.productName, req.params.productSize, req.params.productVol);
 });
 
 router.get('/shop/:shop', (req, res, next) => {
@@ -128,7 +133,7 @@ router.get('/limpa', (req, res, next) => {
     });
 });
 
-function search(productNameRaw, productSize, productVol, callback) {
+function updateViewCount(productNameRaw, productSize, productVol) {
     const productName = productNameRaw.replace(/_/g, " ").toLowerCase();
     const ml = parseInt(productSize);
 
@@ -136,6 +141,29 @@ function search(productNameRaw, productSize, productVol, callback) {
         name: productName,
         ml: ml,
         vol: productVol ? parseInt(productVol) : null
+    };
+
+    const updateQuery = {
+        "viewCount": {
+            "$inc": 1
+        }
+    };
+
+    db.getDb().collection("products").updateOne(query, updateQuery, (err, res) => {
+        if (err) {
+            console.error(err);
+        }
+    });
+}
+
+function search(productNameRaw, productSize, productVol, callback) {
+    const productName = productNameRaw.replace(/_/g, " ").toLowerCase();
+    const ml = parseInt(productSize);
+
+    let query = {
+        name: productName,
+        ml: ml,
+        vol: productVol ? parseFloat(productVol) : null
     };
 
     db.getDb().collection("products").findOne(query, callback);
