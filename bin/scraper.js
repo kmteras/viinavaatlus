@@ -2,7 +2,7 @@ const db = require('./db');
 
 const scraperClasses = [
     require("./scrapers/maxima"),
-    require("./scrapers/selver"),
+    // require("./scrapers/selver"),
     // require('./scrapers/coop'),
     require("./scrapers/alko1000"),
     require("./scrapers/cityalko")
@@ -31,7 +31,8 @@ function shallowScrape() {
 
                 let searchQuery = {
                     name: el.name,
-                    ml: el.ml
+                    ml: el.ml,
+                    vol: el.vol
                 };
 
                 db.getDb().collection("products").findOne(searchQuery, (err, result) => {
@@ -44,7 +45,7 @@ function shallowScrape() {
                         let storeFound = false;
                         let storeIndex = null;
 
-                        for(let j = 0; j < result.stores.length; j++) {
+                        for (let j = 0; j < result.stores.length; j++) {
                             if (result.stores[j].storeName === el.store) {
                                 storeFound = true;
                                 storeIndex = j;
@@ -78,8 +79,7 @@ function shallowScrape() {
                                         }
                                     ]
                                 }
-                            }
-                            else {
+                            } else {
                                 // If the price has changed
                                 updateValues = {
                                     "$push": {
@@ -94,11 +94,6 @@ function shallowScrape() {
                                 }
                             };
 
-                            if (!result.vol) {
-                                updateValues["$set"] = {};
-                                updateValues["$set"]["vol"] = el.vol;
-                            }
-
                             if (!result.category) {
                                 if (!updateValues["$set"]) {
                                     updateValues["$set"] = {};
@@ -109,12 +104,9 @@ function shallowScrape() {
 
                         const updateQuery = {
                             name: result.name,
-                            ml: result.ml
+                            ml: result.ml,
+                            vol: result.vol
                         };
-
-                        if (result.vol) {
-                            updateQuery['vol'] = result.vol;
-                        }
 
                         db.getDb().collection("products").updateOne(updateQuery, updateValues, optionValues, (err, res) => {
                             if (err) {
@@ -124,8 +116,14 @@ function shallowScrape() {
                     } else {
                         // If the product does not exist in the database
 
-                        if (!el.name || !el.ml) {
+                        if (!el.name) {
+                            console.error(`Name value is missing, will not add to database`);
+                            return;
+                        } else if (!el.ml) {
                             console.error(`Ml value is missing, will not add to database`);
+                            return;
+                        } else if (!el.vol) {
+                            console.error(`Vol value is missing, will not add to database`);
                             return;
                         }
 

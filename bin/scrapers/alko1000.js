@@ -7,14 +7,14 @@ class Alko1000Scraper extends Scraper {
         super("Alko1000");
         this.baseUrl = "https://alko1000.ee";
         this.categoryPages = [
-            {url: "http://alko1000.ee/alko1000/product-category/kange-alkohol/viin/", category: "vodka"},
-            {url: "http://alko1000.ee/alko1000/product-category/kange-alkohol/dzinn/", category: "gin"},
-            {url: "http://alko1000.ee/alko1000/product-category/kange-alkohol/viski/", category: "whiskey"},
-            {url: "http://alko1000.ee/alko1000/product-category/kange-alkohol/rumm/", category: "rum"},
-            {url: "http://alko1000.ee/alko1000/product-category/kange-alkohol/likoor/", category: "liquor"},
-            {url: "http://alko1000.ee/alko1000/product-category/kange-alkohol/tekiila/", category: "tequila"},
-            {url: "http://alko1000.ee/alko1000/product-category/kange-alkohol/konjak/", category: "cognac"},
-            {url: "http://alko1000.ee/alko1000/product-category/kange-alkohol/brandi/", category: "brandy"}
+            {url: "http://alko1000.ee/alko1000/product-category/kange-alkohol/viin/", category: "viin"},
+            {url: "http://alko1000.ee/alko1000/product-category/kange-alkohol/dzinn/", category: "dzinn"},
+            {url: "http://alko1000.ee/alko1000/product-category/kange-alkohol/viski/", category: "viski"},
+            {url: "http://alko1000.ee/alko1000/product-category/kange-alkohol/rumm/", category: "rumm"},
+            {url: "http://alko1000.ee/alko1000/product-category/kange-alkohol/likoor/", category: "likoor"},
+            {url: "http://alko1000.ee/alko1000/product-category/kange-alkohol/tekiila/", category: "tekiila"},
+            {url: "http://alko1000.ee/alko1000/product-category/kange-alkohol/konjak/", category: "konjak"},
+            {url: "http://alko1000.ee/alko1000/product-category/kange-alkohol/brandi/", category: "brandi"}
 
         ];
 

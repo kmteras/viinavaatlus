@@ -7,7 +7,8 @@ class CityAlkoScraper extends Scraper {
         super("CityAlko");
         this.baseUrl = "https://cityalko.ee";
         this.categoryPages = [
-            {url: "https://cityalko.ee/tootekategooria/kange-alkohol/?products-per-page=all", category: "strong"}
+            {url: "https://cityalko.ee/tootekategooria/kange-alkohol/?products-per-page=all", category: "kange"},
+            {url: "https://cityalko.ee/tootekategooria/likoorid/?products-per-page=all", category: "liköör"}
         ];
 
         super.priceRegex = /([\d,.]*\s€)/;
