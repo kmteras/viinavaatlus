@@ -10,12 +10,22 @@ body {
 a {
   color: #00B7FF;
 }
-
-.tiitel{
-  text-align: center;
-  margin-top: 3%;
-  margin-bottom: 3%;
+.logo {
+  display:inline-block;
+  width: 100%;
+  vertical-align: center;
+  margin-left: 1%;
 }
+.tiitel{
+  text-align: left;
+  padding-left:  30px;
+}
+.logo_viin {
+  height: 70px;
+  float: left;
+  transform: rotate(20deg)
+}
+
 .eight{
   text-align: center;
   margin-top: 5%;

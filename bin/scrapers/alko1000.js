@@ -43,6 +43,7 @@ class Alko1000Scraper extends Scraper {
                         name: this.getCleanName(name),
                         sale: false,
                         originalName: name,
+                        storeCounty: this.storeCounty,
                         store: this.storeName,
                         url: $(value).find("a[class='woocommerce-LoopProduct-link woocommerce-loop-product__link']").attr("href"),
                         price: this.getPrice($(value).find("span[class='woocommerce-Price-amount amount']").text()),
