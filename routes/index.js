@@ -109,13 +109,10 @@ router.get('/product/:productName/:productSize/:productVol', (req, res, next) =>
             res.redirect("/error");
         }
 
-        console.log(result);
-
         result = prepareProductForShowing(result);
-        console.log(result);
         res.render("product", {product: result});
     });
-    // updateViewCount(req.params.productName, req.params.productSize, req.params.productVol);
+    updateViewCount(req.params.productName, req.params.productSize, req.params.productVol);
 });
 
 router.get('/shop/:shop', (req, res, next) => {
