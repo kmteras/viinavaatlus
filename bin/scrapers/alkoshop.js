@@ -49,6 +49,7 @@ class AlkoshopScraper extends Scraper {
                         name: this.getCleanName(name),
                         sale: $price.hasClass("good-price"),
                         originalName: name,
+                        storeCounty: this.storeCounty,
                         store: this.storeName,
                         url: $name.attr("href"),
                         price: this.getPrice($price.text()),
