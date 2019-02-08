@@ -30,30 +30,13 @@ block content
         div(class="five wide column alkoHindIndex")
           - var ee = product.cheapestEE ? `(EE: ${product.cheapestEE}€)` : ""
           - var eePerL = product.cheapestPerLStringEE ? `(EE: ${product.cheapestPerLStringEE}€/l)` : ""
-          | #{product.cheapest}€ #{ee}
+          | #{product.cheapest}€
           br
-          p.liitriHind (12.99 €/l)(EE: 15.99€/l)
+          p.liitriHind #{product.cheapestPerLString}€/l
 
-  if products
-    table(class="ui celled table uusimad")
-      thread
-        tr
-          th Koodinimi
-          th %
-          th ml
-          th Kategooria
-      tbody
-        each product in products
-          tr
-            td(class='data-label')
-              a(href=product.url) #{product.name}
-            td(class='data-label') #{product.vol}%
-            td(class='data-label') #{product.ml}ml
-            td(class='data-label') #{product.category}
-  div(class="ui pagination menu")
-    a(class="active item") 1
-    div(class="disabled item") ...
-    a(class="item") 10
-    a(class="item") 11
-    a(class="item") >
-          p.liitriHind #{product.cheapestPerLString}€/l #{eePerL}
+  //div(class="ui pagination menu")
+  //  a(class="active item") 1
+  //  div(class="disabled item") ...
+  //  a(class="item") 10
+  //  a(class="item") 11
+  //  a(class="item") >

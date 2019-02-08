@@ -35,8 +35,8 @@ router.get('/', (req, res, next) => {
 
                     res.render('index', {products: result, cheapestProducts: cheapest});
 
-                    if (cheapestCache.length > 0) {
-                        db.getDb().collection("cheapestCache").insertMany(cheapestCache, (err, result) => {
+                    if (cheapest.length > 0) {
+                        db.getDb().collection("cheapestCache").insertMany(cheapest, (err, result) => {
                             if (err) {
                                 console.error(err);
                             }
@@ -62,8 +62,15 @@ router.get('/product/:productName/:productSize/:productVol', (req, res, next) =>
     productService.findProduct(req.params.productName, req.params.productSize, req.params.productVol, (err, result) => {
         if (err) {
             console.error(err);
-            res.redirect("/error");
+            res.redirect("/");
         }
+
+        if (!result) {
+            console.error("Empty product");
+            res.render("product", {product: null});
+        }
+
+        console.log(result);
 
         result = productService.prepareProductForShowing(result);
         res.render("product", {product: result});
@@ -81,6 +88,12 @@ router.get('/shop/:shop', (req, res, next) => {
 router.get('/limpa', (req, res, next) => {
     scraper.getData((err, products) => {
         res.render('limpa', {title: 'Viinavaatlus', products: products});
+    });
+});
+
+router.get('/aboutUs', (req, res, next) => {
+    scraper.getData((err, products) => {
+        res.render('about', {title: 'Viinavaatlus', products: products});
     });
 });
 
