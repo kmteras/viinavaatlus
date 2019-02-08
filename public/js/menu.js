@@ -73,7 +73,7 @@ $(document).ready(function () {
 });
 
 function search() {
-    window.location.href = "/search/" + removeEstonianLetters($("#searchBox").val()).toLowerCase();
+    window.location.href = "/otsi/" + removeEstonianLetters($("#searchBox").val()).toLowerCase();
 }
 
 function confirmation() {

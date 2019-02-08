@@ -38,7 +38,7 @@ function findCheapestPerVol(products) {
 
 function prepareSearchResultsForRender(result, sort = true) {
     for (let i = 0; i < result.length; i++) {
-        result[i].url = `/product/${result[i].name.replace(/ /g, "_")}/${result[i].ml}`;
+        result[i].url = `/tooted/${result[i].name.replace(/ /g, "_")}/${result[i].ml}`;
 
         if (result[i].vol) {
             result[i].url += `/${result[i].vol}`;
