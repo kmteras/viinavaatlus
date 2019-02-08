@@ -1,37 +1,167 @@
 div(class="logo")
   img(class= "logo_viin", src='/img/viin.png' )
   h1(class="tiitel") Viinavaatlus
+div(class="ui grid")
+  div(class="sixteen wide column")
+    div(class='ui menu navbar')
+      a(class='header item' href='/') Kodu
+      div(class='ui dropdown item' tabindex='0') Poed
+        div(class='menu transition hidden' tabindex='-1')
+          a(class="item" href="#") Selver
+          a(class="item" href="#") Maxima
+          a(class="item" href="#") Coop
+          a(class="item" href="#") Alko1000
+          a(class="item" href="#") Sadama Market
+      div(class='ui dropdown item' tabindex='0') Alkohol
+        div(class='menu transition hidden' tabindex='-1')
+          a(class="item" href="#") Õlu
+          a(class="item" href="#") Viin
+          a(class="item" href="#") Rumm
+          a(class="item" href="#") Vein
+          a(class="item" href="#") Liköör
+      a(class="item" href="/aboutUs") Meist
+      a(class='item' href="/scrape") Scrape
+      div(class="ui link list" id="alkoList")
+        div(class="active item")
+          if products
+            each product in products
+              a(href=product.url) #{product.showName}
+      div(class='right menu')
+        div(class='ui action left icon input')
+          i(class="search icon")
+          input(type='text' placeholder="Otsi" id="searchBox")
+          a(class="ui button" href="#" id="searchButton") Otsi
+  div(class="four wide column indexPage filterRadio filterRadioVasak")
+    div(class="ui form filterRadioFields")
+      div(class="grouped fields")
+        label Sorteeri:
+        div(class="field")
+          div(class="ui radio checkbox")
+            input(type="radio" name="radioFilter" value="0" checked="checked")
+            label odav->kallis
+        div(class="field")
+          div(class="ui radio checkbox")
+            input(type="radio" name="radioFilter" value="1")
+            label kallis->odav
+        div(class="field")
+          div(class="ui radio checkbox")
+            input(type="radio" name="radioFilter" value="2")
+            label A->Z
+        div(class="field")
+          div(class="ui radio checkbox")
+            input(type="radio" name="radioFilter" value="3")
+            label Z->A
+  div(class="four wide column indexPage filterRadio")
+    div(class="ui form")
+      div(class="grouped fields")
+        label Poed
+        div(class="ui grid")
+          div(class="five wide column")
+            div(class="field")
+              div(class="ui checkbox")
+                input(type="checkbox" name="Selver" value="selver")
+                label Selver
+            div(class="field")
+              div(class="ui checkbox")
+                input(type="checkbox" name="Maxima" value="maxima")
+                label Maxima
+            div(class="field")
+              div(class="ui checkbox")
+                input(type="checkbox" name="COOP" value="coop")
+                label COOP
+            div(class="field")
+              div(class="ui checkbox")
+                input(type="checkbox" name="Alko1000" value="alko1000")
+                label Alko1000
+          div(class="five wide column")
+            div(class="field")
+              div(class="ui checkbox")
+                input(type="checkbox" name="Selver" value="selver")
+                label Selver
+            div(class="field")
+              div(class="ui checkbox")
+                input(type="checkbox" name="Maxima" value="maxima")
+                label Maxima
+            div(class="field")
+              div(class="ui checkbox")
+                input(type="checkbox" name="COOP" value="coop")
+                label COOP
+            div(class="field")
+              div(class="ui checkbox")
+                input(type="checkbox" name="Alko1000" value="alko1000")
+                label Alko1000
+          div(class="five wide column")
+            div(class="field")
+              div(class="ui checkbox")
+                input(type="checkbox" name="Selver" value="selver")
+                label Selver
+            div(class="field")
+              div(class="ui checkbox")
+                input(type="checkbox" name="Maxima" value="maxima")
+                label Maxima
+            div(class="field")
+              div(class="ui checkbox")
+                input(type="checkbox" name="COOP" value="coop")
+                label COOP
+            div(class="field")
+              div(class="ui checkbox")
+                input(type="checkbox" name="Alko1000" value="alko1000")
+                label Alko1000
+  div(class="four wide column indexPage filterRadio")
+    div(class="ui form")
+      div(class="grouped fields")
+        label Alkoholid
+        div(class="ui grid")
+          div(class="five wide column")
+            div(class="field")
+              div(class="ui checkbox")
+                input(type="checkbox" name="olu" value="õlu")
+                label Õlu
+            div(class="field")
+              div(class="ui checkbox")
+                input(type="checkbox" name="viin" value="viin")
+                label viin
+            div(class="field")
+              div(class="ui checkbox")
+                input(type="checkbox" name="rumm" value="rumm")
+                label rumm
+            div(class="field")
+              div(class="ui checkbox")
+                input(type="checkbox" name="vein" value="vein")
+                label vein
+          div(class="five wide column")
+            div(class="field")
+              div(class="ui checkbox")
+                input(type="checkbox" name="likoor" value="likoor")
+                label likoor
+            div(class="field")
+              div(class="ui checkbox")
+                input(type="checkbox" name="gin" value="gin")
+                label gin
+            div(class="field")
+              div(class="ui checkbox")
+                input(type="checkbox" name="brandi" value="brandi")
+                label brandi
+            div(class="field")
+              div(class="ui checkbox")
+                input(type="checkbox" name="Alko1000" value="alko1000")
+                label Alko1000
+          div(class="five wide column")
+            div(class="field")
+              div(class="ui checkbox")
+                input(type="checkbox" name="Selver" value="selver")
+                label Selver
+            div(class="field")
+              div(class="ui checkbox")
+                input(type="checkbox" name="Maxima" value="maxima")
+                label Maxima
+            div(class="field")
+              div(class="ui checkbox")
+                input(type="checkbox" name="COOP" value="coop")
+                label COOP
+            div(class="field")
+              div(class="ui checkbox")
+                input(type="checkbox" name="Alko1000" value="alko1000")
+                label Alko1000
 
-div(class='ui menu navbar')
-  a(class='header item' href='/') Kodu
-  div(class='ui dropdown item' tabindex='0') Poed
-    div(class='menu transition hidden' tabindex='-1')
-      a(class="item" href="#") Selver
-      a(class="item" href="#") Maxima
-      a(class="item" href="#") Coop
-      a(class="item" href="#") Alko1000
-      a(class="item" href="#") Sadama Market
-  div(class='ui dropdown item' tabindex='0') Alkohol
-    div(class='menu transition hidden' tabindex='-1')
-      a(class="item" href="#") Õlu
-      a(class="item" href="#") Viin
-      a(class="item" href="#") Rumm
-      a(class="item" href="#") Vein
-      a(class="item" href="#") Liköör
-  a(class="item" href="/aboutUs") Meist
-  a(class='item' href="/scrape") Scrape
-  div(class="ui link list" id="alkoList")
-    div(class="active item")
-      if products
-        each product in products
-          a(href=product.url) #{product.showName}
-  div(class='right menu')
-    div(class='ui action left icon input')
-      i(class="search icon")
-      input(type='text' placeholder="Otsi" id="searchBox")
-      a(class="ui button" href="#" id="searchButton") Otsi
-    //div(class="ui right aligned fluid category search")
-    //  div(class='ui action left icon input')
-    //    i(class="search icon")
-    //    input(class="prompt" type='text' placeholder="Otsi" id="searchBox")
-    //  div(class="results")
+
