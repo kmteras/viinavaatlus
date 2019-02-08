@@ -98,7 +98,7 @@ img{
 .alkoHindIndex {
   margin: auto;
   color: red;
-  font-size: 2vw;
+  font-size: 1.5vw;
 }
 .ui.menu{
     margin-bottom: 5%;
@@ -128,7 +128,6 @@ img{
 .populaarseimadHeader{
   font-size: 1.25vw;
 }
-
 .whitespace{
   padding-top: 10%;
 }
@@ -140,6 +139,7 @@ img{
 }
 .indexPageImage{
   max-height: 200px;
+  background-size:cover;
 }
 .ui.card>.image{
   background: white !important;
@@ -147,4 +147,8 @@ img{
 .ui.card>.content>.header{
   color: red !important;
   font-size: 2vw;
+}
+.liitriHind{
+  font-size: 1vw;
+  color: grey;
 }
