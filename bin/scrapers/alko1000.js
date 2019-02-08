@@ -14,7 +14,12 @@ class Alko1000Scraper extends Scraper {
             {url: "http://alko1000.ee/alko1000/product-category/kange-alkohol/likoor/", category: "likoor"},
             {url: "http://alko1000.ee/alko1000/product-category/kange-alkohol/tekiila/", category: "tekiila"},
             {url: "http://alko1000.ee/alko1000/product-category/kange-alkohol/konjak/", category: "konjak"},
-            {url: "http://alko1000.ee/alko1000/product-category/kange-alkohol/brandi/", category: "brandi"}
+            {url: "http://alko1000.ee/alko1000/product-category/kange-alkohol/brandi/", category: "brandi"},
+            {url: "http://alko1000.ee/alko1000/product-category/lahja-alkohol/vahuvein/", category: "vahuvein"},
+            {url: "http://alko1000.ee/alko1000/product-category/lahja-alkohol/siidrid/", category: "siider"},
+            {url: "http://alko1000.ee/alko1000/product-category/lahja-alkohol/vein/", category: "vein"},
+            {url: "http://alko1000.ee/alko1000/product-category/lahja-alkohol/olu/", category: "olu"},
+            {url: "http://alko1000.ee/alko1000/product-category/lahja-alkohol/long-drink/", category: "long-drink"}
 
         ];
 

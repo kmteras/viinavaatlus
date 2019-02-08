@@ -11,7 +11,10 @@ class MaximaScraper extends Scraper {
             {url: "https://www.barbora.ee/joogid-tubakatooted/kange-alkohol/viskid-konjakid-ja-brandid", category: "viski/konjak/brandi"},
             {url: "https://www.barbora.ee/joogid-tubakatooted/kange-alkohol/rummid", category: "rumm"},
             {url: "https://www.barbora.ee/joogid-tubakatooted/kange-alkohol/likoorid", category: "likoor"},
-            {url: "https://www.barbora.ee/joogid-tubakatooted/kange-alkohol/muu-kange-alkohol", category: "muu"}
+            {url: "https://www.barbora.ee/joogid-tubakatooted/kange-alkohol/muu-kange-alkohol", category: "muu"},
+            {url: "https://www.barbora.ee/joogid-tubakatooted/lahja-alkohol/olu", category: "olu"},
+            {url: "https://www.barbora.ee/joogid-tubakatooted/lahja-alkohol/siider", category: "siider"},
+            {url: "https://www.barbora.ee/joogid-tubakatooted/lahja-alkohol/kokteilijoogid", category: "kokteilijook"}
         ];
     }
 
@@ -58,6 +61,14 @@ class MaximaScraper extends Scraper {
                     products.push(product);
                 });
                 callback(products);
+                const $next = $("ul[class='pagination'] > li").last().find("a");
+                if ($next.length && !$next.parent().prev().hasClass("active")) {
+                    const newCategory = {
+                        url: this.baseUrl + $next.attr("href"),
+                        category: category.category
+                    };
+                    this.scrapeCategoryPage(newCategory, callback)
+                }
             })
             .catch((err) => {
                 console.error(err);
