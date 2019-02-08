@@ -148,3 +148,9 @@ img{
   color: red !important;
   font-size: 2vw;
 }
+#alkoList{
+  display: none;
+}
+.search:focus{
+  outline: none;
+}
