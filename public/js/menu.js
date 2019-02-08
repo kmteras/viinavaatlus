@@ -2,6 +2,9 @@ var content = [
 ];
 
 $(document).ready(function () {
+    $('.ui.floating.dropdown.labeled.icon.button').dropdown({
+        on: 'click'
+    });
     $('.ui.menu .ui.dropdown').dropdown({
         on: 'click'
     });

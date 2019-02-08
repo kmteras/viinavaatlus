@@ -162,10 +162,14 @@ img{
 }
 .footer{
     position: absolute;
-    width: 100%;
+    width: 59%;
 }
 .ui.container {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
+}
+
+.footer{
+  align-content: center;
 }
