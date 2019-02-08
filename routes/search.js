@@ -17,7 +17,6 @@ router.get('/:search', (req, res, next) => {
             });
         } else {
             result = productService.prepareSearchResultsForRender(result);
-            console.log(result);
             res.render('search', {products: result});
         }
     });
