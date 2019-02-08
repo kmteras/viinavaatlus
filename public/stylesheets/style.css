@@ -79,9 +79,8 @@ a {
 }
 
 img {
-    max-width: 100%;
     height: auto;
-    max-height: 100px;
+    max-width: 100%;
 }
 
 .ui.three.cards > .card {
