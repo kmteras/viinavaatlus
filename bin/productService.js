@@ -137,7 +137,7 @@ function prepareProductForShowing(result) {
     }
 
     result.stores.sort((a, b) => {
-        return a.prices[a.prices.length - 1].price > b.prices[b.prices.length - 1].price;
+        return a.prices[a.prices.length - 1].price - b.prices[b.prices.length - 1].price;
     });
 
     if (cheapestEE) {

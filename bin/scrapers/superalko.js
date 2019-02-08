@@ -22,7 +22,12 @@ class SuperAlkoScraper extends Scraper {
             {url: "https://www.superalko.lv/tootekataloog/9/106", category: "viski"},
             {url: "https://www.superalko.lv/tootekataloog/10/14", category: "likoor"},
             {url: "https://www.superalko.lv/tootekataloog/11/15", category: "dzinn"},
-            {url: "https://www.superalko.lv/tootekataloog/27/67", category: "muu"}
+            {url: "https://www.superalko.lv/tootekataloog/27/67", category: "muu"},
+            {url: "https://www.superalko.lv/tootekataloog/2/4", category: "siider"},
+            {url: "https://www.superalko.lv/tootekataloog/3/5", category: "long-drink"},
+            {url: "https://www.superalko.lv/tootekataloog/1/2", category: "olu"},
+            {url: "https://www.superalko.lv/tootekataloog/1/3", category: "olu"},
+            {url: "https://www.superalko.lv/tootekataloog/1/3", category: "vermut"}
         ];
 
         super.priceRegex = /([\d,.]*\s€)/;

@@ -13,7 +13,7 @@ class Scraper {
             /\smini\s/,
 
             /^maits.viin/, /^rumm/, /^rum/, /^cognac/, /^whisky/, /^whiskey/, /^gin/,
-            /^liköör/, /^brandy/, /^viin/, /^vodka/, /^liviko/, /^tequila/, /^tekiila/
+            /^liköör/, /^brandy/, /^viina/, /^viin/, /^vodka/, /^liviko/, /^tequila/, /^tekiila/
         ];
     }
 
