@@ -3,15 +3,145 @@ extends layout
 block content
   include includes/ageConfirmation
   include includes/header
-  //div(class="ui form")
-  //  div(class="grouped fields")
-  //    div(class="field")
-  //      div(class="ui radio checkbox esimeneSort")
-  //        input(type="radio" name="odavamad" value="1" checked="checked")
-  //        label Odavamad enne
-  //      div(class="ui radio checkbox")
-  //        input(type="radio" name="odavamad" value="2")
-  //        label Kallimad enne
+  br
+  div(class="ui grid")
+    div(class="four wide column indexPage filterRadio filterRadioVasak")
+      div(class="ui form filterRadioFields")
+        div(class="grouped fields")
+          label Sorteeri:
+          div(class="field")
+            div(class="ui radio checkbox")
+              input(type="radio" name="radioFilter" value="0" checked="checked")
+              label Odavamad enne
+          div(class="field")
+            div(class="ui radio checkbox")
+              input(type="radio" name="radioFilter" value="1")
+              label Kallimad enne
+          div(class="field")
+            div(class="ui radio checkbox")
+              input(type="radio" name="radioFilter" value="2")
+              label A->Z
+          div(class="field")
+            div(class="ui radio checkbox")
+              input(type="radio" name="radioFilter" value="3")
+              label Z->A
+    div(class="four wide column indexPage filterRadio")
+      div(class="ui form")
+        div(class="grouped fields")
+          label Poed
+          div(class="ui grid")
+            div(class="five wide column")
+              div(class="field")
+                div(class="ui checkbox")
+                  input(type="checkbox" name="Selver" value="selver")
+                  label Selver
+              div(class="field")
+                div(class="ui checkbox")
+                  input(type="checkbox" name="Maxima" value="maxima")
+                  label Maxima
+              div(class="field")
+                div(class="ui checkbox")
+                  input(type="checkbox" name="COOP" value="coop")
+                  label COOP
+              div(class="field")
+                div(class="ui checkbox")
+                  input(type="checkbox" name="Alko1000" value="alko1000")
+                  label Alko1000
+            div(class="five wide column")
+              div(class="field")
+                div(class="ui checkbox")
+                  input(type="checkbox" name="Selver" value="selver")
+                  label Selver
+              div(class="field")
+                div(class="ui checkbox")
+                  input(type="checkbox" name="Maxima" value="maxima")
+                  label Maxima
+              div(class="field")
+                div(class="ui checkbox")
+                  input(type="checkbox" name="COOP" value="coop")
+                  label COOP
+              div(class="field")
+                div(class="ui checkbox")
+                  input(type="checkbox" name="Alko1000" value="alko1000")
+                  label Alko1000
+            div(class="five wide column")
+              div(class="field")
+                div(class="ui checkbox")
+                  input(type="checkbox" name="Selver" value="selver")
+                  label Selver
+              div(class="field")
+                div(class="ui checkbox")
+                  input(type="checkbox" name="Maxima" value="maxima")
+                  label Maxima
+              div(class="field")
+                div(class="ui checkbox")
+                  input(type="checkbox" name="COOP" value="coop")
+                  label COOP
+              div(class="field")
+                div(class="ui checkbox")
+                  input(type="checkbox" name="Alko1000" value="alko1000")
+                  label Alko1000
+    div(class="four wide column indexPage filterRadio")
+      div(class="ui form")
+        div(class="grouped fields")
+          label Alkoholid
+          div(class="ui grid")
+            div(class="five wide column")
+              div(class="field")
+                div(class="ui checkbox")
+                  input(type="checkbox" name="olu" value="õlu")
+                  label Õlu
+              div(class="field")
+                div(class="ui checkbox")
+                  input(type="checkbox" name="viin" value="viin")
+                  label viin
+              div(class="field")
+                div(class="ui checkbox")
+                  input(type="checkbox" name="rumm" value="rumm")
+                  label rumm
+              div(class="field")
+                div(class="ui checkbox")
+                  input(type="checkbox" name="vein" value="vein")
+                  label vein
+            div(class="five wide column")
+              div(class="field")
+                div(class="ui checkbox")
+                  input(type="checkbox" name="likoor" value="likoor")
+                  label likoor
+              div(class="field")
+                div(class="ui checkbox")
+                  input(type="checkbox" name="gin" value="gin")
+                  label gin
+              div(class="field")
+                div(class="ui checkbox")
+                  input(type="checkbox" name="brandi" value="brandi")
+                  label brandi
+              div(class="field")
+                div(class="ui checkbox")
+                  input(type="checkbox" name="Alko1000" value="alko1000")
+                  label Alko1000
+            div(class="five wide column")
+              div(class="field")
+                div(class="ui checkbox")
+                  input(type="checkbox" name="Selver" value="selver")
+                  label Selver
+              div(class="field")
+                div(class="ui checkbox")
+                  input(type="checkbox" name="Maxima" value="maxima")
+                  label Maxima
+              div(class="field")
+                div(class="ui checkbox")
+                  input(type="checkbox" name="COOP" value="coop")
+                  label COOP
+              div(class="field")
+                div(class="ui checkbox")
+                  input(type="checkbox" name="Alko1000" value="alko1000")
+                  label Alko1000
+    div(class="one wide column")
+      button(class="ui button") Uuenda
+
+  br
+
   if products
     each product in products
       div(class="ui grid indexPage")

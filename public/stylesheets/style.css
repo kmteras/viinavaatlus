@@ -15,16 +15,6 @@ a {
     font-weight: bold;
 }
 
-.logo_kawai {
-    background-image: url('/img/viin.png');
-    height: 100px;
-    width: 40px;
-    background-size: auto 100%;
-    background-repeat: no-repeat;
-    float: left;
-    transform: rotate(20deg);
-}
-
 .logo {
     display: inline-block;
     width: 100%;
@@ -217,9 +207,15 @@ img {
     font-size: 1vw;
     color: grey;
 }
-.footer{
-    position: absolute;
-    width: 59%;
+
+.footer {
+    text-align: center;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 15px 0;
+    position: initial;
+    height: auto;
 }
 
 .ui.container {
@@ -228,10 +224,19 @@ img {
     flex-direction: column;
 }
 
-.footer{
-  align-content: center;
-}
 .about {
     text-align: justify;
     font-size: 1vw;
+}
+.filterRadio{
+    margin-top: 0;
+}
+.filterRadioFields{
+    text-align: left;
+}
+.filterRadioVasak{
+    margin-left: 3%;
+}
+.värviMustaks{
+    color: black;
 }
