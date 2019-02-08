@@ -84,4 +84,10 @@ router.get('/limpa', (req, res, next) => {
     });
 });
 
+router.get('/aboutUs', (req, res, next) => {
+    scraper.getData((err, products) => {
+        res.render('about', {title: 'Viinavaatlus', products: products});
+    });
+});
+
 module.exports = router;

@@ -12,6 +12,7 @@ body {
 
 a {
     color: #00B7FF;
+    font-weight: bold;
 }
 
 .logo {
@@ -99,6 +100,16 @@ img {
 }
 
 .ui.grid.indexPage {
+    margin-top: 1%;
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-bottom: 1%;
+    border: 1px lightgray solid;
+    border-radius: 8px;
+    background: #fff;
+}
+
+.indexPage {
     margin-top: 1%;
     margin-left: 2%;
     margin-right: 2%;
@@ -211,4 +222,9 @@ img {
     display: flex;
     min-height: auto;
     flex-direction: column;
+}
+
+.about {
+    text-align: justify;
+    font-size: 1vw;
 }
