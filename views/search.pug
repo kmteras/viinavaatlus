@@ -3,15 +3,15 @@ extends layout
 block content
   include includes/ageConfirmation
   include includes/header
-  div(class="ui form")
-    div(class="grouped fields")
-      div(class="field")
-        div(class="ui radio checkbox esimeneSort")
-          input(type="radio" name="odavamad" value="1" checked="checked")
-          label Odavamad enne
-        div(class="ui radio checkbox")
-          input(type="radio" name="odavamad" value="2")
-          label Kallimad enne
+  //div(class="ui form")
+  //  div(class="grouped fields")
+  //    div(class="field")
+  //      div(class="ui radio checkbox esimeneSort")
+  //        input(type="radio" name="odavamad" value="1" checked="checked")
+  //        label Odavamad enne
+  //      div(class="ui radio checkbox")
+  //        input(type="radio" name="odavamad" value="2")
+  //        label Kallimad enne
   if products
     each product in products
       div(class="ui grid indexPage")
