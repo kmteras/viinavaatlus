@@ -67,7 +67,7 @@ function prepareSearchResultsForRender(result, sort = true) {
                 minimumFractionDigits: 2
             });
 
-            result[i].cheapestPerLStringEE = result[i].cheapestPerL.toLocaleString("ee-EE", {
+            result[i].cheapestPerLStringEE = result[i].cheapestPerLEE.toLocaleString("ee-EE", {
                 maximumFractionDigits: 2,
                 minimumFractionDigits: 2
             });
