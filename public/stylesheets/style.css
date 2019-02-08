@@ -78,18 +78,19 @@ img{
   text-align: center;
 }
 .ui.grid.indexPage{
-  margin-top: 3%;
+  margin-top: 1%;
   margin-left: 2%;
   margin-right: 2%;
-  margin-bottom: 5%;
+  margin-bottom: 1%;
   border: 1px lightgray solid;
   border-radius: 8px;
 }
 .ui.grid.indexPageHeader{
-  margin-top: 3%;
+  margin-top: 0%;
   margin-left: 2%;
   margin-right: 2%;
   margin-bottom: 1%;
+  padding-top: 3%;
 }
 .populaarseimadHeader{
   border: 1px lightgray solid;

@@ -39,43 +39,13 @@ $(document).ready(function () {
                 "allow": "Luba küpsised"
             },
 
-            onInitialise: function (status) {
-                var type = this.options.type;
-                var didConsent = this.hasConsented();
-                if (type == 'opt-in' && didConsent) {
-                    // enable cookies
-                    Cookies.set("accepted",true);
-                }
-                if (type == 'opt-out' && !didConsent) {
-                    // disable cookies
-                }
-            },
-
-            onStatusChange: function(status, chosenBefore) {
-                var type = this.options.type;
-                var didConsent = this.hasConsented();
-                if (type == 'opt-in' && didConsent) {
-                    // enable cookies
-                    Cookies.set("accepted",true);
-                }
-                if (type == 'opt-out' && !didConsent) {
-                    // disable cookies
-                    Cookies.remove("accepted");
-                }
-            },
-
-            onRevokeChoice: function() {
-                var type = this.options.type;
-                if (type == 'opt-in') {
-                    // disable cookies
-                }
-                if (type == 'opt-out') {
-                    Cookies.set("accepted",true);
-                }
-            },
         })
     });
-    if(Cookies.get("age")!=1){
+    console.log(Cookies.get("age"));
+    if (Cookies.get("cookieconsent_status")=="allow" && Cookies.get("age") != 1) {
+        confirmation()
+    }
+    else if(Cookies.get("cookieconsent_status")!="allow"){
         confirmation()
     }
 });
@@ -83,16 +53,22 @@ $(document).ready(function () {
 function search() {
     window.location.href = "/search/" + removeEstonianLetters($("#searchBox").val()).toLowerCase();
 }
-function confirmation(){
+
+function confirmation() {
     $('.ui.basic.modal')
         .modal('show')
     ;
     document.getElementById("declineButton").onclick = function () {
-        Cookies.set("age",0);
+        Cookies.set("age", 0);
         location.href = "/limpa";
     };
-    document.getElementById("confirmButton").onclick=function () {
-        Cookies.set("age",1);
+    document.getElementById("confirmButton").onclick = function () {
+        if(Cookies.get("cookieconsent_status")=="allow"){
+            Cookies.set("age", 1);
+        }
+        else{
+            Cookies.set("age",0);
+        }
     }
 }
 
