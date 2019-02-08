@@ -6,6 +6,7 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   text-align: center;
   margin-bottom: 3%;
+  background: #fafafa;
 }
 
 a {
@@ -86,6 +87,7 @@ img{
   margin-bottom: 1%;
   border: 1px lightgray solid;
   border-radius: 8px;
+  background: #fff;
 }
 .ui.grid.indexPageHeader{
   margin-top: 0%;
@@ -97,6 +99,7 @@ img{
 .populaarseimadHeader{
   border: 1px lightgray solid;
   border-radius: 8px;
+  background: #fff;
 }
 .alkoHindIndex {
   margin: auto;
@@ -104,7 +107,7 @@ img{
   font-size: 1.5vw;
 }
 .ui.menu{
-    margin-bottom: 5%;
+    margin-bottom: 1%;
 }
 .ui.form{
     margin-bottom: 3%;
@@ -146,6 +149,12 @@ img{
 .ui.card>.content>.header{
   color: red !important;
   font-size: 2vw;
+}
+#alkoList{
+  display: none;
+}
+.search:focus{
+  outline: none;
 }
 .liitriHind{
   font-size: 1vw;
