@@ -27,7 +27,10 @@ block content
               | #{product.vol}% #{product.ml} ml
         div(class="two wide column")
         div(class="five wide column alkoHindIndex")
-          | #{product.cheapestPrice} €
+          //Siia pane need uued hinnad
+          | 12.99€ (EE: 15.99€)
+          br
+          p.liitriHind (12.99 €/l)(EE: 15.99€/l)
 
   if products
     table(class="ui celled table uusimad")
