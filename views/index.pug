@@ -4,6 +4,7 @@ block content
   include includes/ageConfirmation
   include includes/header
 
+
   - for(var j=0 ; j<2 ;j++)
     if products
       div(class="ui grid indexPageHeader")
@@ -24,3 +25,4 @@ block content
                   div(class="description") #{products[i].vol}%
                   div(class="description") #{products[i].ml} ml
                   div(class="header price") #{products[i].cheapestPrice} €
+    
