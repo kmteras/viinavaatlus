@@ -22,6 +22,18 @@ class ViinarannastaScraper extends Scraper {
             {url: "https://www.viinarannasta.com/articlesr.php?sid=14&gid=10", category: "likoor"},
             {url: "https://www.viinarannasta.com/articlesr.php?sid=15&gid=11", category: "dzinn"},
             {url: "https://www.viinarannasta.com/articlesr.php?sid=67&gid=27", category: "muu"},
+            {url: "https://www.viinarannasta.ee/articlesr.php?sid=4&gid=2", category: "siider"},
+            {url: "https://www.viinarannasta.ee/articlesr.php?sid=82&gid=1", category: "olu"},
+            {url: "https://www.viinarannasta.com/articlesr.php?sid=2&gid=1", category: "olu"},
+            {url: "https://www.viinarannasta.com/articlesr.php?sid=85&gid=1", category: "olu"},
+            {url: "https://www.viinarannasta.com/articlesr.php?sid=3&gid=1", category: "olu"},
+            {url: "https://www.viinarannasta.com/articlesr.php?sid=81&gid=1", category: "olu"},
+            {url: "https://www.viinarannasta.com/articlesr.php?sid=1&gid=1", category: "olu"},
+            {url: "https://www.viinarannasta.com/articlesr.php?sid=80&gid=1", category: "olu"},
+            {url: "https://www.viinarannasta.com/articlesr.php?sid=84&gid=1", category: "olu"},
+            {url: "https://www.viinarannasta.com/articlesr.php?sid=86&gid=1", category: "olu"},
+            {url: "https://www.viinarannasta.ee/articlesr.php?sid=5&gid=3", category: "long-drink"},
+            {url: "https://www.viinarannasta.ee/articlesr.php?sid=79&gid=32", category: "kokteilijook"},
         ];
 
         super.priceRegex = /([\d,.]*\s€)/;

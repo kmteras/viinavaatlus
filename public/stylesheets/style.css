@@ -1,175 +1,229 @@
 body {
-  margin-top:1%;
-  width:100%;
-  min-height: 100%;
-  min-width: 50%;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  text-align: center;
-  margin-bottom: 3%;
-  background: #fafafa !important;
+    margin-top: 1%;
+    width: 100%;
+    min-height: 100%;
+    height: 1000px;
+    min-width: 50%;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    text-align: center;
+    margin-bottom: 3%;
+    background: #fafafa !important;
 }
 
 a {
-  color: #00B7FF;
+    color: #00B7FF;
 }
+
 .logo {
-  display:inline-block;
-  width: 100%;
-  vertical-align: center;
-  margin-left: 1%;
-  padding-top: 20px;
+    display: inline-block;
+    width: 100%;
+    vertical-align: center;
+    margin-left: 1%;
+    padding-top: 20px;
 }
-.tiitel{
-  text-align: left;
-  padding-left:  30px;
+
+.tiitel {
+    text-align: left;
+    padding-left: 30px;
 }
+
 .logo_viin {
-  height: 70px;
-  float: left;
-  transform: rotate(20deg)
+    height: 70px;
+    float: left;
+    transform: rotate(20deg)
 }
-.eight{
-  text-align: center;
-  margin-top: 5%;
-  margin-bottom: 2%;
+
+.eight {
+    text-align: center;
+    margin-top: 5%;
+    margin-bottom: 2%;
 }
-.ui.table:last-child{
-  margin-bottom: 3%;
-}
-.esimeneSort{
-  padding-right: 5px;
-}
-.tooteleht{
-  margin-top: 5%;
-}
-.tooteleht.info{
-  text-align: left;
-  font-size: 2vw;
-  max-width: 100%;
-  max-height: 100%;
-  text-transform: capitalize;
-}
-.alkohind{
-  color: red;
-}
-img{
-  max-width:100%;
-  height: auto;
-  max-height: 100px;
-}
-.ui.three.cards>.card {
-  width: 80%;
-}
-.column {
-  margin-top: 0.5%;
-  margin-bottom: 0.5%;
-}
-.ui.celled.table.recentlyUpdated{
-  margin-top: 8%;
-}
-.image.fixedImage {
-  width: 50%;
-  height:100px;
-  max-height: 100px;
-  max-width: 200px;
-}
-.alkoTekstIndex {
-    margin: auto;
-  font-size: 1.25vw;
-}
-.alkoTekstiKirjeldus {
-  text-align: center;
-}
-.ui.grid.indexPage{
-  margin-top: 1%;
-  margin-left: 2%;
-  margin-right: 2%;
-  margin-bottom: 1%;
-  border: 1px lightgray solid;
-  border-radius: 8px;
-  background: #fff;
-}
-.ui.grid.indexPageHeader{
-  margin-top: 0%;
-  margin-left: 2%;
-  margin-right: 2%;
-  margin-bottom: 1%;
-  padding-top: 3%;
-}
-.populaarseimadHeader{
-  border: 1px lightgray solid;
-  border-radius: 8px;
-  background: #fff;
-}
-.alkoHindIndex {
-  margin: auto;
-  color: red;
-  font-size: 1.5vw;
-}
-.ui.menu{
-    margin-bottom: 1%;
-}
-.ui.form{
+
+.ui.table:last-child {
     margin-bottom: 3%;
 }
-.tabelOnAllah {
-  background-color: orange;
+
+.esimeneSort {
+    padding-right: 5px;
 }
-.storeCountry{
+
+.tooteleht {
+    margin-top: 5%;
+}
+
+.tooteleht.info {
+    text-align: left;
+    font-size: 2vw;
+    max-width: 100%;
+    max-height: 100%;
+    text-transform: capitalize;
+}
+
+.alkohind {
+    color: red;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    max-height: 100px;
+}
+
+.ui.three.cards > .card {
+    width: 80%;
+}
+
+.column {
+    margin-top: 0.5%;
+    margin-bottom: 0.5%;
+}
+
+.ui.celled.table.recentlyUpdated {
+    margin-top: 8%;
+}
+
+.image.fixedImage {
+    width: 50%;
+    height: 100px;
+    max-height: 100px;
+    max-width: 200px;
+}
+
+.alkoTekstIndex {
+    margin: auto;
+    font-size: 1.25vw;
+}
+
+.alkoTekstiKirjeldus {
+    text-align: center;
+}
+
+.ui.grid.indexPage {
+    margin-top: 1%;
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-bottom: 1%;
+    border: 1px lightgray solid;
+    border-radius: 8px;
+    background: #fff;
+}
+
+.indexPage {
+    margin-top: 1%;
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-bottom: 1%;
+    border: 1px lightgray solid;
+    border-radius: 8px;
+    background: #fff;
+}
+
+.ui.grid.indexPageHeader {
+    margin-top: 0%;
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-bottom: 1%;
+    padding-top: 3%;
+}
+
+.populaarseimadHeader {
+    border: 1px lightgray solid;
+    border-radius: 8px;
+    background: #fff;
+}
+
+.alkoHindIndex {
+    margin: auto;
+    color: red;
+    font-size: 1.5vw;
+}
+
+.ui.menu {
+    margin-bottom: 1%;
+}
+
+.ui.form {
+    margin-bottom: 3%;
+}
+
+.tabelOnAllah {
+    background-color: orange;
+}
+
+.storeCountry {
     font-weight: bold;
     font-size: 1.5vw;
 }
-.limpaPilt{
+
+.limpaPilt {
     max-height: 85%;
 }
-.productImage{
-  max-width: 300px;
-  height: auto;
-  overflow: hidden;
+
+.productImage {
+    max-width: 300px;
+    height: auto;
+    overflow: hidden;
 
 }
-.productpageImage{
-  max-height: 300px;
+
+.productpageImage {
+    max-height: 300px;
 }
-.populaarseimadHeader{
-  font-size: 1.25vw;
+
+.populaarseimadHeader {
+    font-size: 1.25vw;
 }
-.allahindluseTähis{
-  height: 20px;
-  width: 10px;
-  background-color: orange;
-  margin-left: 2%;
+
+.allahindluseTähis {
+    height: 20px;
+    width: 10px;
+    background-color: orange;
+    margin-left: 2%;
 }
-.indexPageImage{
-  max-height: 200px;
+
+.indexPageImage {
+    max-height: 200px;
 }
-.ui.card>.image{
-  background: white !important;
+
+.ui.card > .image {
+    background: white !important;
 }
-.ui.card>.content>.header{
-  color: red !important;
-  font-size: 2vw;
+
+.ui.card > .content > .header {
+    color: red !important;
+    font-size: 2vw;
 }
-#alkoList{
-  display: none;
+
+#alkoList {
+    display: none;
 }
-.search:focus{
-  outline: none;
+
+.search:focus {
+    outline: none;
 }
-.liitriHind{
-  font-size: 1vw;
-  color: grey;
+
+.liitriHind {
+    font-size: 1vw;
+    color: grey;
 }
-.footer{
-    position: absolute;
-    width: 59%;
+
+.footer {
+    text-align: center;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 15px 0;
+    position: initial;
+    height: auto;
 }
+
 .ui.container {
     display: flex;
-    min-height: 100vh;
+    min-height: auto;
     flex-direction: column;
 }
 
-.footer{
-  align-content: center;
+.about {
+    text-align: justify;
+    font-size: 1vw;
 }
