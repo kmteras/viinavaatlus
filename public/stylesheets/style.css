@@ -152,6 +152,12 @@ img{
   color: red !important;
   font-size: 2vw;
 }
+#alkoList{
+  display: none;
+}
+.search:focus{
+  outline: none;
+}
 .liitriHind{
   font-size: 1vw;
   color: grey;
