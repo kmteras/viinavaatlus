@@ -21,7 +21,7 @@ html
     script(src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js")
     script(src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js")
     script(src="/js/menu.js")
-    block includes
+
     script.
         window.dataLayer = window.dataLayer || [];
         function gtag() {
@@ -32,4 +32,6 @@ html
         gtag('config', 'UA-134109682-1', { 'allow_ad_personalization_signals': false, 'anonymize_ip': true });
 
   body(class="ui container")
+    block includes
     block content
+    include includes/footer
