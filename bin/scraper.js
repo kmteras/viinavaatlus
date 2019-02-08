@@ -155,13 +155,16 @@ String.prototype.toPascalCase = function () {
 
 function addNewProduct(result, el) {
     if (!el.name) {
-        console.error(`Name value is missing, will not add to database`);
+        console.warn(`Name value is missing, will not add to database`);
         return;
     } else if (!el.ml) {
-        console.error(`Ml value is missing, will not add to database`);
+        console.warn(`Ml value is missing, will not add to database`);
         return;
     } else if (!el.vol) {
-        console.error(`Vol value is missing, will not add to database`);
+        console.warn(`Vol value is missing, will not add to database`);
+        return;
+    } else if (!el.price) {
+        console.warn("Price is missing, will not add to database");
         return;
     }
 
@@ -190,8 +193,7 @@ function addNewProduct(result, el) {
                     console.warn(`Product ${el.name}, ${el.vol}, ${el.ml} exists, updating old`);
                     updateExistingProduct(result, el);
                 });
-            }
-            else {
+            } else {
                 console.error(err, product);
             }
         }
