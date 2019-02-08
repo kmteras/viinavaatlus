@@ -19,8 +19,6 @@ block content
           else
             p Vol: #{product.vol}%
           p Kogus: #{product.ml}ml
-          p(class="alkohind") #{product.stores[0].prices[0].price}€
-          //Praegu on siin Selveri hind, aga paneme midagi muud hiljem (just for testing atm)
         table(class="ui celled table uusimad")
           tr
             th Riik
@@ -34,3 +32,5 @@ block content
                   a(href=store.url) #{store.storeName}
                 td #{store.showPrice}€
                 td #{store.originalName}
+        div(class="allahindluseTähis")
+        | -tähistatud tooted on poes alla hinnatud

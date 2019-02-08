@@ -32,6 +32,10 @@ db.initDb((err, db) => {
 
     scraper.setupScraperClasses();
 
+    if (config.production) {
+        scraper.shallowScrape();
+    }
+
     server.listen(port);
     server.on('error', onError);
     server.on('listening', onListening);

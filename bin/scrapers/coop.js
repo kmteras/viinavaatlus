@@ -3,20 +3,17 @@ const rp = require('request-promise');
 const cheerio = require('cheerio');
 
 
-class CoopScraper extends Scraper
-{
+class CoopScraper extends Scraper {
     constructor () {
         super("Coop", "EE");
         this.baseUrl = 'https://ecoop.ee/';
         this.categoryPages = [
-            // {url: 'https://ecoop.ee/et/kategooriad/kange-alkohol/',             category: 'Strong alcohol'},
-            // {url: 'https://ecoop.ee/et/kategooriad/punased-veinid/',            category: 'Red wine'},
-            // {url: 'https://ecoop.ee/et/kategooriad/valged-veinid/',             category: 'White wine'},
-            // {url: 'https://ecoop.ee/et/kategooriad/vahuveinid/',                category: 'Sparklin wine'},
-            // {url: 'https://ecoop.ee/et/kategooriad/olled/',                     category: 'Beer'},
-            // {url: 'https://ecoop.ee/et/kategooriad/lahjad-alkohoolsed-joogid/', category: 'Light beverages'},
-            // {url: 'https://ecoop.ee/et/kategooriad/alkoholivabad-joogid/',      category: 'Non-alcoholic'},
-            {url: ['https://ecoop.ee/api/v1/products?page=', '&category=58&ordering=popularity'], category: 'placeholder'}
+            {url: ['https://ecoop.ee/api/v1/products?page=', 1, '&category=59&ordering=popularity'], category: 'punane vein'},
+            {url: ["https://ecoop.ee/api/v1/products?page=", 1, "&category=57&ordering=popularity"], category: 'valge vein'},
+            {url: ["https://ecoop.ee/api/v1/products?page=", 1, "&category=53&ordering=popularity"], category: 'vahuvein'},
+            {url: ["https://ecoop.ee/api/v1/products?page=", 1, "&category=52&ordering=popularity"], category: 'olu'},
+            {url: ["https://ecoop.ee/api/v1/products?page=", 1, "&ordering=popularity&category=51"], category: 'lahja'},
+            {url: ["https://ecoop.ee/api/v1/products?page=", 1, "&category=58&ordering=popularity"], category: 'kange'}
         ];
     }
 
@@ -29,33 +26,46 @@ class CoopScraper extends Scraper
     }
 
     scrapeCategoryPage(category, callback) {
-        let index = 18;
-        let responseObjects = [];
-        populateResponseObject(url, index);
-
-
-    }
-
-    populateResponseObject(url, index) {
-        console.info('\nScraping: ' + category.url[0] + index + category.url[1]);
-        
-        let options = {
-            uri: category.url[0] + index + category.url[1],
-            headers: {
-                'User-Agent': 'Request-Promise'
-            },
-            json: true // Automatically parses the JSON string in the response
-        };
-
-        rp(options)
-            .then(function (response) {
-                responseObjects.push(response.results);
-
-                if (response.next != null) this.populateResponseObject(url, index + 1);
-            })
-            .catch(function (err) {
-                console.error('Connection to API failed');
+        rp(category.url.join("")).then((html) => {
+            const json = JSON.parse(html);
+            const results = json["results"];
+            let products = [];
+            results.forEach((item) => {
+                let sale = Boolean(item["campaigns"].length);
+                const product = {
+                    name: this.getCleanName(item["name"]),
+                    sale: sale,
+                    originalName: item["name"],
+                    storeCounty: this.storeCounty,
+                    store: this.storeName,
+                    url: "https://ecoop.ee/et/toode/" + item["slug_et"],
+                    price: sale ? item["campaigns"][0]["discounts"][0]["price"] : item["sell_price"],
+                    unitPrice: null,
+                    oldPrice: sale ? item["sell_price"] : null,
+                    oldUnitPrice : null,
+                    vol: parseFloat(item["alcohol"]["percent"]),
+                    ml: this.getMl(" " + item["content_quantity"] + item["content_measure_unit"]),
+                    category : item["alcohol"]["type"].toLowerCase(),
+                    imageUrl: this.baseUrl + "media/" + item["images"][0]["image"]
+                };
+                products.push(product);
+            });
+            callback(products);
+            const nextPage = json["next"];
+            if (nextPage != null) {
+                const newCategory = {
+                    url: [category.url[0], nextPage, category.url[2]],
+                    category: category.category
+                };
+                this.scrapeCategoryPage(newCategory, callback);
+            }
+        }).catch((err) => {
+            console.error(err)
         });
+
+
     }
+
+
 }
 module.exports = CoopScraper;

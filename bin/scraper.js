@@ -3,12 +3,14 @@ const db = require('./db');
 const scraperClasses = [
     require("./scrapers/maxima"),
     // require("./scrapers/selver"),
-    // require('./scrapers/coop'),
+    require('./scrapers/coop'),
     require("./scrapers/alko1000"),
     require("./scrapers/cityalko"),
     require("./scrapers/viinarannasta"),
     require("./scrapers/superalko"),
-    require("./scrapers/liviko")
+    require("./scrapers/liviko"),
+    require("./scrapers/sadamamarket"),
+    require("./scrapers/alkoshop")
 ];
 
 let scraperObjects = null;

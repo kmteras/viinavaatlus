@@ -5,19 +5,37 @@ block content
   include includes/header
 
   if products
-    each product in products
-      div(class="ui grid indexPage")
-        div(class="one wide column")
-        div(class="three wide column")
-          div(class="image fixedImage")
-            a(href=product.url)
-              img(src=product.stores[0].imageUrl)
-        div(class="five wide column alkoTekstIndex")
-          div(class="paragraph alkoTekstiKirjeldus")
-            a(href=product.url) #{product.showName}
-            br
-            | #{product.vol}% #{product.ml} ml
-        div(class="two wide column")
-        div(class="five wide column alkoHindIndex")
-          | #{product.cheapestPrice} €
+    div(class="ui grid indexPageHeader")
+      p.populaarseimadHeader Populaarseimad tooted
+    div(class="ui grid indexPage")
+      for product in products
+          div(class="four wide column")
+            div(class="ui card")
+              div(class="image")
+                a(href=product.url)
+                  img.indexPageImage(src=product.stores[0].imageUrl)
+              div(class="content")
+                a(class="header")
+                  a(href=product.url) #{product.showName}
+                div(class="description") #{product.vol}%
+                div(class="description") #{product.ml} ml
+                div(class="header price") #{product.cheapest} €
+  if cheapestProducts
+    div(class="ui grid indexPageHeader")
+      p.populaarseimadHeader Kõige rahakotisõralikumad tooted
+    div(class="ui grid indexPage")
+      for product in cheapestProducts
+        div(class="four wide column")
+          div(class="ui card")
+            div(class="image")
+              a(href=product.url)
+                img.indexPageImage(src=product.stores[0].imageUrl)
+            div(class="content")
+              a(class="header")
+                a(href=product.url) #{product.showName}
+              div(class="description") #{product.vol}%
+              div(class="description") #{product.ml} ml
+              div(class="header price") #{product.cheapestEE} €
+
+  div(class="whitespace")
 

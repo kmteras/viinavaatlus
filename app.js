@@ -7,6 +7,7 @@ const logger = require('morgan');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const searchRouter = require('./routes/search');
+const config = require("./config");
 
 const app = express();
 
@@ -33,7 +34,7 @@ app.use((req, res, next) => {
 app.use((err, req, res, next) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+  res.locals.error = (req.app.get('env') === 'development' && !config.production) ? err : {};
 
   // render the error page
   res.status(err.status || 500);

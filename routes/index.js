@@ -4,17 +4,47 @@ const scraper = require('../bin/scraper');
 const db = require('../bin/db');
 const productService = require('../bin/productService');
 
+let cheapestCache = null;
+
 /* GET home page. */
 router.get('/', (req, res, next) => {
-    db.getDb().collection("products").find({}).sort({viewCount: -1}).limit(10).toArray((err, result) => {
+    db.getDb().collection("products").find({}).sort({viewCount: -1}).limit(4).toArray((err, result) => {
         if (err) {
             console.error(err);
-            res.render('index', {products: null});
         }
 
         result = productService.prepareSearchResultsForRender(result, false);
 
-        res.render('index', {products: result});
+        db.getDb().collection("cheapestCache").find({}).limit(4).toArray((err, cheapestCache) => {
+            if (err) {
+                console.error(err);
+            }
+
+            if (!cheapestCache.length) {
+                db.getDb().collection("products").find({}).toArray((err, cheapestResult) => {
+                    cheapestCache = productService.findCheapestPerVol(cheapestResult);
+                    cheapestCache = productService.prepareSearchResultsForRender(cheapestResult, false);
+
+                    let cheapest = [];
+
+                    for (let i = 0; i < 4; i++) {
+                        cheapest.push(cheapestCache[i]);
+                    }
+
+                    res.render('index', {products: result, cheapestProducts: cheapest});
+                    db.getDb().collection("cheapestCache").insertMany(cheapestResult, (err, result) => {
+                        if (err) {
+                            console.error(err);
+                        }
+
+                        console.info("Updated cheapest cache");
+                    });
+                });
+            }
+            else {
+                res.render('index', {products: result, cheapestProducts: cheapestCache});
+            }
+        });
     });
 });
 
@@ -24,7 +54,7 @@ router.get('/scrape', (req, res, next) => {
 });
 
 router.get('/product/:productName/:productSize/:productVol', (req, res, next) => {
-    productService.search(req.params.productName, req.params.productSize, req.params.productVol, (err, result) => {
+    productService.findProduct(req.params.productName, req.params.productSize, req.params.productVol, (err, result) => {
         if (err) {
             console.error(err);
             res.redirect("/error");

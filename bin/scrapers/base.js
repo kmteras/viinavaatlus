@@ -1,12 +1,3 @@
-const illegalWords = [
-    "muu p.j.", "muu piir.jook", "muu p.jook", "muu piiritusjook", "muu alk.jk.",
-    "m.alkohoolne jook", "karp", "\(karp\)", "muu piir.j.", "muu piir.j", "karbis", ", pet", "kohver",
-    "mini",
-
-    "maits.viin", "rumm", "rum", "cognac", "whisky", "whiskey", "gin",
-    "liköör", "brandy", "viin", "vodka", "liviko"
-];
-
 class Scraper {
     constructor(storeName, storeCountry) {
         this.storeName = storeName;
@@ -16,7 +7,16 @@ class Scraper {
         this.clRegex = /[\D]((\d+)\s?[cC][lL])/;
         this.lRegex = /[\D]((\d[\d,.]*)\s?[lL])/;
         this.priceRegex = /€([\d,.]*)/;
+        this.illegalWords = [
+            /^muu p\.j\./, /^muu piir\.jook/, /^muu p\.jook/, /^muu piiritusjook/, /^muu alk\.jk\./,
+            /^m\.alkohoolne jook/, /^karp/, "\(karp\)", /^muu piir.j./, /^muu piir.j/, /\skarbis\s/, /\spet\s/, /\skohver\s/,
+            /\smini\s/,
+
+            /^maits.viin/, /^rumm/, /^rum/, /^cognac/, /^whisky/, /^whiskey/, /^gin/,
+            /^liköör/, /^brandy/, /^viin/, /^vodka/, /^liviko/, /^tequila/, /^tekiila/
+        ];
     }
+
 
     shallowScrape() {
         console.info(`Starting shallow scrape for ${this.storeName}`);
@@ -35,13 +35,13 @@ class Scraper {
         if (volResult) {
             const parsed = parseFloat(volResult[2].replace(",", '.'));
             if (isNaN(parsed)) {
-                console.error(`Could not parse vol float from ${name}`);
+                console.warn(`Could not parse vol float from ${name}`);
                 return null
             } else {
                 return parsed
             }
         } else {
-            console.error(`Could not parse vol float from ${name}`);
+            console.warn(`Could not parse vol float from ${name}`);
             return null;
         }
     }
@@ -56,7 +56,7 @@ class Scraper {
         if (mlResult) {
             const parsed = parseInt(mlResult[2]);
             if (isNaN(parsed)) {
-                console.error(`Could not parse ml integer from ${name}`);
+                console.warn(`Could not parse ml integer from ${name}`);
                 return null
             } else {
                 return parsed
@@ -68,7 +68,7 @@ class Scraper {
         if (clResult) {
             const parsed = parseInt(clResult[2]);
             if (isNaN(parsed)) {
-                console.error(`Could not parse cl integer from ${name}`);
+                console.warn(`Could not parse cl integer from ${name}`);
                 return null
             } else {
                 return parsed * 10
@@ -86,7 +86,7 @@ class Scraper {
                 return parsed * 1000
             }
         } else {
-            console.error(`Could not parse volume from ${name}`);
+            console.warn(`Could not parse volume from ${name}`);
             return null;
         }
     }
@@ -100,12 +100,12 @@ class Scraper {
         if (priceResult) {
             const parsed = parseFloat(priceResult[1].replace(",", "."));
             if (isNaN(parsed)) {
-                console.error(`Could not parse price float from ${priceString}`)
+                console.warn(`Could not parse price float from ${priceString}`)
             } else {
                 return parsed
             }
         } else {
-            console.error(`Could not parse price from ${priceString}`);
+            console.warn(`Could not parse price from ${priceString}`);
             return null;
         }
     }
@@ -123,8 +123,8 @@ class Scraper {
 
         name = name.toLowerCase().trim();
 
-        for (let i = 0; i < illegalWords.length; i++) {
-            name = name.replace(new RegExp(illegalWords[i], "g"), "").trim();
+        for (let i = 0; i < this.illegalWords.length; i++) {
+            name = name.replace(new RegExp(this.illegalWords[i], "g"), "").trim();
         }
 
         for (let i = 0; i < regexRemove.length; i++) {
