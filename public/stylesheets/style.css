@@ -108,6 +108,16 @@ img {
     background: #fff;
 }
 
+.indexPage {
+    margin-top: 1%;
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-bottom: 1%;
+    border: 1px lightgray solid;
+    border-radius: 8px;
+    background: #fff;
+}
+
 .ui.grid.indexPageHeader {
     margin-top: 0%;
     margin-left: 2%;
@@ -211,4 +221,9 @@ img {
     display: flex;
     min-height: auto;
     flex-direction: column;
+}
+
+.about {
+    text-align: justify;
+    font-size: 1vw;
 }
