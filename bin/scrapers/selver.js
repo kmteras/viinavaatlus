@@ -17,8 +17,11 @@ class SelverScraper extends Scraper {
             {url: "https://www.selver.ee/joogid/kange-alkohol/muud-kanged-alkohoolsed-joogid", category: "muu"}
         ];
 
-        super.priceRegex = /([\d,.]*\s€)/
+        super.priceRegex = /([\d,.]*)/;
+        super.volRegex = /((\d[\d.,]*)[%])/;
+
     }
+
 
     shallowScrape(callback) {
         super.shallowScrape();
@@ -27,58 +30,49 @@ class SelverScraper extends Scraper {
         }
     }
 
+    scrapeProductPage(url, category, callback) {
+        rp(url).then((html) => {
+            const $ = cheerio.load(html);
+            const $product = $(".product-essential");
+            const name = $product.find(".page-title > h1").text();
+            const $oldPrice = $product.find("p[class='old-price left'] > .price");
+            const sale = Boolean($oldPrice.length);
+            const $price = $product.find("span[itemprop='price']");
+            const info = $product.find("table[class='product-attributes']").find("th:contains('Alkoholi liik')").next().text();
+
+            const product = {
+                name: this.getCleanName(name),
+                sale: sale,
+                originalName: name,
+                storeCounty: this.storeCounty,
+                store: this.storeName,
+                url: url,
+                price: $price.attr("content"),
+                unitPrice: this.getPrice($price.next().text()),
+                oldPrice: (sale ? this.getPrice($oldPrice.children().first().text()) : null),
+                oldUnitPrice: (sale ? this.getPrice($oldPrice.children().last().text()) : null),
+                vol: this.getVol(info),
+                ml: this.getMl(name),
+                category: category.category,
+                imageUrl: "https:" + $product.find("img[itemprop='image']").attr("src")
+            };
+            callback(product);
+        });
+    }
+
     scrapeCategoryPage(category, callback) {
+
         rp(category.url)
             .then((html) => {
                 const $ = cheerio.load(html);
-                const $products = $('.category-products').find(".item.age-restricted");
+                const $items = $('.category-products').find(".age-restricted > a");
+                $items.each((index, value) => {
+                    this.scrapeProductPage($(value).attr("href"), category, (product) => {
+                        callback([product]);
+                    });
 
-                let products = [];
-
-                $products.each((index, value) => {
-                    const name = $(value).find("h5[class='product-name']").text();
-
-                    const $regularEl = $(value).find("span[class*='regular-price']");
-
-                    let priceString = null;
-                    let unitPriceString = null;
-
-                    let oldPriceString = null;
-                    let oldUnitPriceString = null;
-
-                    if ($regularEl.length) {
-                        priceString = $regularEl.find("span[class='price']").text();
-                        unitPriceString = $regularEl.find("span[class='unit-price']").text();
-                    } else {
-                        const $spans = $(value).find("span[class='price'] > span");
-                        priceString = $spans.text();
-                        unitPriceString = $spans.next().text();
-
-                        const $oldPrice = $(value).find("p[class*='old-price'] > span > span");
-                        oldPriceString = $oldPrice.text();
-                        oldUnitPriceString = $oldPrice.next().text();
-                    }
-
-                    const product = {
-                        name: this.getCleanName(name),
-                        sale: !!!$regularEl.length,
-                        originalName: name,
-                        storeCounty: this.storeCounty,
-                        store: this.storeName,
-                        url: $(value).find("a[class='product-image']").attr("href"),
-                        price: this.getPrice(priceString),
-                        unitPrice: this.getPrice(unitPriceString),
-                        oldPrice: this.getPrice(oldPriceString),
-                        oldUnitPrice: this.getPrice(oldUnitPriceString),
-                        vol: null,
-                        ml: this.getMl(name),
-                        category: category.category,
-                        imageUrl: $(value).find("a[class='product-image'] > img").attr("src")
-                    };
-
-                    products.push(product);
                 });
-                callback(products);
+
 
                 const nextPageUrl = this.getNextPage($);
                 if (nextPageUrl) {
