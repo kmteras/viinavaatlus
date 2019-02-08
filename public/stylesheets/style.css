@@ -15,6 +15,20 @@ a {
     font-weight: bold;
 }
 
+.logo_kawai {
+    background-image: url('/img/viin.png');
+    height: 100px;
+    width: 40px;
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    float: left;
+    transform: rotate(20deg);
+}
+
+.logo_kawai:hover {
+    background-image: url('/img/viin_kawai.png');
+    transform: rotate(30deg);
+}
 .logo {
     display: inline-block;
     width: 100%;
@@ -25,15 +39,15 @@ a {
 
 .tiitel {
     text-align: left;
+    padding-top: 20px;
     padding-left: 30px;
 }
 
-.logo_viin {
+/*.logo_viin {
     height: 70px;
     float: left;
-    transform: rotate(20deg)
-}
-
+    transform: rotate(20deg);
+}*/
 .eight {
     text-align: center;
     margin-top: 5%;
