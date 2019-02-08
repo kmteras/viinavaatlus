@@ -27,18 +27,23 @@ router.get('/', (req, res, next) => {
 
                     let cheapest = [];
 
-                    for (let i = 0; i < 4; i++) {
-                        cheapest.push(cheapestCache[i]);
+                    if (cheapestCache.length > 0) {
+                        for (let i = 0; i < 4; i++) {
+                            cheapest.push(cheapestCache[i]);
+                        }
                     }
 
                     res.render('index', {products: result, cheapestProducts: cheapest});
-                    db.getDb().collection("cheapestCache").insertMany(cheapestResult, (err, result) => {
-                        if (err) {
-                            console.error(err);
-                        }
 
-                        console.info("Updated cheapest cache");
-                    });
+                    if (cheapestCache.length > 0) {
+                        db.getDb().collection("cheapestCache").insertMany(cheapestCache, (err, result) => {
+                            if (err) {
+                                console.error(err);
+                            }
+
+                            console.info("Updated cheapest cache");
+                        });
+                    }
                 });
             }
             else {

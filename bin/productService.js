@@ -67,7 +67,7 @@ function prepareSearchResultsForRender(result, sort = true) {
                 minimumFractionDigits: 2
             });
 
-            result[i].cheapestPerLStringEE = result[i].cheapestPerL.toLocaleString("ee-EE", {
+            result[i].cheapestPerLStringEE = result[i].cheapestPerLEE.toLocaleString("ee-EE", {
                 maximumFractionDigits: 2,
                 minimumFractionDigits: 2
             });
@@ -137,7 +137,7 @@ function prepareProductForShowing(result) {
     }
 
     result.stores.sort((a, b) => {
-        return a.prices[a.prices.length - 1].price > b.prices[b.prices.length - 1].price;
+        return a.prices[a.prices.length - 1].price - b.prices[b.prices.length - 1].price;
     });
 
     if (cheapestEE) {
