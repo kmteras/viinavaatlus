@@ -6,7 +6,6 @@ body {
   text-align: center;
   margin-bottom: 3%;
 }
-
 a {
   color: #00B7FF;
 }
@@ -26,7 +25,6 @@ a {
   float: left;
   transform: rotate(20deg)
 }
-
 .eight{
   text-align: center;
   margin-top: 5%;
@@ -67,12 +65,10 @@ img{
   margin-top: 8%;
 }
 .image.fixedImage {
-
   width: 50%;
   height:100px;
   max-height: 100px;
   max-width: 200px;
-
 }
 .alkoTekstIndex {
     margin: auto;
@@ -81,8 +77,23 @@ img{
 .alkoTekstiKirjeldus {
   text-align: center;
 }
-.indexPage{
-  border-bottom: 1px lightgray solid;
+.ui.grid.indexPage{
+  margin-top: 3%;
+  margin-left: 2%;
+  margin-right: 2%;
+  margin-bottom: 5%;
+  border: 1px lightgray solid;
+  border-radius: 8px;
+}
+.ui.grid.indexPageHeader{
+  margin-top: 3%;
+  margin-left: 2%;
+  margin-right: 2%;
+  margin-bottom: 1%;
+}
+.populaarseimadHeader{
+  border: 1px lightgray solid;
+  border-radius: 8px;
 }
 .alkoHindIndex {
   margin: auto;
@@ -113,4 +124,27 @@ img{
 }
 .productpageImage{
   max-height: 300px;
+}
+.populaarseimadHeader{
+  font-size: 1.25vw;
+}
+
+.whitespace{
+  padding-top: 10%;
+}
+.allahindluseTähis{
+  height: 20px;
+  width: 10px;
+  background-color: orange;
+  margin-left: 2%;
+}
+.indexPageImage{
+  max-height: 200px;
+}
+.ui.card>.image{
+  background: white !important;
+}
+.ui.card>.content>.header{
+  color: red !important;
+  font-size: 2vw;
 }
