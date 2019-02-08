@@ -2,90 +2,51 @@ const express = require('express');
 const router = express.Router();
 const scraper = require('../bin/scraper');
 const db = require('../bin/db');
+const productService = require('../bin/productService');
+
+let cheapestCache = null;
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
-    db.getDb().collection("products").find({}).sort({viewCount: -1}).limit(10).toArray((err, result) => {
+    db.getDb().collection("products").find({}).sort({viewCount: -1}).limit(4).toArray((err, result) => {
         if (err) {
             console.error(err);
-            res.render('index', {products: null});
         }
 
-        result = prepareSearchResultsForRender(result, false);
+        result = productService.prepareSearchResultsForRender(result, false);
 
-        res.render('index', {products: result});
-    });
-});
-
-function capitalizeFirstLetter(string) {
-    if (string[0]) {
-        return string[0].toUpperCase() + string.slice(1).toLowerCase();
-    } else {
-        return string
-    }
-}
-
-function titleCase(string) {
-    return string.split(" ").map(x => capitalizeFirstLetter(x)).join(" ");
-}
-
-router.get('/search/:search', (req, res, next) => {
-    db.getDb().collection("products").find({name: {$regex: req.params.search}}).toArray((err, result) => {
-        if (err) {
-            console.error(err);
-            res.render('search', {products: null});
-        }
-
-        if (result.length === 0) {
-            db.getDb().collection("products").find({category: {$regex: req.params.search}}).toArray((err, result) => {
-                result = prepareSearchResultsForRender(result);
-                res.render('search', {products: result});
-            });
-        } else {
-            result = prepareSearchResultsForRender(result);
-            res.render('search', {products: result});
-        }
-    });
-});
-
-function prepareSearchResultsForRender(result, sort=true) {
-    for (let i = 0; i < result.length; i++) {
-        result[i].url = `/product/${result[i].name.replace(/ /g, "_")}/${result[i].ml}`;
-
-        if (result[i].vol) {
-            result[i].url += `/${result[i].vol}`;
-        }
-
-        let cheapest = Number.POSITIVE_INFINITY;
-
-        for (let j = 0; j < result[i].stores.length; j++) {
-            const price = result[i].stores[j].prices[result[i].stores[j].prices.length - 1].price;
-            if (price < cheapest) {
-                cheapest = price;
+        db.getDb().collection("cheapestCache").find({}).limit(4).toArray((err, cheapestCache) => {
+            if (err) {
+                console.error(err);
             }
-        }
 
-        if (!cheapest) {
-            result[i].cheapestPrice = cheapest;
-        } else {
-            result[i].cheapestPrice = cheapest.toLocaleString("ee-EE", {
-                maximumFractionDigits: 2,
-                minimumFractionDigits: 2
-            });
-        }
+            if (!cheapestCache.length) {
+                db.getDb().collection("products").find({}).toArray((err, cheapestResult) => {
+                    cheapestCache = productService.findCheapestPerVol(cheapestResult);
+                    cheapestCache = productService.prepareSearchResultsForRender(cheapestResult, false);
 
-        result[i].cheapest = cheapest;
-        result[i].showName = titleCase(result[i].name);
-    }
+                    let cheapest = [];
 
-    if (sort) {
-        result.sort((a, b) => {
-            return a.cheapest - b.cheapest
+                    for (let i = 0; i < 4; i++) {
+                        cheapest.push(cheapestCache[i]);
+                    }
+
+                    res.render('index', {products: result, cheapestProducts: cheapest});
+                    db.getDb().collection("cheapestCache").insertMany(cheapestResult, (err, result) => {
+                        if (err) {
+                            console.error(err);
+                        }
+
+                        console.info("Updated cheapest cache");
+                    });
+                });
+            }
+            else {
+                res.render('index', {products: result, cheapestProducts: cheapestCache});
+            }
         });
-    }
-
-    return result
-}
+    });
+});
 
 router.get('/scrape', (req, res, next) => {
     scraper.shallowScrape();
@@ -93,21 +54,21 @@ router.get('/scrape', (req, res, next) => {
 });
 
 router.get('/product/:productName/:productSize/:productVol', (req, res, next) => {
-    search(req.params.productName, req.params.productSize, req.params.productVol, (err, result) => {
+    productService.findProduct(req.params.productName, req.params.productSize, req.params.productVol, (err, result) => {
         if (err) {
             console.error(err);
             res.redirect("/error");
         }
 
-        result = prepareProductForShowing(result);
+        result = productService.prepareProductForShowing(result);
         res.render("product", {product: result});
     });
-    updateViewCount(req.params.productName, req.params.productSize, req.params.productVol);
+    productService.updateViewCount(req.params.productName, req.params.productSize, req.params.productVol);
 });
 
 router.get('/shop/:shop', (req, res, next) => {
     db.getDb().collection("products").find({shops: {storeName: {$regex: req.params.shop}}}).toArray((err, result) => {
-        result = prepareSearchResultsForRender(result);
+        result = productService.prepareSearchResultsForRender(result);
         res.render('search', {products: result});
     });
 });
@@ -117,60 +78,5 @@ router.get('/limpa', (req, res, next) => {
         res.render('limpa', {title: 'Viinavaatlus', products: products});
     });
 });
-
-function updateViewCount(productNameRaw, productSize, productVol) {
-    const productName = productNameRaw.replace(/_/g, " ").toLowerCase();
-    const ml = parseInt(productSize);
-
-    let query = {
-        name: productName,
-        ml: ml,
-        vol: productVol ? parseFloat(productVol) : null
-    };
-
-    const updateQuery = {
-        "$inc": {
-            "viewCount": 1
-        }
-    };
-
-    db.getDb().collection("products").updateOne(query, updateQuery, (err, res) => {
-        if (err) {
-            console.error(err);
-        }
-    });
-}
-
-function search(productNameRaw, productSize, productVol, callback) {
-    const productName = productNameRaw.replace(/_/g, " ").toLowerCase();
-    const ml = parseInt(productSize);
-
-    let query = {
-        name: productName,
-        ml: ml,
-        vol: productVol ? parseFloat(productVol) : null
-    };
-
-    db.getDb().collection("products").findOne(query, callback);
-}
-
-function prepareProductForShowing(result) {
-    result.showName = titleCase(result.name);
-
-    for (let i = 0; i < result.stores.length; i++) {
-        result.stores[i].showPrice =
-            result.stores[i].prices[result.stores[i].prices.length - 1].price
-                .toLocaleString("ee-EE", {
-                    maximumFractionDigits: 2,
-                    minimumFractionDigits: 2
-                });
-    }
-
-    result.stores.sort((a, b) => {
-        return a.prices[a.prices.length - 1].price > b.prices[b.prices.length - 1].price;
-    });
-
-    return result
-}
 
 module.exports = router;

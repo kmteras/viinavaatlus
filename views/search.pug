@@ -23,13 +23,14 @@ block content
         div(class="five wide column alkoTekstIndex")
           div(class="paragraph alkoTekstiKirjeldus")
             a(href=product.url) #{product.showName}
-              br
-              | #{product.vol}% #{product.ml} ml
+            br
+            br
+            | #{product.vol}% #{product.ml} ml
         div(class="two wide column")
         div(class="five wide column alkoHindIndex")
-          //Siia pane need uued hinnad
-          | 12.99€
-          | (EE: 15.99€)
+          - var ee = product.cheapestEE ? `(EE: ${product.cheapestEE}€)` : ""
+          - var eePerL = product.cheapestPerLStringEE ? `(EE: ${product.cheapestPerLStringEE}€/l)` : ""
+          | #{product.cheapest}€ #{ee}
           br
           p.liitriHind (12.99 €/l)(EE: 15.99€/l)
 
@@ -49,3 +50,10 @@ block content
             td(class='data-label') #{product.vol}%
             td(class='data-label') #{product.ml}ml
             td(class='data-label') #{product.category}
+  div(class="ui pagination menu")
+    a(class="active item") 1
+    div(class="disabled item") ...
+    a(class="item") 10
+    a(class="item") 11
+    a(class="item") >
+          p.liitriHind #{product.cheapestPerLString}€/l #{eePerL}

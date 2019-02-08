@@ -9,12 +9,13 @@ const debug = require('debug')('viinavaatlus:server');
 const http = require('http');
 const scraper = require('./scraper');
 const db = require("./db");
+const config = require("../config");
 
 /**
  * Get port from environment and store in Express.
  */
 
-let port = normalizePort(process.env.PORT || '3000');
+let port = normalizePort(process.env.PORT || config.port || '3000');
 app.set('port', port);
 
 /**
@@ -30,6 +31,10 @@ db.initDb((err, db) => {
     if (err) return console.log(err);
 
     scraper.setupScraperClasses();
+
+    if (config.production) {
+        scraper.shallowScrape();
+    }
 
     server.listen(port);
     server.on('error', onError);
