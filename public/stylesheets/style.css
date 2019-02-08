@@ -1,12 +1,14 @@
 body {
   margin-top:1%;
   width:100%;
+  min-height: 100%;
   min-width: 50%;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   text-align: center;
   margin-bottom: 3%;
   background: #fafafa;
 }
+
 a {
   color: #00B7FF;
 }
@@ -132,9 +134,6 @@ img{
 .populaarseimadHeader{
   font-size: 1.25vw;
 }
-.whitespace{
-  padding-top: 10%;
-}
 .allahindluseTähis{
   height: 20px;
   width: 10px;
@@ -143,7 +142,6 @@ img{
 }
 .indexPageImage{
   max-height: 200px;
-  background-size:cover;
 }
 .ui.card>.image{
   background: white !important;
@@ -152,7 +150,22 @@ img{
   color: red !important;
   font-size: 2vw;
 }
+#alkoList{
+  display: none;
+}
+.search:focus{
+  outline: none;
+}
 .liitriHind{
   font-size: 1vw;
   color: grey;
+}
+.footer{
+    position: absolute;
+    width: 100%;
+}
+.ui.container {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
 }
