@@ -28,4 +28,8 @@ block content
             | #{product.vol}% #{product.ml} ml
         div(class="two wide column")
         div(class="five wide column alkoHindIndex")
-          | #{product.cheapest} € (#{product.cheapestPerLString} €)
+          - var ee = product.cheapestEE ? `(EE: ${product.cheapestEE}€)` : ""
+          - var eePerL = product.cheapestPerLStringEE ? `(EE: ${product.cheapestPerLStringEE}€/l)` : ""
+          | #{product.cheapest}€ #{ee}
+          br
+          p.liitriHind #{product.cheapestPerLString}€/l #{eePerL}
