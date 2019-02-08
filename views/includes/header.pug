@@ -35,3 +35,29 @@ div(class='ui menu navbar')
     //    i(class="search icon")
     //    input(class="prompt" type='text' placeholder="Otsi" id="searchBox")
     //  div(class="results")
+
+div(class="ui grid")
+  div(class="twelve wide column")
+  div(class="three wide column")
+    div(class="ui floating dropdown labeled icon button")
+      i(class="filter icon")
+      span(class="text") Filter
+      div(class="menu")
+        div(class="ui form")
+          div(class="grouped fields")
+            div(class="field")
+              div(class="ui radio checkbox")
+                input(type="radio" name="radioSort" checked="checked" value="0")
+                label Odav->Kallis
+            div(class="field")
+              div(class="ui radio checkbox")
+                input(type="radio" name="radioSort" value="1")
+                label Kallis->Odav
+            div(class="field")
+              div(class="ui radio checkbox")
+                input(type="radio" name="radioSort" value="2")
+                label A->Z
+            div(class="field")
+              div(class="ui radio checkbox")
+                input(type="radio" name="radioSort" value="3")
+                label Z->A
