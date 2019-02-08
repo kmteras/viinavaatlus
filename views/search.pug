@@ -166,9 +166,15 @@ block content
   else
     p Ühtegi toodet ei leitud
 
-  //div(class="ui pagination menu")
-  //  a(class="active item") 1
-  //  div(class="disabled item") ...
-  //  a(class="item") 10
-  //  a(class="item") 11
-  //  a(class="item") >
+  div(class="ui pagination menu")
+    each pageBefore in pagesBefore
+      if pageBefore.pageNumber === -1
+        a(class="item") ...
+      else
+        a(class="item" href=pageBefore.pageUrl) #{pageBefore.pageNumber}
+    a(class="active item") #{page}
+    each pageAfter in pagesAfter
+      if pageAfter.pageNumber === -1
+        a(class="item") ...
+      else
+        a(class="item" href=pageAfter.pageUrl) #{pageAfter.pageNumber}
