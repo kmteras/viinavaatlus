@@ -30,9 +30,9 @@ block content
         div(class="five wide column alkoHindIndex")
           - var ee = product.cheapestEE ? `(EE: ${product.cheapestEE}€)` : ""
           - var eePerL = product.cheapestPerLStringEE ? `(EE: ${product.cheapestPerLStringEE}€/l)` : ""
-          | #{product.cheapest}€ #{ee}
+          | #{product.cheapest}€
           br
-          p.liitriHind #{product.cheapestPerLString}€/l #{eePerL}
+          p.liitriHind #{product.cheapestPerLString}€/l
 
   div(class="ui pagination menu")
     a(class="active item") 1
