@@ -9,6 +9,7 @@ const searchRouter = require('./routes/search');
 const limpaRouter = require('./routes/limpa');
 const aboutRouter = require('./routes/aboutUs');
 const productRouter = require('./routes/product');
+const scrapeRouter = require('./routes/scrape');
 const config = require("./config");
 
 const app = express();
@@ -28,6 +29,10 @@ app.use('/otsi', searchRouter);
 app.use('/tooted', productRouter);
 app.use('/limpa', limpaRouter);
 app.use('/meist', aboutRouter);
+
+if (!config.production) {
+  app.use('/scrape', scrapeRouter);
+}
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

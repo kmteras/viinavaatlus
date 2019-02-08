@@ -24,13 +24,11 @@ block content
             th Riik
             th Pood
             th Hind
-            th Originaalne nimi
           each store in product.stores
               tr(class=(store.prices[0].sale ? "tabelOnAllah" : ""))
                 td(class="storeCountry") #{store.storeCounty}
                 td
                   a(href=store.url) #{store.storeName}
                 td #{store.showPrice}€
-                td #{store.originalName}
         div(class="allahindluseTähis")
         | -tähistatud tooted on poes alla hinnatud

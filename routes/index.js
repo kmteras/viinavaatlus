@@ -51,9 +51,4 @@ router.get('/', (req, res, next) => {
     });
 });
 
-router.get('/scrape', (req, res, next) => {
-    scraper.shallowScrape();
-    res.redirect('/');
-});
-
 module.exports = router;
