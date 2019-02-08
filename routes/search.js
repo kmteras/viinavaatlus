@@ -3,6 +3,10 @@ const router = express.Router();
 const db = require('../bin/db');
 const productService = require('../bin/productService');
 
+router.get('/', (req, res, next) => {
+
+});
+
 router.get('/:search', (req, res, next) => {
     db.getDb().collection("products").find({name: {$regex: req.params.search}}).limit(10).toArray((err, result) => {
         if (err) {
@@ -21,5 +25,9 @@ router.get('/:search', (req, res, next) => {
         }
     });
 });
+
+function search() {
+
+}
 
 module.exports = router;
