@@ -26,11 +26,12 @@ div(class='ui menu navbar')
         each product in products
           a(href=product.url) #{product.showName}
   div(class='right menu')
-    div(class="ui right aligned fluid category search")
-      div(class='ui action left icon input')
-        i(class="search icon")
-        input(class="prompt" type='text' placeholder="Otsi" id="searchBox")
-      div(class="results")
-
-        //a(class="ui button" href="#" id="searchButton") Otsi
-
+    div(class='ui action left icon input')
+      i(class="search icon")
+      input(type='text' placeholder="Otsi" id="searchBox")
+      a(class="ui button" href="#" id="searchButton") Otsi
+    //div(class="ui right aligned fluid category search")
+    //  div(class='ui action left icon input')
+    //    i(class="search icon")
+    //    input(class="prompt" type='text' placeholder="Otsi" id="searchBox")
+    //  div(class="results")

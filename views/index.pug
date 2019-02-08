@@ -4,25 +4,38 @@ block content
   include includes/ageConfirmation
   include includes/header
 
+  if products
+    div(class="ui grid indexPageHeader")
+      p.populaarseimadHeader Populaarseimad tooted
+    div(class="ui grid indexPage")
+      for product in products
+          div(class="four wide column")
+            div(class="ui card")
+              div(class="image")
+                a(href=product.url)
+                  img.indexPageImage(src=product.stores[0].imageUrl)
+              div(class="content")
+                a(class="header")
+                  a(href=product.url) #{product.showName}
+                div(class="description") #{product.vol}%
+                div(class="description") #{product.ml} ml
+                div(class="header price") #{product.cheapest} €
+  if cheapestProducts
+    div(class="ui grid indexPageHeader")
+      p.populaarseimadHeader Kõige rahakotisõralikumad tooted
+    div(class="ui grid indexPage")
+      for product in cheapestProducts
+        div(class="four wide column")
+          div(class="ui card")
+            div(class="image")
+              a(href=product.url)
+                img.indexPageImage(src=product.stores[0].imageUrl)
+            div(class="content")
+              a(class="header")
+                a(href=product.url) #{product.showName}
+              div(class="description") #{product.vol}%
+              div(class="description") #{product.ml} ml
+              div(class="header price") #{product.cheapestEE} €
 
-  - for(var j=0 ; j<2 ;j++)
-    if products
-      div(class="ui grid indexPageHeader")
-        if j==0
-          p.populaarseimadHeader Populaarseimad tooted
-        else
-          p.populaarseimadHeader Parim %/€ ratio
-      div(class="ui grid indexPage")
-        - for(var i=0 ; i<4; i++)
-            div(class="four wide column")
-              div(class="ui card")
-                div(class="image")
-                  a(href=products[i].url)
-                    img.indexPageImage(src=products[i].stores[0].imageUrl)
-                div(class="content")
-                  a(class="header")
-                    a(href=products[i].url) #{products[i].showName}
-                  div(class="description") #{products[i].vol}%
-                  div(class="description") #{products[i].ml} ml
-                  div(class="header price") #{products[i].cheapestPrice} €
-    
+  div(class="whitespace")
+

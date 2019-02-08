@@ -66,6 +66,8 @@ class SadamaMarketScraper extends Scraper {
                     const $price = $(value).find("span[class^='textTootedHind']");
                     const sale = $price.attr("class") === "textTootedHind";
                     const price = $price.text();
+                    const url = $(value).find("td[background='image/taust_tooted.gif']").attr("onclick");
+                    if (url == null) return;
 
                     const product = {
                         name: this.getCleanName(name),
@@ -73,7 +75,7 @@ class SadamaMarketScraper extends Scraper {
                         originalName: name.trim(),
                         storeCounty: this.storeCounty,
                         store: this.storeName,
-                        url: this.baseUrl + $(value).find("td[background='image/taust_tooted.gif']").attr("onclick").slice(15, -1),
+                        url: this.baseUrl + url.slice(15, -1),
                         price: this.getPrice(price),
                         oldPrice: null,
                         unitPrice: null,
