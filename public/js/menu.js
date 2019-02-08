@@ -2,7 +2,7 @@ var content = [
 ];
 
 $(document).ready(function () {
-    $('.ui.floating.dropdown.labeled.icon.button').dropdown({
+    $('.ui.dropdown.item.button').dropdown({
         on: 'click'
     });
     $('.ui.menu .ui.dropdown').dropdown({
