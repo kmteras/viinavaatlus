@@ -12,7 +12,31 @@ function titleCase(string) {
     return string.split(" ").map(x => capitalizeFirstLetter(x)).join(" ");
 }
 
-function prepareSearchResultsForRender(result, sort=true) {
+function findCheapestPerVol(products) {
+    for (let i = 0; i < products.length; i++) {
+        let price = findCheapestEE(products[i]);
+
+        if (!price || products[i].ml > 1000) {
+            price = Number.POSITIVE_INFINITY;
+        }
+
+        products[i].pricePerVol = products[i].vol / (price / products[i].ml);
+    }
+
+    products.sort((a, b) => {
+        return b.pricePerVol - a.pricePerVol;
+    });
+
+    let cheapestProducts = [];
+
+    for (let i = 0; i < 4; i++) {
+        cheapestProducts.push(products[i]);
+    }
+
+    return cheapestProducts;
+}
+
+function prepareSearchResultsForRender(result, sort = true) {
     for (let i = 0; i < result.length; i++) {
         result[i].url = `/product/${result[i].name.replace(/ /g, "_")}/${result[i].ml}`;
 
@@ -20,31 +44,41 @@ function prepareSearchResultsForRender(result, sort=true) {
             result[i].url += `/${result[i].vol}`;
         }
 
-        let cheapest = Number.POSITIVE_INFINITY;
+        let cheapest = findCheapest(result[i]);
+        let cheapestEE = findCheapestEE(result[i]);
 
-        for (let j = 0; j < result[i].stores.length; j++) {
-            const price = result[i].stores[j].prices[result[i].stores[j].prices.length - 1].price;
-            if (price < cheapest) {
-                cheapest = price;
-            }
-        }
+        if (cheapest) {
+            result[i].cheapestPerL = cheapest / (result[i].ml / 1000);
+            result[i].cheapest = cheapest.toLocaleString("ee-EE", {
+                maximumFractionDigits: 2,
+                minimumFractionDigits: 2
+            });
 
-        if (!cheapest) {
-            result[i].cheapestPrice = cheapest;
-        } else {
-            result[i].cheapestPrice = cheapest.toLocaleString("ee-EE", {
+            result[i].cheapestPerLString = result[i].cheapestPerL.toLocaleString("ee-EE", {
                 maximumFractionDigits: 2,
                 minimumFractionDigits: 2
             });
         }
 
-        result[i].cheapest = cheapest;
+        if(cheapestEE) {
+            result[i].cheapestPerLEE = cheapestEE / (result[i].ml / 1000);
+            result[i].cheapestEE = cheapestEE.toLocaleString("ee-EE", {
+                maximumFractionDigits: 2,
+                minimumFractionDigits: 2
+            });
+
+            result[i].cheapestPerLStringEE = result[i].cheapestPerL.toLocaleString("ee-EE", {
+                maximumFractionDigits: 2,
+                minimumFractionDigits: 2
+            });
+        }
+
         result[i].showName = titleCase(result[i].name);
     }
 
     if (sort) {
         result.sort((a, b) => {
-            return a.cheapest - b.cheapest
+            return a.cheapestPerL - b.cheapestPerL
         });
     }
 
@@ -74,7 +108,7 @@ function updateViewCount(productNameRaw, productSize, productVol) {
     });
 }
 
-function search(productNameRaw, productSize, productVol, callback) {
+function findProduct(productNameRaw, productSize, productVol, callback) {
     const productName = productNameRaw.replace(/_/g, " ").toLowerCase();
     const ml = parseInt(productSize);
 
@@ -90,25 +124,80 @@ function search(productNameRaw, productSize, productVol, callback) {
 function prepareProductForShowing(result) {
     result.showName = titleCase(result.name);
 
+    let cheapest = findCheapest(result);
+    let cheapestEE = findCheapestEE(result);
+
     for (let i = 0; i < result.stores.length; i++) {
+        const price = result.stores[i].prices[result.stores[i].prices.length - 1].price;
         result.stores[i].showPrice =
-            result.stores[i].prices[result.stores[i].prices.length - 1].price
-                .toLocaleString("ee-EE", {
-                    maximumFractionDigits: 2,
-                    minimumFractionDigits: 2
-                });
+            price.toLocaleString("ee-EE", {
+                maximumFractionDigits: 2,
+                minimumFractionDigits: 2
+            });
     }
 
     result.stores.sort((a, b) => {
         return a.prices[a.prices.length - 1].price > b.prices[b.prices.length - 1].price;
     });
 
+    if (cheapestEE) {
+        result.cheapestEE = cheapestEE.toLocaleString("ee-EE", {
+            maximumFractionDigits: 2,
+            minimumFractionDigits: 2
+        });
+    }
+
+    if (cheapest) {
+        result.cheapest = cheapest.toLocaleString("ee-EE", {
+            maximumFractionDigits: 2,
+            minimumFractionDigits: 2
+        });
+    }
+
     return result
+}
+
+function findCheapest(product) {
+    let cheapest = Number.POSITIVE_INFINITY;
+
+    for (let i = 0; i < product.stores.length; i++) {
+        const price = product.stores[i].prices[product.stores[i].prices.length - 1].price;
+
+        if (price < cheapest) {
+            cheapest = price;
+        }
+    }
+
+    if (cheapest !== Number.POSITIVE_INFINITY) {
+        return cheapest;
+    }
+    else {
+        return null;
+    }
+}
+
+function findCheapestEE(product) {
+    let cheapestEE = Number.POSITIVE_INFINITY;
+
+    for (let i = 0; i < product.stores.length; i++) {
+        const price = product.stores[i].prices[product.stores[i].prices.length - 1].price;
+        if (product.stores[i].storeCounty === "EE" && price < cheapestEE) {
+            cheapestEE = price;
+        }
+    }
+
+    if (cheapestEE !== Number.POSITIVE_INFINITY) {
+        return cheapestEE;
+    }
+    else {
+        return null;
+    }
 }
 
 module.exports = {
     prepareSearchResultsForRender,
-    search,
+    findProduct: findProduct,
     prepareProductForShowing,
-    updateViewCount
+    updateViewCount,
+    findCheapestPerVol
 };
