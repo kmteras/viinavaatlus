@@ -227,3 +227,12 @@ img {
     text-align: justify;
     font-size: 1vw;
 }
+.filterRadio{
+    margin-top: 0;
+}
+.filterRadioFields{
+    text-align: left;
+}
+.filterRadioVasak{
+    margin-left: 7.5%;
+}

@@ -2,10 +2,10 @@ var content = [
 ];
 
 $(document).ready(function () {
-    $('.ui.floating.dropdown.labeled.icon.button').dropdown({
+    $('.ui.menu .ui.dropdown').dropdown({
         on: 'click'
     });
-    $('.ui.menu .ui.dropdown').dropdown({
+    $('.ui.floating.multiple.dropdown.labeled.icon.button').dropdown({
         on: 'click'
     });
     $('.ui.menu a.item')
@@ -127,6 +127,7 @@ function searchFunction() {
         }
     }
 }
+
 
 
 
