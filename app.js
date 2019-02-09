@@ -30,6 +30,14 @@ app.use('/tooted', productRouter);
 app.use('/limpa', limpaRouter);
 app.use('/meist', aboutRouter);
 
+const aboutUsRedirectRouter = express.Router();
+
+aboutUsRedirectRouter.get("/", (req, res, next) => {
+  res.redirect("/meist");
+});
+
+app.use('/aboutUs', aboutUsRedirectRouter);
+
 if (!config.production) {
   app.use('/scrape', scrapeRouter);
 }
