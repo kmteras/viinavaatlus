@@ -61,6 +61,8 @@ function search(req, res, next) {
     let storeList = [];
     let storeCodes = [];
 
+    let storeNameList = [];
+
     if (storesString) {
         const storeCodeStrings = storesString.split(",");
 
@@ -73,6 +75,8 @@ function search(req, res, next) {
                 storeList.push({
                     "stores.storeName": storePagesSingle[storeCode].name
                 });
+
+                storeNameList.push(storePagesSingle[storeCode].name);
             }
         }
     }
@@ -129,7 +133,7 @@ function search(req, res, next) {
     db.getDb().collection("products").find(searchQuery).count((err, results) => {
         const totalPages = Math.ceil(results / pageLimit);
 
-        if (page > totalPages) {
+        if (page > totalPages && totalPages !== 0) {
             res.redirect(req.originalUrl.replace(new RegExp(`page=${page}`), `page=${totalPages}`));
             return
         }
@@ -167,6 +171,30 @@ function search(req, res, next) {
         let aggregationQuery = [
             {
                 $match: searchQuery
+            },
+            {
+                $project: {
+                    name: 1,
+                    ml: 1,
+                    category: 1,
+                    vol: 1,
+                    stores: {
+                        $filter: {
+                            input: "$stores",
+                            as: "store",
+                            cond: {
+                                $in: ["$$store.storeName", storeNameList]
+                            }
+                        }
+                    },
+                }
+            },
+            {
+                $match: {
+                    stores: {
+                        $ne: []
+                    }
+                }
             },
             {
                 $addFields: {
