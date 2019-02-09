@@ -127,12 +127,6 @@ img {
     padding-top: 3%;
 }
 
-.populaarseimadHeader {
-    border: 1px lightgray solid;
-    border-radius: 8px;
-    background: #fff;
-}
-
 .alkoHindIndex {
     margin: auto;
     color: red;
@@ -172,6 +166,9 @@ img {
 }
 
 .populaarseimadHeader {
+    border: 1px lightgray solid;
+    border-radius: 8px;
+    background: #fff;
     font-size: 1.25vw;
 }
 
@@ -250,3 +247,5 @@ img {
     margin-top: 0;
     padding-top: 0.5rem !important;
 }
+
+
