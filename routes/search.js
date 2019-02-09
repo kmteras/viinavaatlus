@@ -212,8 +212,6 @@ router.get('/:search', (req, res, next) => {
 
             let url = req.originalUrl;
 
-            console.log(url);
-
             if (!url.includes(`page=${page}`)) {
                 if (url.includes("?")) {
                     url += `&page=${page}`;
@@ -266,7 +264,7 @@ router.get('/:search', (req, res, next) => {
                 });
             }
 
-            result = productService.prepareSearchResultsForRender(result, sortType);
+            result = productService.prepareSearchResultsForRender(result);
             res.render('search', {
                 products: result,
                 search: req.params.search,

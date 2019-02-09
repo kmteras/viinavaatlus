@@ -35,7 +35,6 @@ function updateSearch() {
         sortType = $.find("input[name=sortType]:checked")[0].value;
     }
 
-
     var url = "/otsi/" + $("#searchBox").val().toLowerCase() + "?sort=" + sortType;
 
     var stores = $.find("input[name=store]:checked");
@@ -57,12 +56,19 @@ function updateSearch() {
         url += "&type=";
     }
 
+    var findPage = /page=\d+/;
+
+    var page = findPage.exec(window.location.href);
+
+    if (page) {
+        url += "&" + page;
+    }
+
     for (var i = 0; i < categories.length; i++) {
         url += categories[i].value;
         if (i !== categories.length - 1) {
             url += ",";
         }
     }
-
     window.location.href = url;
 }
