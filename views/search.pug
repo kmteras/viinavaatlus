@@ -4,8 +4,8 @@ block content
   include includes/ageConfirmation
   include includes/header
   br
-  div(class="ui grid")
-    div(class="four wide column indexPage filterRadio filterRadioVasak")
+  div(class="ui equal width grid")
+    div(class="column indexPage filterRadio filterRadioVasak")
       div(class="ui form filterRadioFields")
         div(class="grouped fields")
           label Sorteeri:
@@ -33,7 +33,7 @@ block content
             div(class="ui radio checkbox")
               input(type="radio" name="sortType" value="3" checked=sortType === 3)
               label Z->A
-    div(class="four wide column indexPage filterRadio")
+    div(class="column indexPage filterRadio")
       div(class="ui form")
         div(class="grouped fields")
           label Poed
@@ -45,7 +45,7 @@ block content
                     div(class="ui checkbox")
                       input(type="checkbox" name="store" value=store.id checked=storeCodes.includes(store.id))
                       label #{store.name}
-    div(class="four wide column indexPage filterRadio")
+    div(class="column indexPage filterRadio")
       div(class="ui form")
         div(class="grouped fields")
           label Alkoholid
@@ -57,8 +57,9 @@ block content
                     div(class="ui checkbox")
                       input(type="checkbox" name="category" value=category.id checked=selectedCategories.includes(category.id))
                       label= category.name
-    div(class="one wide column")
-      button(class="ui button" id="updateButton") Uuenda
+
+  div(class="one wide column")
+    button(class="ui button" id="updateButton") Uuenda
 
   br
 
