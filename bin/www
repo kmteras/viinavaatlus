@@ -11,6 +11,7 @@ const https = require('https');
 const scraper = require('./scraper');
 const db = require("./db");
 const config = require("../config");
+const fs = require('fs');
 
 /**
  * Get port from environment and store in Express.
