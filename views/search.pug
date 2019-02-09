@@ -4,6 +4,34 @@ block content
   include includes/ageConfirmation
   include includes/header
   br
+  //Mittetöötav filter allpool
+  div(class="ui grid")
+    div(class="thirteen wide column ülemineFilter")
+      div(class="ui menu")
+        select(multiple="" name="category" class="ui fluid normal dropdown")
+          option(value="") Kategooriad
+            each column in categoryColumns
+              each category in column
+                option(value=category.id) #{category.name}
+    div(class="three wide column ülemineFilter")
+      div(class="ui menu")
+        select(name="sortType" class="ui fluid normal dropdown")
+          option(value="") Järjestus
+            option(value="0") Odavamad enne
+            option(value="1") Kallimad enne
+            option(value="2") A-Z
+    div(class="thirteen wide column alumineFilter")
+      div(class="ui menu")
+        select(multiple="" name="store" class="ui fluid normal dropdown")
+          option(value="") Poed
+            each column in stores
+              each store in column
+                option(value=store.id) #{store.name}
+    div(class="three wide column alumineFilter")
+      //Siin on buttoni id ipdateButton2, mis pole õige
+      button(class="ui button" id="updateButton2") Uuenda
+
+  // Töötav filter allpool
   div(class="ui grid")
     div(class="four wide column indexPage filterRadio filterRadioVasak")
       div(class="ui form filterRadioFields")
