@@ -135,7 +135,72 @@ router.get('/:search', (req, res, next) => {
 
     db.getDb().collection("products").find(searchQuery).count((err, results) => {
         const totalPages = Math.ceil(results / pageLimit);
-        db.getDb().collection("products").find(searchQuery).limit(pageLimit).skip((page - 1) * pageLimit).toArray((err, result) => {
+
+        console.log(searchQuery);
+
+        let sortQuery = {
+            pricePerL: 1
+        };
+
+        if (sortType === 1) {
+            sortQuery = {
+                pricePerL: -1
+            };
+        }
+        else if (sortType === 2) {
+            sortQuery = {
+                name: 1
+            };
+        }
+        else if (sortType === 3) {
+            sortQuery = {
+                name: -1
+            };
+        }
+        else if (sortType === 4) {
+            sortQuery = {
+                cheapest: 1
+            };
+        }
+        else if (sortType === 5) {
+            sortQuery = {
+                cheapest: -1
+            };
+        }
+
+        let aggregationQuery = [
+            {
+                $match: searchQuery
+            },
+            {
+                $addFields: {
+                    cheapest: {
+                        $min: "$stores.lastPrice"
+                    }
+                }
+            },
+            {
+                $addFields: {
+                    pricePerL: {
+                        $divide: [
+                            "$cheapest",
+                            "$ml"
+                        ]
+                    }
+                }
+            },
+            {
+                $sort: sortQuery
+            },
+            {
+                $skip: (page - 1) * pageLimit
+            },
+            {
+                $limit: 10
+            }
+        ];
+
+        db.getDb().collection("products").aggregate(aggregationQuery).toArray((err, result) => {
             if (err) {
                 console.error(err);
                 result = [];
@@ -147,11 +212,13 @@ router.get('/:search', (req, res, next) => {
 
             let url = req.originalUrl;
 
-            if (!url.includes(`?page=${page}`)) {
-                if (!url.includes("?")) {
-                    url += `?page=${page}`;
-                } else {
+            console.log(url);
+
+            if (!url.includes(`page=${page}`)) {
+                if (url.includes("?")) {
                     url += `&page=${page}`;
+                } else {
+                    url += `?page=${page}`;
                 }
             }
 
