@@ -7,19 +7,19 @@ class Alko1000Scraper extends Scraper {
         super("Alko1000", "LV");
         this.baseUrl = "https://alko1000.ee";
         this.categoryPages = [
-            {url: "http://alko1000.ee/alko1000/product-category/kange-alkohol/viin/", category: "viin"},
-            {url: "http://alko1000.ee/alko1000/product-category/kange-alkohol/dzinn/", category: "dzinn"},
-            {url: "http://alko1000.ee/alko1000/product-category/kange-alkohol/viski/", category: "viski"},
-            {url: "http://alko1000.ee/alko1000/product-category/kange-alkohol/rumm/", category: "rumm"},
-            {url: "http://alko1000.ee/alko1000/product-category/kange-alkohol/likoor/", category: "likoor"},
-            {url: "http://alko1000.ee/alko1000/product-category/kange-alkohol/tekiila/", category: "tekiila"},
-            {url: "http://alko1000.ee/alko1000/product-category/kange-alkohol/konjak/", category: "konjak"},
-            {url: "http://alko1000.ee/alko1000/product-category/kange-alkohol/brandi/", category: "brandi"},
-            {url: "http://alko1000.ee/alko1000/product-category/lahja-alkohol/vahuvein/", category: "vahuvein"},
-            {url: "http://alko1000.ee/alko1000/product-category/lahja-alkohol/siidrid/", category: "siider"},
-            {url: "http://alko1000.ee/alko1000/product-category/lahja-alkohol/vein/", category: "vein"},
-            {url: "http://alko1000.ee/alko1000/product-category/lahja-alkohol/olu/", category: "olu"},
-            {url: "http://alko1000.ee/alko1000/product-category/lahja-alkohol/long-drink/", category: "long-drink"}
+            {url: "http://alko1000.ee/alko1000/tootekategooria/kange-alkohol/viin/", category: "viin"},
+            {url: "http://alko1000.ee/alko1000/tootekategooria/kange-alkohol/dzinn/", category: "dzinn"},
+            {url: "http://alko1000.ee/alko1000/tootekategooria/kange-alkohol/viski/", category: "viski"},
+            {url: "http://alko1000.ee/alko1000/tootekategooria/kange-alkohol/rumm/", category: "rumm"},
+            {url: "http://alko1000.ee/alko1000/tootekategooria/kange-alkohol/likoor/", category: "likoor"},
+            {url: "http://alko1000.ee/alko1000/tootekategooria/kange-alkohol/tekiila/", category: "tekiila"},
+            {url: "http://alko1000.ee/alko1000/tootekategooria/kange-alkohol/konjak/", category: "konjak"},
+            {url: "http://alko1000.ee/alko1000/tootekategooria/kange-alkohol/brandi/", category: "brandi"},
+            {url: "http://alko1000.ee/alko1000/tootekategooria/lahja-alkohol/vahuvein/", category: "vahuvein"},
+            {url: "http://alko1000.ee/alko1000/tootekategooria/lahja-alkohol/siidrid/", category: "siider"},
+            {url: "http://alko1000.ee/alko1000/tootekategooria/lahja-alkohol/vein/", category: "vein"},
+            {url: "http://alko1000.ee/alko1000/tootekategooria/lahja-alkohol/olu/", category: "olu"},
+            {url: "http://alko1000.ee/alko1000/tootekategooria/lahja-alkohol/long-drink/", category: "long-drink"}
 
         ];
 
