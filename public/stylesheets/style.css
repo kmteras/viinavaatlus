@@ -126,6 +126,15 @@ img {
     margin-bottom: 1%;
     padding-top: 3%;
 }
+.ui.grid.indexPageLoadMore {
+    margin-left: 2%;
+    margin-right: 2%;
+    position: relative;
+}
+.laeVeelNupp{
+    position: absolute;
+    right: 0;
+}
 
 .alkoHindIndex {
     margin: auto;
@@ -247,5 +256,6 @@ img {
     margin-top: 0;
     padding-top: 0.5rem !important;
 }
-
-
+.whitespace{
+    padding-top: 10%;
+}
