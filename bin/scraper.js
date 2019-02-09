@@ -107,7 +107,7 @@ function updateStoreInfo(result, el, storeIndex) {
         vol: result.vol
     }, updateValues, {}, (err, res) => {
         if (err) {
-            console.log(err);
+            console.error(err);
         }
     });
 }
@@ -132,7 +132,7 @@ function addStore(result, el) {
         vol: result.vol
     }, updateValues, (err, res) => {
         if (err) {
-            console.log(err);
+            console.error(err);
         }
     });
 }
@@ -147,17 +147,24 @@ String.prototype.toPascalCase = function () {
 
 function addNewProduct(result, el) {
     if (!el.name) {
-        console.warn(`Name value is missing, will not add to database`);
+        console.warn(`Name value is missing, will not add to database ${el.url}`);
         return;
     } else if (!el.ml) {
-        console.warn(`Ml value is missing, will not add to database`);
+        console.warn(`Ml value is missing, will not add to database ${el.url}`);
         return;
     } else if (!el.vol) {
-        console.warn(`Vol value is missing, will not add to database`);
+        console.warn(`Vol value is missing, will not add to database ${el.url}`);
         return;
     } else if (!el.price) {
-        console.warn("Price is missing, will not add to database");
+        console.warn(`Price is missing, will not add to database ${el.url}`);
         return;
+    }
+
+    // Double check that the price is float
+    el.price = parseFloat(el.price);
+
+    if (isNaN(parseFloat(el.price))) {
+        console.warn(`Price is not float ${el.url}`)
     }
 
     // The overall product object

@@ -43,6 +43,11 @@ class SelverScraper extends Scraper {
 
             const price = parseFloat($price.attr("content"));
 
+            if (isNaN(price)) {
+                console.warn(`Price is NaN will not add ${url}`);
+                return;
+            }
+
             const product = {
                 name: this.getCleanName(name),
                 sale: sale,

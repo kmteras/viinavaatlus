@@ -12,15 +12,27 @@ block content
           div(class="field")
             div(class="ui radio checkbox")
               input(type="radio" name="sortType" value="0" checked=sortType===0)
-              label Odavamad enne
+              label Odavamad enne (€/l)
           div(class="field")
             div(class="ui radio checkbox")
               input(type="radio" name="sortType" value="1" checked=sortType===1)
+              label Kallimad enne (€/l)
+          div(class="field")
+            div(class="ui radio checkbox")
+              input(type="radio" name="sortType" value="4" checked=sortType === 4)
+              label Odavamad enne
+          div(class="field")
+            div(class="ui radio checkbox")
+              input(type="radio" name="sortType" value="5" checked=sortType === 5)
               label Kallimad enne
           div(class="field")
             div(class="ui radio checkbox")
               input(type="radio" name="sortType" value="2" checked=sortType===2)
               label A->Z
+          div(class="field")
+            div(class="ui radio checkbox")
+              input(type="radio" name="sortType" value="3" checked=sortType === 3)
+              label Z->A
     div(class="four wide column indexPage filterRadio")
       div(class="ui form")
         div(class="grouped fields")

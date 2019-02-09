@@ -32,6 +32,14 @@ class CoopScraper extends Scraper {
             let products = [];
             results.forEach((item) => {
                 let sale = Boolean(item["campaigns"].length);
+
+                let price = sale ? parseFloat(item["campaigns"][0]["discounts"][0]["price"]) : parseFloat(item["sell_price"]);
+
+                if (isNaN(price)) {
+                    console.warn(`Price is NaN will not add ${url}`);
+                    return;
+                }
+
                 const product = {
                     name: this.getCleanName(item["name"]),
                     sale: sale,
@@ -39,7 +47,7 @@ class CoopScraper extends Scraper {
                     storeCounty: this.storeCounty,
                     store: this.storeName,
                     url: "https://ecoop.ee/et/toode/" + item["slug_et"],
-                    price: sale ? parseFloat(item["campaigns"][0]["discounts"][0]["price"]) : parseFloat(item["sell_price"]),
+                    price: price,
                     unitPrice: null,
                     oldPrice: sale ? item["sell_price"] : null,
                     oldUnitPrice : null,

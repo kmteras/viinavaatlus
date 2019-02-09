@@ -67,10 +67,6 @@ class PrismaScraper extends Scraper {
         }).catch((err) => {
             console.error(err)
         });
-
-
     }
-
-
 }
 module.exports = PrismaScraper;

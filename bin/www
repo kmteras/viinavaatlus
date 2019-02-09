@@ -32,7 +32,7 @@ const httpsServer = https.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 db.initDb((err, db) => {
-    if (err) return console.log(err);
+    if (err) return console.error(err);
 
     scraper.setupScraperClasses();
 

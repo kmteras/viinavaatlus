@@ -12,7 +12,6 @@ $(document).ready(function () {
 
     var updateButton = $('#updateButton');
 
-
     if (updateButton.length) {
         search = updateSearch;
         updateButton.on('click', function () {
@@ -56,6 +55,13 @@ function updateSearch() {
         url += "&type=";
     }
 
+    for (var i = 0; i < categories.length; i++) {
+        url += categories[i].value;
+        if (i !== categories.length - 1) {
+            url += ",";
+        }
+    }
+
     var findPage = /page=\d+/;
 
     var page = findPage.exec(window.location.href);
@@ -64,11 +70,5 @@ function updateSearch() {
         url += "&" + page;
     }
 
-    for (var i = 0; i < categories.length; i++) {
-        url += categories[i].value;
-        if (i !== categories.length - 1) {
-            url += ",";
-        }
-    }
     window.location.href = url;
 }

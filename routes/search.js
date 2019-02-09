@@ -37,23 +37,12 @@ if (column.length > 0) {
     categoriesColumns.push(column);
 }
 
-router.get('/', (req, res, next) => {
-    updateStorePages();
-    res.render('search', {
-        products: [],
-        search: req.params.search,
-        stores: storePages,
-        storeCodes: [],
-        categoryColumns: categoriesColumns,
-        selectedCategories: [],
-        pagesBefore: [],
-        pagesAfter: []
-    });
-});
-
 const pageLimit = 10;
 
-router.get('/:search', (req, res, next) => {
+router.get('/', search);
+router.get('/:search', search);
+
+function search(req, res, next) {
     updateStorePages();
     let page = parseInt(req.query.page);
 
@@ -109,11 +98,15 @@ router.get('/:search', (req, res, next) => {
         }
     }
 
-    let searchQuery = {
-        name: {
-            $regex: removeEstonianLetters(req.params.search)
-        }
-    };
+    let searchQuery = {};
+
+    if (req.params.search) {
+        searchQuery = {
+            name: {
+                $regex: removeEstonianLetters(req.params.search)
+            }
+        };
+    }
 
     if (storeList.length > 0) {
         searchQuery["$and"] = [
@@ -136,7 +129,10 @@ router.get('/:search', (req, res, next) => {
     db.getDb().collection("products").find(searchQuery).count((err, results) => {
         const totalPages = Math.ceil(results / pageLimit);
 
-        console.log(searchQuery);
+        if (page > totalPages) {
+            res.redirect(req.originalUrl.replace(new RegExp(`page=${page}`), `page=${totalPages}`));
+            return
+        }
 
         let sortQuery = {
             pricePerL: 1
@@ -279,7 +275,7 @@ router.get('/:search', (req, res, next) => {
             });
         });
     });
-});
+}
 
 function removeEstonianLetters(string) {
     string = string.replace(/ä/g, "a");
