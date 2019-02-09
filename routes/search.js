@@ -40,9 +40,14 @@ if (column.length > 0) {
 router.get('/', (req, res, next) => {
     updateStorePages();
     res.render('search', {
-        products: null,
+        products: [],
         search: req.params.search,
-        stores: storePages
+        stores: storePages,
+        storeCodes: [],
+        categoryColumns: categoriesColumns,
+        selectedCategories: [],
+        pagesBefore: [],
+        pagesAfter: []
     });
 });
 

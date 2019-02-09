@@ -3,8 +3,6 @@ $(document).ready(function () {
         search();
     });
 
-    var updateButton = $('#updateButton');
-
     $('#searchBox').keydown(function (event) {
         var keypressed = event.keyCode || event.which;
         if (keypressed == 13) {
@@ -12,7 +10,10 @@ $(document).ready(function () {
         }
     });
 
-    if (updateButton) {
+    var updateButton = $('#updateButton');
+
+
+    if (updateButton.length) {
         search = updateSearch;
         updateButton.on('click', function () {
             search();
@@ -26,7 +27,14 @@ function search() {
 }
 
 function updateSearch() {
-    var sortType = $.find("input[name=sortType]:checked")[0].value;
+    var sortResult = $.find("input[name=sortType]:checked");
+
+    var sortType = 0;
+
+    if (sortResult.length) {
+        sortType = $.find("input[name=sortType]:checked")[0].value;
+    }
+
 
     var url = "/otsi/" + $("#searchBox").val().toLowerCase() + "?sort=" + sortType;
 
