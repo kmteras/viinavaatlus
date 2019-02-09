@@ -12,21 +12,24 @@ block content
           option(value="") Kategooriad
             each column in categoryColumns
               each category in column
-                option(value=category.id) #{category.name}
+                option(value=category.id selected=selectedCategories.includes(category.id)) #{category.name}
     div(class="three wide column ülemineFilter")
       div(class="ui menu")
         select(name="sortType" class="ui fluid normal dropdown")
           option(value="") Järjestus
-            option(value="0") Odavamad enne
-            option(value="1") Kallimad enne
-            option(value="2") A-Z
+          option(value="0" selected=sortType===0) Odavamad enne (€/l)
+          option(value="1" selected=sortType===1) Kallimad enne (€/l)
+          option(value="4" selected=sortType===4) Odavamad enne
+          option(value="5" selected=sortType===5) Kallimad enne
+          option(value="2" selected=sortType===2) A-Z
+          option(value="3" selected=sortType===3) Z-A
     div(class="thirteen wide column alumineFilter")
       div(class="ui menu")
         select(multiple="" name="store" class="ui fluid normal dropdown")
           option(value="") Poed
             each column in stores
               each store in column
-                option(value=store.id) #{store.name}
+                option(value=store.id selected=storeCodes.includes(store.id)) #{store.name}
     div(class="three wide column alumineFilter")
       //Siin on buttoni id ipdateButton2, mis pole õige
       button(class="ui button" id="updateButton2") Uuenda
