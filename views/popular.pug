@@ -1,0 +1,33 @@
+extends layout
+
+block content
+  include includes/ageConfirmation
+  include includes/header
+  br
+
+  if popular.length > 0
+    each product in popular
+      div(class="ui grid indexPage")
+        div(class="one wide column")
+        div(class="three wide column")
+          div(class="image fixedImage")
+            a(href=product.url)
+              img(src=product.stores[0].imageUrl)
+        div(class="five wide column alkoTekstIndex")
+          div(class="paragraph alkoTekstiKirjeldus")
+            a(href=product.url) #{product.showName}
+            br
+            br
+            | #{product.vol}% #{product.ml} ml
+        div(class="two wide column")
+        div(class="five wide column alkoHindIndex")
+          - var ee = product.cheapestEE ? `(EE: ${product.cheapestEE}€)` : ""
+          - var eePerL = product.cheapestPerLStringEE ? `(EE: ${product.cheapestPerLStringEE}€/l)` : ""
+          | #{product.cheapest}€
+          br
+          p.liitriHind #{product.cheapestPerLString}€/l
+  else
+    p Ühtegi toodet ei leitud
+
+  br
+  br

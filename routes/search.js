@@ -79,6 +79,10 @@ function search(req, res, next) {
                 storeNameList.push(storePagesSingle[storeCode].name);
             }
         }
+    } else {
+        storeNameList = storePagesSingle.map((x) => {
+            return x.name;
+        })
     }
 
     let categoriesString = req.query.type;

@@ -9,6 +9,7 @@ const searchRouter = require('./routes/search');
 const limpaRouter = require('./routes/limpa');
 const aboutRouter = require('./routes/aboutUs');
 const productRouter = require('./routes/product');
+const popularRouter = require('./routes/popular');
 const scrapeRouter = require('./routes/scrape');
 const config = require("./config");
 
@@ -28,6 +29,7 @@ app.use(express.static(path.join(__dirname, 'node_modules', 'cookieconsent', 'bu
 app.use('/', indexRouter);
 app.use('/otsi', searchRouter);
 app.use('/tooted', productRouter);
+app.use('/populaarne', popularRouter);
 app.use('/limpa', limpaRouter);
 app.use('/meist', aboutRouter);
 

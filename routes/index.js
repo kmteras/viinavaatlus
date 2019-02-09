@@ -1,10 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const scraper = require('../bin/scraper');
 const db = require('../bin/db');
 const productService = require('../bin/productService');
 
-/* GET home page. */
 router.get('/', (req, res, next) => {
     db.getDb().collection("products").find({}).sort({viewCount: -1}).limit(4).toArray((err, result) => {
         if (err) {
