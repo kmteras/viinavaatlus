@@ -39,7 +39,7 @@ class CoopScraper extends Scraper {
                     storeCounty: this.storeCounty,
                     store: this.storeName,
                     url: "https://ecoop.ee/et/toode/" + item["slug_et"],
-                    price: sale ? item["campaigns"][0]["discounts"][0]["price"] : item["sell_price"],
+                    price: sale ? parseFloat(item["campaigns"][0]["discounts"][0]["price"]) : parseFloat(item["sell_price"]),
                     unitPrice: null,
                     oldPrice: sale ? item["sell_price"] : null,
                     oldUnitPrice : null,
