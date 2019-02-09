@@ -1,3 +1,4 @@
+//var cookieNotAcceptedAgeString = "Kui tahate vanusekontrollist lahti saada, siis nõustuge küpsistega.";
 $(document).ready(function () {
     $('.ui.menu .ui.dropdown').dropdown({
         on: 'click'
@@ -44,6 +45,9 @@ $(document).ready(function () {
     } else if (Cookies.get("cookieconsent_status") !== "allow") {
         confirmation()
     }
+    /*else if(Cookies.get("cookieconsent_status")!=="allow" && Cookies.get("age")===0){
+        confirmation(cookieNotAcceptedAgeString)
+    }*/
 });
 
 function confirmation() {
@@ -60,4 +64,5 @@ function confirmation() {
             Cookies.set("age", "0");
         }
     }
+
 }
