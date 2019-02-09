@@ -43,28 +43,6 @@ function initDb(callback) {
         _db = db.db(config.database);
 
         setUpDb();
-        _db.collection("products").aggregate([
-            {
-                $match: {
-                    name: {$regex: "jager"}
-                }
-            },
-            {
-                $unwind: "$stores"
-            },
-            {
-                $addFields: {
-                    cheaperPrice: {
-                        $arrayElemAt: [
-                            "$stores.prices",
-                            -1
-                            ]
-                    }
-                }
-            }
-        ]).toArray((err, res) => {
-            console.log(res);
-        });
         callback(null, _db);
     });
 }

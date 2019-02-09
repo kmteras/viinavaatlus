@@ -79,43 +79,33 @@ function updateExistingProduct(result, el) {
 }
 
 function updateStoreInfo(result, el, storeIndex) {
-    let updateValues = {};
-    let optionValues = {};
     let lastPriceIndex = result.stores[storeIndex].prices.length - 1;
     let lastPrice = result.stores[storeIndex].prices[lastPriceIndex];
 
     // If the price has not changed
     if (lastPrice.price === el.price) {
-        updateValues = {
-            "$set": {
-                "stores.$[storeIndex].prices.$[priceIndex].lastScrape": new Date(),
-            }
-        };
+        result.stores[storeIndex].prices[lastPriceIndex].lastScrape = new Date();
 
-        optionValues = {
-            arrayFilters: [
-                {
-                    "priceIndex": lastPriceIndex,
-                },
-                {
-                    "storeIndex": storeIndex
-                }
-            ]
+        if (!result.stores[storeIndex].lastPrice) {
+            result.stores[storeIndex].lastPrice = el.price;
         }
     } else {
         // If the price has changed
-        updateValues = {
-            "$push": {
-                "prices": getPriceObject(el)
-            }
-        }
+        result.stores[storeIndex].prices.unshift(getPriceObject(el));
+        result.stores[storeIndex].lastPrice = el.price;
     }
+
+    let updateValues = {
+        $set: {
+            stores: result.stores
+        }
+    };
 
     db.getDb().collection("products").updateOne({
         name: result.name,
         ml: result.ml,
         vol: result.vol
-    }, updateValues, optionValues, (err, res) => {
+    }, updateValues, {}, (err, res) => {
         if (err) {
             console.log(err);
         }
@@ -210,6 +200,7 @@ function getStoreObject(el) {
         originalName: el.originalName,
         url: el.url,
         imageUrl: el.imageUrl,
+        lastPrice: el.price,
         prices: [
             getPriceObject(el)
         ]
