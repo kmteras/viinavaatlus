@@ -32,11 +32,26 @@ function updateSearch() {
 
     var stores = $.find("input[name=store]:checked");
 
-    url += "&stores=";
+    if (stores.length) {
+        url += "&stores=";
+    }
 
     for (var i = 0; i < stores.length; i++) {
         url += stores[i].value;
         if (i !== stores.length - 1) {
+            url += ",";
+        }
+    }
+
+    var categories = $.find("input[name=category]:checked");
+
+    if (categories.length) {
+        url += "&type=";
+    }
+
+    for (var i = 0; i < categories.length; i++) {
+        url += categories[i].value;
+        if (i !== categories.length - 1) {
             url += ",";
         }
     }

@@ -5,8 +5,37 @@ const productService = require('../bin/productService');
 const scraper = require('../bin/scraper');
 
 let storePages = null;
-
 let storePagesSingle = null;
+
+let categories = [
+    {id: 0, name: "Viin"},
+    {id: 1, name: "Džinn"},
+    {id: 2, name: "Rumm"},
+    {id: 3, name: "Liköör"},
+    {id: 4, name: "Viski"},
+    {id: 5, name: "Konjak"},
+    {id: 6, name: "Brändi"},
+    {id: 7, name: "Vein"},
+    {id: 8, name: "Õlu"},
+    {id: 9, name: "Siider"},
+    {id: 10, name: "Muu"}
+];
+
+let categoriesColumns = [];
+
+let column = [];
+for (let i = 0; i < categories.length; i++) {
+    column.push(categories[i]);
+
+    if ((i + 1) % 6 === 0) {
+        categoriesColumns.push(column);
+        column = [];
+    }
+}
+
+if (column.length > 0) {
+    categoriesColumns.push(column);
+}
 
 router.get('/', (req, res, next) => {
     updateStorePages();
@@ -44,12 +73,33 @@ router.get('/:search', (req, res, next) => {
         for (let i = 0; i < storeCodeStrings.length; i++) {
             const storeCode = parseInt(storeCodeStrings[i]);
 
-            if (storeCode) {
+            if (!isNaN(storeCode)) {
                 storeCodes.push(storeCode);
 
                 storeList.push({
                     "stores.storeName": storePagesSingle[storeCode].name
                 });
+            }
+        }
+    }
+
+    let categoriesString = req.query.type;
+
+    let selectedCategories = [];
+    let categoryList = [];
+
+    if (categoriesString) {
+        const categoryStrings = categoriesString.split(",");
+
+        for (let i = 0; i < categoryStrings.length; i++) {
+            const categoryCode = parseInt(categoryStrings[i]);
+
+            if (!isNaN(categoryCode)) {
+                selectedCategories.push(categoryCode);
+
+                categoryList.push({
+                    "category": removeEstonianLetters(categories[categoryCode].name.toLowerCase())
+                })
             }
         }
     }
@@ -61,7 +111,21 @@ router.get('/:search', (req, res, next) => {
     };
 
     if (storeList.length > 0) {
-        searchQuery["$or"] = storeList;
+        searchQuery["$and"] = [
+            {
+                "$or": storeList
+            }
+        ];
+    }
+
+    if (categoryList.length > 0) {
+        if (searchQuery['$and']) {
+            searchQuery["$and"].push({
+                "$or": categoryList
+            });
+        } else {
+            searchQuery["$or"] = categoryList;
+        }
     }
 
     db.getDb().collection("products").find(searchQuery).count((err, results) => {
@@ -69,7 +133,7 @@ router.get('/:search', (req, res, next) => {
         db.getDb().collection("products").find(searchQuery).limit(pageLimit).skip((page - 1) * pageLimit).toArray((err, result) => {
             if (err) {
                 console.error(err);
-                result = null;
+                result = [];
             }
 
             let pagesBefore = [];
@@ -139,7 +203,9 @@ router.get('/:search', (req, res, next) => {
                 pagesBefore: pagesBefore,
                 page: page,
                 pagesAfter: pagesAfter,
-                storeCodes: storeCodes
+                storeCodes: storeCodes,
+                categoryColumns: categoriesColumns,
+                selectedCategories: selectedCategories
             });
         });
     });
@@ -150,6 +216,8 @@ function removeEstonianLetters(string) {
     string = string.replace(/ö/g, "o");
     string = string.replace(/õ/g, "o");
     string = string.replace(/ü/g, "u");
+    string = string.replace(/ž/g, "z");
+    string = string.replace(/š/g, "s");
     return string;
 }
 
@@ -178,7 +246,7 @@ function updateStorePages() {
             }
         }
 
-        if (storeColumn !== []) {
+        if (storeColumn.length > 0) {
             storePages.push(storeColumn)
         }
     }
