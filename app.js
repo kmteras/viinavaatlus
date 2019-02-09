@@ -29,7 +29,7 @@ app.use(express.static(path.join(__dirname, 'node_modules', 'cookieconsent', 'bu
 app.use('/', indexRouter);
 app.use('/otsi', searchRouter);
 app.use('/tooted', productRouter);
-app.use('/populaarne', popularRouter);
+app.use('/populaarsed', popularRouter);
 app.use('/limpa', limpaRouter);
 app.use('/meist', aboutRouter);
 
