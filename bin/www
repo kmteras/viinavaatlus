@@ -32,7 +32,7 @@ db.initDb((err, db) => {
 
     scraper.setupScraperClasses();
 
-    if (config.production) {
+    if (config.scrapeOnStart) {
         scraper.shallowScrape();
     }
 

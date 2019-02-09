@@ -25,13 +25,14 @@ a {
 
 .tiitel {
     text-align: left;
+    padding-top: 20px;
     padding-left: 30px;
 }
 
 .logo_viin {
     height: 70px;
     float: left;
-    transform: rotate(20deg)
+    transform: rotate(20deg);
 }
 
 .eight {
@@ -65,9 +66,8 @@ a {
 }
 
 img {
-    max-width: 100%;
     height: auto;
-    max-height: 100px;
+    max-height: 100%;
 }
 
 .ui.three.cards > .card {
@@ -227,4 +227,16 @@ img {
 .about {
     text-align: justify;
     font-size: 1vw;
+}
+.filterRadio{
+    margin-top: 0;
+}
+.filterRadioFields{
+    text-align: left;
+}
+.filterRadioVasak{
+    margin-left: 3%;
+}
+.värviMustaks{
+    color: black;
 }

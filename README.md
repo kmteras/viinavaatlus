@@ -1,19 +1,8 @@
-## Step 1: before the code ##
-
-* quickfire introduction (personal shit)
-
-* realistic end goal (finalized product, prototype)
-    * keeping the scope small (minimalistic features)
-
-* specific roles per player
-
-* drink lots of alcohol?????
-
-
-
-## Step 2: Setting up the existing project ##
-_Use google to install packages if using windows_
-
+# Setting up the project
+Requirements:  
+* Node.js  
+* Npm  
+* MongoDB
 
 ```git clone git@github.com:Teras23/viinavaatlus.git```
 
@@ -21,24 +10,23 @@ _Use google to install packages if using windows_
 
 ```git checkout development```
 
-move config.json.sample to config.json and in config.json change the database url to ```"mongodb://localhost:27017/"``` and database to ```"viinavaatlus"```
+Copy config values from readme to config.json and change 
 
-_NPM REQUIRED_ (linux: sudo apt install npm)
-
-```npm i```
-
-rename config.json.example to config.json (LINUX: mv config.json.example config.json)
-
-_MONGODB REQUIRED_ (linux: sudo apt install mongodb)
+```npm install```
 
 ```npm run dev```
 
 
-Example config.json file:
+Example ```config.json``` file:
 ```
 {
   "databaseUrl": "mongodb://localhost:27017/",
-  "database": "viinavaatlus"
+  "database": "viinavaatlus",
+  
+  Optional parameters:
+  "port": 3000,
+  "production": true/false,
+  "scrapeOnStart": true/false
 }
 ```
 

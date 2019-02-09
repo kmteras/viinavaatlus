@@ -2,7 +2,7 @@ const db = require('./db');
 
 const scraperClasses = [
     require("./scrapers/maxima"),
-    // require("./scrapers/selver"),
+    require("./scrapers/selver"),
     require('./scrapers/coop'),
     require("./scrapers/alko1000"),
     require("./scrapers/cityalko"),
@@ -240,9 +240,13 @@ function getData(callback) {
     });
 }
 
+function getScraperObjects() {
+    return scraperObjects;
+}
+
 module.exports = {
     setupScraperClasses,
     deepScrape,
     shallowScrape,
-    getData
+    getScraperObjects
 };

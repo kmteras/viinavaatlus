@@ -3,16 +3,54 @@ extends layout
 block content
   include includes/ageConfirmation
   include includes/header
-  div(class="ui form")
-    div(class="grouped fields")
-      div(class="field")
-        div(class="ui radio checkbox esimeneSort")
-          input(type="radio" name="odavamad" value="1" checked="checked")
-          label Odavamad enne
-        div(class="ui radio checkbox")
-          input(type="radio" name="odavamad" value="2")
-          label Kallimad enne
-  if products
+  br
+  div(class="ui grid")
+    div(class="four wide column indexPage filterRadio filterRadioVasak")
+      div(class="ui form filterRadioFields")
+        div(class="grouped fields")
+          label Sorteeri:
+          div(class="field")
+            div(class="ui radio checkbox")
+              input(type="radio" name="sortType" value="0" checked=sortType===0)
+              label Odavamad enne
+          div(class="field")
+            div(class="ui radio checkbox")
+              input(type="radio" name="sortType" value="1" checked=sortType===1)
+              label Kallimad enne
+          div(class="field")
+            div(class="ui radio checkbox")
+              input(type="radio" name="sortType" value="2" checked=sortType===2)
+              label A->Z
+    div(class="four wide column indexPage filterRadio")
+      div(class="ui form")
+        div(class="grouped fields")
+          label Poed
+          div(class="ui grid")
+            each column in stores
+              div(class="six wide column")
+                each store in column
+                  div(class="field")
+                    div(class="ui checkbox")
+                      input(type="checkbox" name="store" value=store.id checked=storeCodes.includes(store.id))
+                      label #{store.name}
+    div(class="four wide column indexPage filterRadio")
+      div(class="ui form")
+        div(class="grouped fields")
+          label Alkoholid
+          div(class="ui grid")
+            each column in categoryColumns
+              div(class="six wide column")
+                each category in column
+                  div(class="field")
+                    div(class="ui checkbox")
+                      input(type="checkbox" name="category" value=category.id checked=selectedCategories.includes(category.id))
+                      label= category.name
+    div(class="one wide column")
+      button(class="ui button" id="updateButton") Uuenda
+
+  br
+
+  if products.length > 0
     each product in products
       div(class="ui grid indexPage")
         div(class="one wide column")
@@ -33,10 +71,18 @@ block content
           | #{product.cheapest}€
           br
           p.liitriHind #{product.cheapestPerLString}€/l
+  else
+    p Ühtegi toodet ei leitud
 
-  //div(class="ui pagination menu")
-  //  a(class="active item") 1
-  //  div(class="disabled item") ...
-  //  a(class="item") 10
-  //  a(class="item") 11
-  //  a(class="item") >
+  div(class="ui pagination menu")
+    each pageBefore in pagesBefore
+      if pageBefore.pageNumber === -1
+        a(class="item") ...
+      else
+        a(class="item" href=pageBefore.pageUrl) #{pageBefore.pageNumber}
+    a(class="active item") #{page}
+    each pageAfter in pagesAfter
+      if pageAfter.pageNumber === -1
+        a(class="item") ...
+      else
+        a(class="item" href=pageAfter.pageUrl) #{pageAfter.pageNumber}

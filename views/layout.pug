@@ -2,7 +2,6 @@ doctype html
 html
   head
     title= title
-    meta(name="description" content="Viinavaatlus on hinnainfot edastav hinnavõrdlusportaal, mis aitab leida erinevaid alkohoolseid tooteid ja võrrelda nende hindu.")
     link(rel='stylesheet', href='/stylesheets/style.css')
     link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css')
     link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/container.min.css')
@@ -12,19 +11,27 @@ html
     link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/form.min.css")
     link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/search.min.css")
     link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/input.min.css")
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/checkbox.min.css")
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/form.min.css")
     link(rel="shortcut icon" type="image/png" href="/img/icon.png")
     link(rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css")
     link(rel="stylesheet", type="text/css", href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/modal.min.css")
     script(async src="https://www.googletagmanager.com/gtag/js?id=UA-134109682-1")
-    script(src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/search.min.js")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/search.min.js")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.js")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/modal.min.js")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/form.min.js")
     script(src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js")
     script(src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js")
-    script(src="/js/menu.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/checkbox.min.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/form.min.js")
+    script(src="/js/viinavaatlus.js")
+    script(src="/js/search.js")
+
+    title Viinavaatlus
+
     block includes
     script.
         window.dataLayer = window.dataLayer || [];
@@ -38,4 +45,4 @@ html
   body(class="ui container")
     block includes
     block content
-    include includes/footer
+    //include includes/footer

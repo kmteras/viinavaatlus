@@ -21,7 +21,6 @@ class SelverScraper extends Scraper {
 
         super.priceRegex = /([\d,.]*)/;
         super.volRegex = /((\d[\d.,]*)[%])/;
-
     }
 
 
@@ -42,6 +41,8 @@ class SelverScraper extends Scraper {
             const $price = $product.find("span[itemprop='price']");
             const info = $product.find("table[class='product-attributes']").find("th:contains('Alkoholi liik')").next().text();
 
+            const price = parseFloat($price.attr("content"));
+
             const product = {
                 name: this.getCleanName(name),
                 sale: sale,
@@ -49,7 +50,7 @@ class SelverScraper extends Scraper {
                 storeCounty: this.storeCounty,
                 store: this.storeName,
                 url: url,
-                price: $price.attr("content"),
+                price: price,
                 unitPrice: this.getPrice($price.next().text()),
                 oldPrice: (sale ? this.getPrice($oldPrice.children().first().text()) : null),
                 oldUnitPrice: (sale ? this.getPrice($oldPrice.children().last().text()) : null),
