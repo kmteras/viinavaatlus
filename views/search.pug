@@ -31,7 +31,7 @@ block content
                 each store in column
                   div(class="field")
                     div(class="ui checkbox")
-                      input(type="checkbox" value="#{store.id}")
+                      input(type="checkbox" name="store" value=store.id checked=storeCodes.includes(store.id))
                       label #{store.name}
     div(class="four wide column indexPage filterRadio")
       div(class="ui form")

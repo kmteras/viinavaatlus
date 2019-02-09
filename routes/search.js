@@ -6,6 +6,8 @@ const scraper = require('../bin/scraper');
 
 let storePages = null;
 
+let storePagesSingle = null;
+
 router.get('/', (req, res, next) => {
     updateStorePages();
     res.render('search', {
@@ -31,11 +33,36 @@ router.get('/:search', (req, res, next) => {
         sortType = 0;
     }
 
+    let storesString = req.query.stores;
+
+    let storeList = [];
+    let storeCodes = [];
+
+    if (storesString) {
+        const storeCodeStrings = storesString.split(",");
+
+        for (let i = 0; i < storeCodeStrings.length; i++) {
+            const storeCode = parseInt(storeCodeStrings[i]);
+
+            if (storeCode) {
+                storeCodes.push(storeCode);
+
+                storeList.push({
+                    "stores.storeName": storePagesSingle[storeCode].name
+                });
+            }
+        }
+    }
+
     let searchQuery = {
         name: {
             $regex: removeEstonianLetters(req.params.search)
         }
     };
+
+    if (storeList.length > 0) {
+        searchQuery["$or"] = storeList;
+    }
 
     db.getDb().collection("products").find(searchQuery).count((err, results) => {
         const totalPages = Math.ceil(results / pageLimit);
@@ -111,7 +138,8 @@ router.get('/:search', (req, res, next) => {
                 sortType: sortType,
                 pagesBefore: pagesBefore,
                 page: page,
-                pagesAfter: pagesAfter
+                pagesAfter: pagesAfter,
+                storeCodes: storeCodes
             });
         });
     });
@@ -129,15 +157,20 @@ function removeEstonianLetters(string) {
 function updateStorePages() {
     if (!storePages) {
         storePages = [];
+        storePagesSingle = [];
+
         const scraperObject = scraper.getScraperObjects();
 
         let storeColumn = [];
 
         for (let i = 0; i < scraperObject.length; i++) {
-            storeColumn.push({
+            const storePage = {
                 id: i,
                 name: scraperObject[i].storeName
-            });
+            };
+
+            storeColumn.push(storePage);
+            storePagesSingle.push(storePage);
 
             if ((i + 1) % 5 === 0) {
                 storePages.push(storeColumn);

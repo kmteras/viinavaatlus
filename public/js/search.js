@@ -28,5 +28,18 @@ function search() {
 function updateSearch() {
     var sortType = $.find("input[name=sortType]:checked")[0].value;
 
-    window.location.href = "/otsi/" + $("#searchBox").val().toLowerCase() + "?sort=" + sortType;
+    var url = "/otsi/" + $("#searchBox").val().toLowerCase() + "?sort=" + sortType;
+
+    var stores = $.find("input[name=store]:checked");
+
+    url += "&stores=";
+
+    for (var i = 0; i < stores.length; i++) {
+        url += stores[i].value;
+        if (i !== stores.length - 1) {
+            url += ",";
+        }
+    }
+
+    window.location.href = url;
 }
