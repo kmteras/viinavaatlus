@@ -7,6 +7,7 @@
 const app = require('../app');
 const debug = require('debug')('viinavaatlus:server');
 const http = require('http');
+const https = require('https');
 const scraper = require('./scraper');
 const db = require("./db");
 const config = require("../config");
@@ -16,6 +17,7 @@ const config = require("../config");
  */
 
 let port = normalizePort(process.env.PORT || config.port || '3000');
+let httpsPort = normalizePort(config.httpsPort);
 app.set('port', port);
 
 /**
@@ -23,6 +25,7 @@ app.set('port', port);
  */
 
 const server = http.createServer(app);
+const httpsServer = https.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -37,6 +40,20 @@ db.initDb((err, db) => {
     }
 
     server.listen(port);
+
+    if (config.https) {
+        const privateKey = fs.readFileSync(config.privateKey, 'utf8');
+        const certificate = fs.readFileSync(config.certificate, 'utf8');
+        const ca = fs.readFileSync(config.ca, 'utf8');
+
+        const credentials = {
+            key: privateKey,
+            cert: certificate,
+            ca: ca
+        };
+        httpsServer.listen(httpsPort);
+    }
+
     server.on('error', onError);
     server.on('listening', onListening);
 });
