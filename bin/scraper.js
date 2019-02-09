@@ -240,9 +240,13 @@ function getData(callback) {
     });
 }
 
+function getScraperObjects() {
+    return scraperObjects;
+}
+
 module.exports = {
     setupScraperClasses,
     deepScrape,
     shallowScrape,
-    getData
+    getScraperObjects
 };

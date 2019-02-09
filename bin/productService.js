@@ -36,7 +36,7 @@ function findCheapestPerVol(products) {
     return cheapestProducts;
 }
 
-function prepareSearchResultsForRender(result, sort = true) {
+function prepareSearchResultsForRender(result, sort = 0) {
     for (let i = 0; i < result.length; i++) {
         result[i].url = `/tooted/${result[i].name.replace(/ /g, "_")}/${result[i].ml}`;
 
@@ -76,9 +76,19 @@ function prepareSearchResultsForRender(result, sort = true) {
         result[i].showName = titleCase(result[i].name);
     }
 
-    if (sort) {
+    if (sort === 0) {
         result.sort((a, b) => {
             return a.cheapestPerL - b.cheapestPerL
+        });
+    }
+    else if (sort === 1) {
+        result.sort((a, b) => {
+            return b.cheapestPerL - a.cheapestPerL
+        });
+    }
+    else if (sort === 2) {
+        result.sort((a, b) => {
+            return a.name < b.name;
         });
     }
 

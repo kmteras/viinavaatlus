@@ -2,9 +2,11 @@ $(document).ready(function () {
     $('.ui.menu .ui.dropdown').dropdown({
         on: 'click'
     });
+
     $('.ui.floating.multiple.dropdown.labeled.icon.button').dropdown({
         on: 'click'
     });
+
     $('.ui.menu a.item')
         .on('click', function () {
             $(this)
@@ -12,16 +14,8 @@ $(document).ready(function () {
                 .siblings()
                 .removeClass('active');
         });
-    $('#searchButton').on('click', function () {
-        search();
-    });
 
-    $('#searchBox').keydown(function (event) {
-        var keypressed = event.keyCode || event.which;
-        if (keypressed == 13) {
-            search();
-        }
-    });
+
     window.addEventListener("load", function () {
         window.cookieconsent.initialise({
             "palette": {
@@ -52,10 +46,6 @@ $(document).ready(function () {
     }
 });
 
-function search() {
-    window.location.href = "/otsi/" + removeEstonianLetters($("#searchBox").val()).toLowerCase();
-}
-
 function confirmation() {
     $('.ui.basic.modal').modal('show');
 
@@ -71,15 +61,3 @@ function confirmation() {
         }
     }
 }
-
-
-function removeEstonianLetters(string) {
-    string = string.replace(/ä/g, "a");
-    string = string.replace(/ö/g, "o");
-    string = string.replace(/õ/g, "o");
-    string = string.replace(/ü/g, "u");
-    return string;
-}
-
-
-

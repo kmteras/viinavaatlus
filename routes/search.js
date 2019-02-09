@@ -2,23 +2,38 @@ const express = require('express');
 const router = express.Router();
 const db = require('../bin/db');
 const productService = require('../bin/productService');
+const scraper = require('../bin/scraper');
+
+let storePages = null;
 
 router.get('/', (req, res, next) => {
-    res.render('search', {products: null, search: req.params.search});
+    updateStorePages();
+    res.render('search', {
+        products: null,
+        search: req.params.search,
+        stores: storePages
+    });
 });
 
 const pageLimit = 10;
 
 router.get('/:search', (req, res, next) => {
+    updateStorePages();
     let page = parseInt(req.query.page);
 
     if (!page) {
         page = 1;
     }
 
+    let sortType = parseInt(req.query.sort);
+
+    if (!sortType) {
+        sortType = 0;
+    }
+
     let searchQuery = {
         name: {
-            $regex: req.params.search
+            $regex: removeEstonianLetters(req.params.search)
         }
     };
 
@@ -39,8 +54,7 @@ router.get('/:search', (req, res, next) => {
             if (!url.includes(`?page=${page}`)) {
                 if (!url.includes("?")) {
                     url += `?page=${page}`;
-                }
-                else {
+                } else {
                     url += `&page=${page}`;
                 }
             }
@@ -89,19 +103,52 @@ router.get('/:search', (req, res, next) => {
                 });
             }
 
-            result = productService.prepareSearchResultsForRender(result);
+            result = productService.prepareSearchResultsForRender(result, sortType);
             res.render('search', {
                 products: result,
                 search: req.params.search,
+                stores: storePages,
+                sortType: sortType,
                 pagesBefore: pagesBefore,
                 page: page,
-                pagesAfter: pagesAfter});
+                pagesAfter: pagesAfter
+            });
         });
     });
 });
 
-function search() {
+function removeEstonianLetters(string) {
+    string = string.replace(/ä/g, "a");
+    string = string.replace(/ö/g, "o");
+    string = string.replace(/õ/g, "o");
+    string = string.replace(/ü/g, "u");
+    return string;
+}
 
+
+function updateStorePages() {
+    if (!storePages) {
+        storePages = [];
+        const scraperObject = scraper.getScraperObjects();
+
+        let storeColumn = [];
+
+        for (let i = 0; i < scraperObject.length; i++) {
+            storeColumn.push({
+                id: i,
+                name: scraperObject[i].storeName
+            });
+
+            if ((i + 1) % 5 === 0) {
+                storePages.push(storeColumn);
+                storeColumn = [];
+            }
+        }
+
+        if (storeColumn !== []) {
+            storePages.push(storeColumn)
+        }
+    }
 }
 
 module.exports = router;
