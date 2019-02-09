@@ -60,7 +60,7 @@ function prepareSearchResultsForRender(result) {
             });
         }
 
-        if(cheapestEE) {
+        if (cheapestEE) {
             result[i].cheapestPerLEE = cheapestEE / (result[i].ml / 1000);
             result[i].cheapestEE = cheapestEE.toLocaleString("ee-EE", {
                 maximumFractionDigits: 2,
@@ -122,16 +122,19 @@ function prepareProductForShowing(result) {
     let cheapestEE = findCheapestEE(result);
 
     for (let i = 0; i < result.stores.length; i++) {
-        const price = result.stores[i].prices[result.stores[i].prices.length - 1].price;
-        result.stores[i].showPrice =
-            price.toLocaleString("ee-EE", {
-                maximumFractionDigits: 2,
-                minimumFractionDigits: 2
-            });
+        const price = result.stores[i].prices[0].price;
+
+        if (price) {
+            result.stores[i].showPrice =
+                price.toLocaleString("ee-EE", {
+                    maximumFractionDigits: 2,
+                    minimumFractionDigits: 2
+                });
+        }
     }
 
     result.stores.sort((a, b) => {
-        return a.prices[a.prices.length - 1].price - b.prices[b.prices.length - 1].price;
+        return a.prices[0].price - b.prices[0].price;
     });
 
     if (cheapestEE) {
@@ -164,8 +167,7 @@ function findCheapest(product) {
 
     if (cheapest !== Number.POSITIVE_INFINITY) {
         return cheapest;
-    }
-    else {
+    } else {
         return null;
     }
 }
@@ -182,8 +184,7 @@ function findCheapestEE(product) {
 
     if (cheapestEE !== Number.POSITIVE_INFINITY) {
         return cheapestEE;
-    }
-    else {
+    } else {
         return null;
     }
 }
