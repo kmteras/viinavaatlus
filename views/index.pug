@@ -6,7 +6,7 @@ block content
 
   if products
     div(class="ui grid indexPageHeader")
-      // Vajab automaatset tesizimist
+      // Vajab automaatset resizimist
       p.populaarseimadHeader Populaarseimad tooted
     div(class="ui grid indexPage")
       for product in products
@@ -30,7 +30,7 @@ block content
       p.populaarseimadHeader Kõige rahakotisõbralikumad tooted Eestis
     div(class="ui grid indexPage")
       for product in cheapestProducts
-        div(class="four wide column")
+        div(class="eight wide mobile four wide computer column")
           div(class="ui card")
             div(class="image")
               a(href=product.url)
