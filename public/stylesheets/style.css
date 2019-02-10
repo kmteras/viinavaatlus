@@ -126,12 +126,14 @@ img {
     margin-bottom: 1%;
     padding-top: 3%;
 }
+
 .ui.grid.indexPageLoadMore {
     margin-left: 2%;
     margin-right: 2%;
     position: relative;
 }
-.laeVeelNupp{
+
+.laeVeelNupp {
     position: absolute;
     right: 0;
 }
@@ -234,28 +236,44 @@ img {
     text-align: justify;
     font-size: 1vw;
 }
-.filterRadio{
+
+.filterRadio {
     margin-top: 0;
 }
-.filterRadioFields{
+
+.filterRadioFields {
     text-align: left;
 }
-.filterRadioVasak{
+
+.filterRadioVasak {
     margin-left: 3%;
 }
-.värviMustaks{
+
+.värviMustaks {
     color: black;
 }
-.ülemineFilter{
+
+.ülemineFilter {
     margin-bottom: 0;
     padding-bottom: 0 !important;
     margin-top: 0;
     padding-top: 0.5rem !important;
 }
-.alumineFilter{
+
+.alumineFilter {
     margin-top: 0;
     padding-top: 0.5rem !important;
 }
-.whitespace{
+
+.whitespace {
     padding-top: 10%;
+}
+
+@media only screen and (max-width: 971px) {
+    .ui.stackable.menu {
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+    }
 }
