@@ -6,10 +6,11 @@ block content
 
   if products
     div(class="ui grid indexPageHeader")
+      // Vajab automaatset tesizimist
       p.populaarseimadHeader Populaarseimad tooted
     div(class="ui grid indexPage")
       for product in products
-          div(class="four wide column")
+          div(class="eight wide mobile four wide computer column")
             div(class="ui card")
               div(class="image")
                 a(href=product.url)
