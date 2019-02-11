@@ -4,7 +4,7 @@ class Scraper {
         this.storeCounty = storeCountry;
         this.volRegex = /[\D]((\d[\d.,]*)[%])/;
         this.mlRegex = /[\D]((\d+)(\s?[mM][lL]|[mM][lL]?))/;
-        this.clRegex = /[\D]((\d+)\s?[cC][lL])/;
+        this.clRegex = /[\D]((\d[\d,.]*)\s?[cC][lL])/;
         this.lRegex = /[\D]((\d[\d,.]*)\s?[lL])/;
         this.priceRegex = /€([\d,.]*)/;
         this.illegalWords = [
@@ -66,7 +66,7 @@ class Scraper {
         const clResult = this.clRegex.exec(name);
 
         if (clResult) {
-            const parsed = parseInt(clResult[2]);
+            const parsed = parseFloat(clResult[2].replace(",", "."));
             if (isNaN(parsed)) {
                 console.warn(`Could not parse cl integer from ${name}`);
                 return null
