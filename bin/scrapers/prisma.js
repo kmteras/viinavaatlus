@@ -7,9 +7,7 @@ const cheerio = require('cheerio');
 class PrismaScraper extends Scraper {
     constructor () {
         super("Prisma", "EE");
-        this.baseUrl = 'https://prismamarket.ee/';
-
-        //process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
+        this.baseUrl = 'https://prismamarket.ee';
         this.categoryPages = [
             {url: ['https://www.prismamarket.ee/products/17253/page/', 1], category: 'olu'},
             {url: ['https://www.prismamarket.ee/products/17254/page/', 1], category: 'siider'},
@@ -17,6 +15,8 @@ class PrismaScraper extends Scraper {
             {url: ['https://www.prismamarket.ee/products/17256/page/', 1], category: 'kokteilijook'},
             {url: ['https://www.prismamarket.ee/products/19208/page/', 1], category: 'kange'},
         ];
+
+        //process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
     }
 
 
@@ -28,11 +28,16 @@ class PrismaScraper extends Scraper {
     }
 
     scrapeCategoryPage(category, callback) {
-        rp(category.url.join("")).then((html) => {
-            const json = JSON.parse(html);
-            console.info(json);
-
-            console.info(results);
+        let options = {
+            uri: category.url.join(""),
+            headers: {
+                "X-Requested-With": "XMLHttpRequest"
+            },
+            json: true
+        };
+        rp(options).then((html) => {
+            console.info(category.url);
+            let results = html["data"]["entries"];
             let products = [];
             results.forEach((item) => {
                 let sale = item.hasOwnProperty("original_price");
@@ -50,20 +55,21 @@ class PrismaScraper extends Scraper {
                     vol: this.getVol(item["name"]),
                     ml: this.getMl(" " + item["quantity"] + item["unit_name"]),
                     category : category.category,
-                    imageUrl: null,
+                    imageUrl: item["images"] > 0 ? "https://s3-eu-west-1.amazonaws.com/balticsimages/images/320x480/" + item["image_guid"] + ".png" : null
                 };
                 console.info(product);
                 products.push(product);
             });
             callback(products);
-            /*const nextPage = json["next"];
-            if (nextPage != null) {
+            const pagination = html["data"]["pagination"];
+            console.info("adsc", pagination);
+            if (pagination["next_url"] != null) {
                 const newCategory = {
-                    url: [category.url[0], nextPage, category.url[2]],
+                    url: [this.baseUrl + pagination["next_url"], category.url[1]],
                     category: category.category
                 };
                 this.scrapeCategoryPage(newCategory, callback);
-            }*/
+            }
         }).catch((err) => {
             console.error(err)
         });
