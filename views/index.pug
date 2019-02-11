@@ -15,8 +15,7 @@ block content
                 a(href=product.url)
                   img.indexPageImage(src=product.stores[0].imageUrl)
               div(class="content")
-                a(class="header")
-                  a(href=product.url) #{product.showName}
+                a(class="header" href=product.url) #{product.showName}
                 div(class="description") #{product.vol}%
                 div(class="description") #{product.ml} ml
                 div(class="header price") #{product.cheapest} €
@@ -35,8 +34,7 @@ block content
               a(href=product.url)
                 img.indexPageImage(src=product.stores[0].imageUrl)
             div(class="content")
-              a(class="header")
-                a(href=product.url) #{product.showName}
+              a(class="header" href=product.url) #{product.showName}
               div(class="description") #{product.vol}%
               div(class="description") #{product.ml} ml
               div(class="header price") #{product.cheapestEE} €
