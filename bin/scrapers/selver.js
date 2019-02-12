@@ -16,8 +16,8 @@ class SelverScraper extends Scraper {
             {url: "https://www.selver.ee/joogid/kange-alkohol/aperitiiviid", category: "aperitiiv"},
             {url: "https://www.selver.ee/joogid/kange-alkohol/likoorid", category: "likoor"},
             {url: "https://www.selver.ee/joogid/kange-alkohol/muud-kanged-alkohoolsed-joogid", category: "muu"},
-            {url: "https://www.selver.ee/joogid/lahja-alkohol/olled-siidrid-segud-kokteilid", category: "lahja"}
-
+            {url: "https://www.selver.ee/joogid/lahja-alkohol/olled-siidrid-segud-kokteilid?product_segment=3849,4037,4413,4118,4291,4292,4046", category: "olu"},
+            {url: "https://www.selver.ee/joogid/lahja-alkohol/olled-siidrid-segud-kokteilid?product_segment=3939,4034,3940,4986", category: "siider"},
         ];
 
         super.priceRegex = /([\d,.]*)/;

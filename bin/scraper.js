@@ -165,6 +165,7 @@ function addNewProduct(result, el) {
 
     if (isNaN(parseFloat(el.price))) {
         console.warn(`Price is not float ${el.url}`)
+        return;
     }
 
     // The overall product object
