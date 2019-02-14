@@ -1,4 +1,4 @@
-@media only screen and (max-width: 991px) {
+@media only screen and (max-width: 971px) {
     .ui.stackable.menu .left.menu, .ui.stackable.menu .right.menu {
         -webkit-box-orient: vertical;
         -webkit-box-direction: normal;
@@ -7,13 +7,13 @@
     }
 }
 
-@media only screen and (max-width: 991px) {
+@media only screen and (max-width: 971px) {
     .ui.stackable.menu .right.item, .ui.stackable.menu .right.menu {
         margin-left: 0 !important;
     }
 }
 
-@media only screen and (max-width: 991px) {
+@media only screen and (max-width: 971px) {
     .ui.stackable.menu .left.menu, .ui.stackable.menu .right.menu {
         -webkit-box-orient: vertical;
         -webkit-box-direction: normal;
@@ -22,7 +22,7 @@
     }
 }
 
-@media only screen and (max-width: 991px) {
+@media only screen and (max-width: 971px) {
     .ui.container {
         width: auto !important;
         margin-left: 1em !important;
