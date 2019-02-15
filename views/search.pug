@@ -78,12 +78,12 @@ block content
             br
             | #{product.vol}% #{product.ml} ml
         div(class="two wide column")
-        div(class="five wide column alkoHindIndex")
+        div(class="five wide column alkoHindIndex hinnaFont")
           - var ee = product.cheapestEE ? `(EE: ${product.cheapestEE}€)` : ""
           - var eePerL = product.cheapestPerLStringEE ? `(EE: ${product.cheapestPerLStringEE}€/l)` : ""
           | #{product.cheapest}€
           br
-          p.liitriHind #{product.cheapestPerLString}€/l
+          p.liitriHind.liitriHinnaFont #{product.cheapestPerLString}€/l
   else
     p Ühtegi toodet ei leitud
 

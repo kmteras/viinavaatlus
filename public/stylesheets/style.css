@@ -177,7 +177,6 @@ img {
     color: red !important;
     font-size: 2vw;
 }
-
 #alkoList {
     display: none;
 }
@@ -231,10 +230,27 @@ img {
     .aboutPageHeader{
         font-size: 2vw !important;
     }
+    .allahindluseTähiseTekst{
+        font-size: 1.25rem;
+    }
+    .tooteleht.info{
+        font-size: 3vw;
+    }
+    .alkoTekstiKirjeldus {
+        font-size: 150%;
+    }
+    .hinnaFont{
+        font-size: 150%;
+    }
+    .liitriHinnaFont{
+        font-size: 70%;
+    }
+    .ui.menu {
+        font-size: 1.3rem !important;
+    }
 }
 
 @media only screen and (min-width: 992px) {
-
     .ui.container {
         display: flex;
         min-height: auto;
