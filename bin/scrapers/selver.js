@@ -1,6 +1,7 @@
 const Scraper = require('./base');
 const rp = require('request-promise');
 const cheerio = require('cheerio');
+const Promise = require('bluebird');
 
 class SelverScraper extends Scraper {
     constructor() {
@@ -31,9 +32,8 @@ class SelverScraper extends Scraper {
         }
     }
 
-    scrapeProductPage(url, category, callback) {
-        rp(url).then((html) => {
-            const $ = cheerio.load(html);
+    scrapeProductPage(url, category) {
+        return rp({url: url, transform: html => cheerio.load(html)}).then($ => {
             const $product = $(".product-essential");
             const name = $product.find(".page-title > h1").text();
             const $oldPrice = $product.find("p[class='old-price left'] > .price");
@@ -48,7 +48,7 @@ class SelverScraper extends Scraper {
                 return;
             }
 
-            const product = {
+            return {
                 name: this.getCleanName(name),
                 sale: sale,
                 originalName: name,
@@ -57,52 +57,37 @@ class SelverScraper extends Scraper {
                 url: url,
                 price: price,
                 unitPrice: this.getPrice($price.next().text()),
-                oldPrice: (sale ? this.getPrice($oldPrice.children().first().text()) : null),
-                oldUnitPrice: (sale ? this.getPrice($oldPrice.children().last().text()) : null),
+                oldPrice: sale ? this.getPrice($oldPrice.children().first().text()) : null,
+                oldUnitPrice: sale ? this.getPrice($oldPrice.children().last().text()) : null,
                 vol: this.getVol(info),
                 ml: this.getMl(name),
-                category: category.category,
+                category: category,
                 imageUrl: "https:" + $product.find("img[itemprop='image']").attr("src")
-            };
-            callback(product);
-        });
+            }
+        })
+    }
+
+    getProductPages(category, pages = []) {
+        return rp({url: category.url, transform: html => cheerio.load(html)}).then($ => {
+            pages = pages.concat($('.category-products').find(".age-restricted > a").map((i, v) => $(v).attr("href")).get());
+            const $next = $("a[class='next i-next']");
+            const nextUrl = $next.length ? $next.attr("href") : null;
+            if (nextUrl) {
+                category.url = nextUrl;
+                return this.getProductPages(category, pages);
+            }
+            return pages;
+        })
+
     }
 
     scrapeCategoryPage(category, callback) {
+        this.getProductPages(category).then(links => {
+            return Promise.map(links, (link) => {
+                return this.scrapeProductPage(link, category.category);
+            }, {concurrency: 10})
 
-        rp(category.url)
-            .then((html) => {
-                const $ = cheerio.load(html);
-                const $items = $('.category-products').find(".age-restricted > a");
-                $items.each((index, value) => {
-                    this.scrapeProductPage($(value).attr("href"), category, (product) => {
-                        callback([product]);
-                    });
-
-                });
-
-
-                const nextPageUrl = this.getNextPage($);
-                if (nextPageUrl) {
-                    const newCategory = {
-                        url: nextPageUrl,
-                        category: category.category
-                    };
-
-                    this.scrapeCategoryPage(newCategory, callback);
-                }
-            })
-            .catch((err) => {
-                console.error(err);
-            });
-    }
-
-    getNextPage($) {
-        let $el = $("a[class='next i-next']");
-        if ($el.length) {
-            return $el.attr("href");
-        }
-        return null
+        }).then(res => callback(res));
     }
 }
 
