@@ -338,7 +338,7 @@ function updateStorePages() {
             storeColumn.push(storePage);
             storePagesSingle.push(storePage);
 
-            if ((i + 1) % 5 === 0) {
+            if ((i + 1) % 6 === 0) {
                 storePages.push(storeColumn);
                 storeColumn = [];
             }

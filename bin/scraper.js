@@ -10,7 +10,8 @@ const scraperClasses = [
     require("./scrapers/superalko"),
     require("./scrapers/liviko"),
     require("./scrapers/sadamamarket"),
-    require("./scrapers/alkoshop")
+    require("./scrapers/alkoshop"),
+    require("./scrapers/prisma")
 ];
 
 let scraperObjects = null;
