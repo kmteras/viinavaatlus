@@ -9,12 +9,10 @@ body {
     margin-bottom: 3%;
     background: #fafafa !important;
 }
-
 a {
     color: #00B7FF;
     font-weight: bold;
 }
-
 .logo {
     display: inline-block;
     width: 100%;
@@ -22,13 +20,11 @@ a {
     margin-left: 1%;
     padding-top: 20px;
 }
-
 .tiitel {
     text-align: left;
     padding-top: 20px;
     padding-left: 30px;
 }
-
 .logo_viin {
     height: 80px;
     float: left;
@@ -44,15 +40,12 @@ a {
 .ui.table:last-child {
     margin-bottom: 3%;
 }
-
 .esimeneSort {
     padding-right: 5px;
 }
-
 .tooteleht {
     margin-top: 5%;
 }
-
 .tooteleht.info {
     text-align: left;
     font-size: 2vw;
@@ -60,45 +53,41 @@ a {
     max-height: 100%;
     text-transform: capitalize;
 }
-
 .alkohind {
     color: red;
 }
-
 img {
+    max-width:100%;
     height: auto;
-    max-height: 100%;
 }
-
 .ui.three.cards > .card {
     width: 80%;
 }
-
 .column {
     margin-top: 0.5%;
     margin-bottom: 0.5%;
 }
-
 .ui.celled.table.recentlyUpdated {
     margin-top: 8%;
 }
-
 .image.fixedImage {
-    width: 50%;
+    width: auto;
     height: 100px;
     max-height: 100px;
     max-width: 200px;
 }
-
+.searchResultImage {
+    width: auto !important;
+    height: auto !important;
+    max-height: 100px;
+}
 .alkoTekstIndex {
     margin: auto;
     font-size: 1.25vw;
 }
-
 .alkoTekstiKirjeldus {
     text-align: center;
 }
-
 .ui.grid.indexPage {
     margin-top: 1%;
     margin-left: 2%;
@@ -108,7 +97,6 @@ img {
     border-radius: 8px;
     background: #fff;
 }
-
 .indexPage {
     margin-top: 1%;
     margin-left: 2%;
@@ -118,7 +106,6 @@ img {
     border-radius: 8px;
     background: #fff;
 }
-
 .ui.grid.indexPageHeader {
     margin-top: 0%;
     margin-left: 2%;
@@ -126,154 +113,151 @@ img {
     margin-bottom: 1%;
     padding-top: 3%;
 }
-
 .ui.grid.indexPageLoadMore {
     margin-left: 2%;
     margin-right: 2%;
     position: relative;
 }
-
 .laeVeelNupp {
     position: absolute;
     right: 0;
 }
-
 .alkoHindIndex {
     margin: auto;
     color: red;
     font-size: 1.5vw;
 }
-
 .ui.menu {
     margin-bottom: 1%;
 }
-
 .ui.form {
     margin-bottom: 3%;
 }
-
 .tabelOnAllah {
     background-color: orange;
 }
-
 .storeCountry {
     font-weight: bold;
     font-size: 1.5vw;
 }
-
 .limpaPilt {
     max-height: 85%;
 }
-
 .productImage {
     max-width: 300px;
     height: auto;
     overflow: hidden;
-
 }
-
 .productpageImage {
     max-height: 300px;
 }
-
 .populaarseimadHeader {
     border: 1px lightgray solid;
     border-radius: 8px;
     background: #fff;
     font-size: 1.5rem;
 }
-
 .allahindluseTähis {
     height: 20px;
     width: 10px;
     background-color: orange;
     margin-left: 2%;
 }
-
 .indexPageImage {
     max-height: 200px;
 }
-
 .ui.card > .image {
     background: white !important;
+    height: 200px;
 }
-
+.ui.card > .content {
+    height: 100px
+}
 .ui.card > .content > .header {
     color: red !important;
     font-size: 2vw;
 }
-
 #alkoList {
     display: none;
 }
-
 .search:focus {
     outline: none;
 }
-
 .liitriHind {
     font-size: 1vw;
     color: grey;
 }
-
-.footer {
-    text-align: center;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    padding: 15px 0;
-    position: initial;
-    height: auto;
-}
-
-.ui.container {
-    display: flex;
-    min-height: auto;
-    flex-direction: column;
-}
-
-.about {
-    text-align: justify;
-    font-size: 1vw;
-}
-
 .filterRadio {
     margin-top: 0;
 }
-
 .filterRadioFields {
     text-align: left;
 }
-
 .filterRadioVasak {
     margin-left: 3%;
 }
-
 .värviMustaks {
     color: black;
 }
-
 .ülemineFilter {
     margin-bottom: 0;
     padding-bottom: 0 !important;
     margin-top: 0;
     padding-top: 0.5rem !important;
 }
-
 .alumineFilter {
     margin-top: 0;
     padding-top: 0.5rem !important;
 }
-
 .whitespace {
     padding-top: 10%;
 }
 
-@media only screen and (max-width: 971px) {
-    .ui.stackable.menu {
-        -webkit-box-orient: vertical;
-        -webkit-box-direction: normal;
-        -ms-flex-direction: column;
+@media only screen and (max-width: 991px) {
+    .ui.container {
+        width: 95% !important;
+        display: flex;
+        min-height: auto;
         flex-direction: column;
+    }
+    .ui.card {
+        margin: 1em auto !important;
+    }
+    .about {
+        text-align: justify;
+        font-size: 2vw !important;
+    }
+    .aboutPageHeader{
+        font-size: 2vw !important;
+    }
+    .allahindluseTähiseTekst{
+        font-size: 1.25rem;
+    }
+    .tooteleht.info{
+        font-size: 3vw;
+    }
+    .alkoTekstiKirjeldus {
+        font-size: 150%;
+    }
+    .hinnaFont{
+        font-size: 150%;
+    }
+    .liitriHinnaFont{
+        font-size: 70%;
+    }
+    .ui.menu {
+        font-size: 1.3rem !important;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .ui.container {
+        display: flex;
+        min-height: auto;
+        flex-direction: column;
+    }
+    .about {
+        text-align: justify;
+        font-size: 1vw;
     }
 }

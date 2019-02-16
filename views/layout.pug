@@ -1,9 +1,11 @@
 doctype html
-html
+html(lang="ee" xml:lang="ee")
   head
     title Viinavaatlus
     meta(name="description" content="Leia endale meelepärane alkohol võimalikult odavalt ja kiirelt.")
-    meta(name="keywords" content="alkohol, odav alkohol, laua viin, läti alkohol, alcohol, soodne alkohol")
+    meta(name="keywords" content="alkohol, odav alkohol, laua viin, läti alkohol, alcohol, soodne alkohol, absolut" +
+    "viru valge, selver, maxima, alko1000, liviko, sadamamarket, pood, eesti nokia, eesti, coop, cityalko, alkoshop" +
+    "startup, õlu, viin, gin, dzinn, brändi, vein, viski, konjak, siider, rumm, likoor, liköör, soodne, hinnavaatlus")
     //meta(name="robots" content="index,follow")
     link(rel='stylesheet', href='/stylesheets/style.css')
     link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css')
@@ -45,7 +47,6 @@ html
 
         gtag('config', 'UA-134109682-1', { 'allow_ad_personalization_signals': false, 'anonymize_ip': true });
 
-    //include includes/footer
   body(class="ui container")
     block includes
     block content

@@ -11,7 +11,7 @@ block content
       div(class="ui grid")
         div(class="one wide column")
         div(class="six wide column productImage")
-          img.productpageImage(src=product.stores[0].imageUrl)
+          img.productpageImage(src=product.stores[0].imageUrl alt="alkoholipudelProduct")
         div(class="nine wide column tooteleht info")
           p= product.showName
           if product.vol == null
@@ -31,4 +31,4 @@ block content
                   a(href=store.url) #{store.storeName}
                 td #{store.showPrice}€
         div(class="allahindluseTähis")
-        | -tähistatud tooted on poes alla hinnatud
+        p(class="allahindluseTähiseTekst") --tähistatud tooted on poes alla hinnatud
