@@ -40,11 +40,12 @@ $(document).ready(function () {
         })
     });
 
-    if (Cookies.get("cookieconsent_status") === "allow" && Cookies.get("age") !== "1") {
-        confirmation()
-    } else if (Cookies.get("cookieconsent_status") !== "allow") {
+    if (Cookies.get("age") !== "1") {
         confirmation()
     }
+    /*else if (Cookies.get("cookieconsent_status") !== "allow") {
+           confirmation()
+       }*/
     /*else if(Cookies.get("cookieconsent_status")!=="allow" && Cookies.get("age")===0){
         confirmation(cookieNotAcceptedAgeString)
     }*/
@@ -58,11 +59,7 @@ function confirmation() {
     };
 
     document.getElementById("confirmButton").onclick = function () {
-        if (Cookies.get("cookieconsent_status") === "allow") {
-            Cookies.set("age", "1");
-        } else {
-            Cookies.set("age", "0");
-        }
+        Cookies.set("age", "1");
     }
 
 }
