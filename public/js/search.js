@@ -62,13 +62,5 @@ function updateSearch() {
         }
     }
 
-    var findPage = /page=\d+/;
-
-    var page = findPage.exec(window.location.href);
-
-    if (page) {
-        url += "&" + page;
-    }
-
     window.location.href = url;
 }
