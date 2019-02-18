@@ -43,12 +43,6 @@ $(document).ready(function () {
     if (Cookies.get("age") !== "1") {
         confirmation()
     }
-    /*else if (Cookies.get("cookieconsent_status") !== "allow") {
-           confirmation()
-       }*/
-    /*else if(Cookies.get("cookieconsent_status")!=="allow" && Cookies.get("age")===0){
-        confirmation(cookieNotAcceptedAgeString)
-    }*/
 });
 
 function confirmation() {
