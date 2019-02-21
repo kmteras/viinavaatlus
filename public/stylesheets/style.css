@@ -210,7 +210,7 @@ img {
     padding-top: 0.5rem !important;
 }
 .whitespace {
-    padding-top: 10%;
+    padding-top: 5%;
 }
 
 @media only screen and (max-width: 991px) {
@@ -260,4 +260,9 @@ img {
         text-align: justify;
         font-size: 1vw;
     }
+}
+.footer{
+    position: relative;
+    color: #6E6E6E;
+    margin-bottom: 10%;!important;
 }
